@@ -38,7 +38,7 @@ func (s service) tokenValidString(tokenString string) (jwt.MapClaims, error) {
 func (s service) parseUnverified(tokenString string) (jwt.MapClaims, error) {
 	token, _, err := new(jwt.Parser).ParseUnverified(tokenString, jwt.MapClaims{})
 	if err != nil {
-		return nil, err
+		return nil, common.TokenValid(err,"",common.TokenInvalid)
 	}
 
 	if claims, ok := token.Claims.(jwt.MapClaims); ok {
