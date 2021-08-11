@@ -25,12 +25,12 @@ func (s service) tokenValidString(tokenString string) (jwt.MapClaims, error) {
 	}
 	if claims, ok := token.Claims.(jwt.MapClaims); ok && token.Valid {
 		if claims[ClaimKeyPlayfabId] == nil || claims[ClaimKeyEmail] == nil {
-			return nil, common.TokenValid(err,"ClaimKeyId or ClaimKeyEmail is nil",common.TokenInvalid)
+			return nil, common.ErrorResponse(common.TokenInvalid,err.Error())
 		}
 		return claims, nil
 	} else {
 		log.Printf("Invalid JWT Token")
-		return nil,  common.TokenValid(err,"",common.TokenInvalid)
+		return nil, common.ErrorResponse(common.TokenInvalid,err.Error())
 	}
 }
 
@@ -38,13 +38,13 @@ func (s service) tokenValidString(tokenString string) (jwt.MapClaims, error) {
 func (s service) parseUnverified(tokenString string) (jwt.MapClaims, error) {
 	token, _, err := new(jwt.Parser).ParseUnverified(tokenString, jwt.MapClaims{})
 	if err != nil {
-		return nil, common.TokenValid(err,"",common.TokenInvalid)
+		return nil, common.ErrorResponse(common.TokenInvalid,err.Error())
 	}
 
 	if claims, ok := token.Claims.(jwt.MapClaims); ok {
 		return claims, nil
 	} else {
-		return nil,common.TokenValid(err, "" ,common.TokenInvalid)
+		return nil, common.ErrorResponse(common.TokenInvalid,err.Error())
 	}
 }
 
@@ -66,7 +66,7 @@ func (s service) verifyToken(tokenString string)  (*jwt.Token, error) {
 	})
 	if err != nil {
 		errorToken := err.(*jwt.ValidationError)
-		return nil, common.TokenValid(err, errorToken.Error(),int(errorToken.Errors))
+		return nil,common.ErrorResponse(common.TokenInvalid,err.Error()).RootCode(int(errorToken.Errors))
 	}
 	return token, nil
 }

@@ -11,6 +11,8 @@ const (
 	CodeNotValid  = 2003
 	EmailNotValid = 2004
 
+	//theta data code 3001 -> 4000
+	IdInvalid = 3001
 )
 var errorText = map[int]string{
 	//common code 1 - 1000
@@ -22,6 +24,10 @@ var errorText = map[int]string{
 	EmailIsExist: "Email Exist In Database",
 	CodeNotValid: "Code Not Valid",
 	EmailNotValid: "Email Not Valid",
+
+	//theta data code 3001 -> 4000
+	IdInvalid: "Id Not Valid",
+
 }
 // StatusText returns a text for the common error code. It returns the empty
 // string if the code is unknown.

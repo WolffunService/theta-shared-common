@@ -11,7 +11,7 @@ import (
 func extractTokenFromHeaderString(s string) (string, error) {
 	parts := strings.Split(s, " ")
 	if parts[0] != "Bearer" || len(parts) < 2 || strings.TrimSpace(parts[1]) == "" {
-		return "", common.TokenValid(nil,"",common.TokenInvalid)
+		return "", common.ErrorResponse(common.TokenInvalid, "")
 	}
 
 	return parts[1], nil
