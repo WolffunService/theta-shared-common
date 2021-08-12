@@ -1,26 +1,32 @@
 package auth
 
 import (
+	"github.com/WolffunGame/theta-shared-common/auth/entity"
 	"github.com/dgrijalva/jwt-go"
 	"log"
 	"net/http"
 )
 
 type Service interface {
+	RefreshToken(identity entity.Identity) (*entity.TokenResBody, error)
 	TokenValid(r *http.Request) (jwt.MapClaims,error)
 	ParseUnverified(tokenString string) (jwt.MapClaims, error)
 	StringTokenValid(refreshToken string) (jwt.MapClaims, error)
 }
+
 type service struct {
-	signingKey      string
-	tokenExpiration int
+	signingKey             string
+	tokenExpiration        int
 	refreshTokenExpiration int
-	logger          log.Logger
+	audience               string
+	issuer                 string
+	logger                 log.Logger
 }
 
 // NewService creates a new authentication service.
-func NewService(signingKey string, tokenExpiration int, refreshTokenExpiration int, logger log.Logger) Service {
-	return service{signingKey, tokenExpiration, refreshTokenExpiration, logger}
+func NewService(signingKey string, tokenExpiration, refreshTokenExpiration int,audience,issuer string, logger log.Logger) Service {
+	return service{signingKey, tokenExpiration,
+		refreshTokenExpiration,audience,issuer, logger}
 }
 func Default() Service {
 	return service{}
@@ -40,4 +46,8 @@ func (s service) StringTokenValid(refreshToken string) (jwt.MapClaims, error) {
 }
 func (s service) ParseUnverified(tokenString string) (jwt.MapClaims, error) {
 	return s.parseUnverified(tokenString)
+}
+//generate new token
+func (s service) RefreshToken(identity entity.Identity) (*entity.TokenResBody, error) {
+	return s.generateJWT(identity)
 }

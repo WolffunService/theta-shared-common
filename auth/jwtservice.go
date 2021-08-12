@@ -2,11 +2,13 @@ package auth
 
 import (
 	"fmt"
+	"github.com/WolffunGame/theta-shared-common/auth/entity"
 	"github.com/WolffunGame/theta-shared-common/common"
 	"github.com/dgrijalva/jwt-go"
 	"log"
 	"net/http"
 	"strings"
+	"time"
 )
 
 //check token http author
@@ -24,7 +26,7 @@ func (s service) tokenValidString(tokenString string) (jwt.MapClaims, error) {
 		return nil, err
 	}
 	if claims, ok := token.Claims.(jwt.MapClaims); ok && token.Valid {
-		if claims[ClaimKeyPlayfabId] == nil || claims[ClaimKeyEmail] == nil {
+		if claims[ClaimKeyId] == nil {
 			return nil, common.ErrorResponse(common.TokenInvalid,err.Error())
 		}
 		return claims, nil
@@ -69,4 +71,41 @@ func (s service) verifyToken(tokenString string)  (*jwt.Token, error) {
 		return nil,common.ErrorResponse(common.TokenInvalid,err.Error()).RootCode(int(errorToken.Errors))
 	}
 	return token, nil
+}
+
+
+// generateJWT generates a JWT that encodes an identity.
+func (s service) generateJWT(identity entity.Identity) (*entity.TokenResBody, error) {
+	t, err := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
+		ClaimKeySid: identity.GetAddress(),
+		ClaimKeySub: identity.GetUserName(),
+		ClaimKeyId:    identity.GetUserID(),
+		ClaimKeyCanMint: false,
+		ClaimKeyNbf: time.Now(),
+		ClaimKeyIss: s.audience,
+		ClaimKeyAud: s.audience,
+		ClaimKeyExp:   time.Now().Add(time.Duration(s.tokenExpiration)).Unix(),
+	}).SignedString([]byte(s.signingKey))
+	if err != nil {
+		return nil, err
+	}
+
+	rt, err := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
+		ClaimKeySid: identity.GetAddress(),
+		ClaimKeySub: identity.GetUserName(),
+		ClaimKeyId:    identity.GetUserID(),
+		ClaimKeyCanMint: false,
+		ClaimKeyNbf: time.Now(),
+		ClaimKeyIss: s.audience,
+		ClaimKeyAud: s.audience,
+		ClaimKeyExp:   time.Now().Add(time.Duration(s.refreshTokenExpiration)).Unix(),
+	}).SignedString([]byte(s.signingKey))
+	if err != nil {
+		return nil, err
+	}
+
+	return &entity.TokenResBody{
+		AccessToken:  t,
+		RefreshToken: rt,
+	}, nil
 }

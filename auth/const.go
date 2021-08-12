@@ -1,9 +1,12 @@
 package auth
 const (
-	ClaimKeyId = "user_id"
-	ClaimKeyPlayfabId = "pfid"
-	ClaimKeyEmail = "email"
-	ClaimKeyExp = "exp"
+	ClaimKeySid = "sid"
 	ClaimKeySub = "sub"
+	ClaimKeyId = "user_id"
+	ClaimKeyCanMint = "can_mint"
+	ClaimKeyNbf = "nbf"
+	ClaimKeyExp = "exp"
+	ClaimKeyIss = "iss"
+	ClaimKeyAud = "aud"
 	ClaimKeyIat = "iat"
 )
