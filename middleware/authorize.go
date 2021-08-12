@@ -1,7 +1,6 @@
 package middleware
 
 import (
-	"fmt"
 	"github.com/WolffunGame/theta-shared-common/auth"
 	"github.com/WolffunGame/theta-shared-common/common"
 	"github.com/gin-gonic/gin"
@@ -13,30 +12,7 @@ func extractTokenFromHeaderString(s string) (string, error) {
 	if parts[0] != "Bearer" || len(parts) < 2 || strings.TrimSpace(parts[1]) == "" {
 		return "", common.ErrorResponse(common.TokenInvalid, "")
 	}
-
 	return parts[1], nil
-}
-//token marketplace
-func RequiredAuthUnverified() func(c *gin.Context) {
-	return func(c *gin.Context) {
-		token, err := extractTokenFromHeaderString(c.GetHeader("Authorization"))
-
-		if err != nil {
-			c.AbortWithStatusJSON(http.StatusUnauthorized, err)
-			return
-		}
-		//claims
-		var service = auth.Default()
-		claims, err := service.ParseUnverified(token)
-		if err != nil {
-			c.AbortWithStatusJSON(http.StatusUnauthorized, err)
-			return
-		}
-		//
-		fmt.Println(claims)
-		c.Set(auth.ClaimKeyId, claims[auth.ClaimKeyId])
-		c.Next()
-	}
 }
 
 func RequiredAuthVerified(service auth.Service) func(c *gin.Context) {
@@ -49,7 +25,7 @@ func RequiredAuthVerified(service auth.Service) func(c *gin.Context) {
 			return
 		}
 		//
-		fmt.Println(claims)
+		//fmt.Println(claims)
 		c.Set(auth.ClaimKeyId, claims[auth.ClaimKeyId])
 		c.Next()
 	}
