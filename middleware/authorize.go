@@ -27,6 +27,7 @@ func RequiredAuthVerified(service auth.Service) func(c *gin.Context) {
 		//
 		//fmt.Println(claims)
 		c.Set(auth.ClaimKeyId, claims[auth.ClaimKeyId])
+		c.Set(auth.ClaimKeySid, claims[auth.ClaimKeySid])
 		c.Next()
 	}
 }
