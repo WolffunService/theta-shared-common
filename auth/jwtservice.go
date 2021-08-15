@@ -82,7 +82,7 @@ func (s service) generateJWT(identity entity.Identity) (*entity.TokenResBody, er
 		ClaimKeyId:    identity.GetUserID(),
 		ClaimKeyCanMint: false,
 		ClaimKeyNbf: time.Now().Unix(),
-		ClaimKeyIss: s.audience,
+		ClaimKeyIss: s.issuer,
 		ClaimKeyAud: s.audience,
 		ClaimKeyExp:   time.Now().Add(time.Duration(s.tokenExpiration)).Unix(),
 	}).SignedString([]byte(s.signingKey))
@@ -96,7 +96,7 @@ func (s service) generateJWT(identity entity.Identity) (*entity.TokenResBody, er
 		ClaimKeyId:    identity.GetUserID(),
 		ClaimKeyCanMint: false,
 		ClaimKeyNbf: time.Now().Unix(),
-		ClaimKeyIss: s.audience,
+		ClaimKeyIss: s.issuer,
 		ClaimKeyAud: s.audience,
 		ClaimKeyExp:   time.Now().Add(time.Duration(s.refreshTokenExpiration)).Unix(),
 	}).SignedString([]byte(s.signingKey))
