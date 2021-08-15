@@ -84,7 +84,7 @@ func (s service) generateJWT(identity entity.Identity) (*entity.TokenResBody, er
 		ClaimKeyNbf: time.Now().Unix(),
 		ClaimKeyIss: s.issuer,
 		ClaimKeyAud: s.audience,
-		ClaimKeyExp:   time.Now().Add(time.Duration(s.tokenExpiration)).Unix(),
+		ClaimKeyExp:   time.Now().Add(time.Second *  time.Duration(s.tokenExpiration)).Unix(),
 	}).SignedString([]byte(s.signingKey))
 	if err != nil {
 		return nil, err
@@ -98,7 +98,7 @@ func (s service) generateJWT(identity entity.Identity) (*entity.TokenResBody, er
 		ClaimKeyNbf: time.Now().Unix(),
 		ClaimKeyIss: s.issuer,
 		ClaimKeyAud: s.audience,
-		ClaimKeyExp:   time.Now().Add(time.Duration(s.refreshTokenExpiration)).Unix(),
+		ClaimKeyExp:   time.Now().Add(time.Second * time.Duration(s.refreshTokenExpiration)).Unix(),
 	}).SignedString([]byte(s.signingKey))
 	if err != nil {
 		return nil, err
