@@ -2,8 +2,8 @@ package auth
 
 import (
 	"github.com/WolffunGame/theta-shared-common/auth/entity"
+	"github.com/WolffunGame/theta-shared-common/log"
 	"github.com/dgrijalva/jwt-go"
-	"log"
 	"net/http"
 )
 
