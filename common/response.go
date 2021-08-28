@@ -2,7 +2,7 @@ package common
 
 // Response is the response that represents an error.
 type Response struct {
-	Success       bool        `json:"success,omitempty"`
+	Success       bool        `json:"success"`
 	Code          int         `json:"code,omitempty"`
 	DebugMessage  string      `json:"status,omitempty"`
 	RootError     error       `json:"-"`
