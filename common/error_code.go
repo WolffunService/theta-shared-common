@@ -14,6 +14,7 @@ const (
 	EmailNotValid   = 2004
 	InCorrectUserId = 2005
 	NotEnoughTicketChangeName = 2006
+	UserNameHasTaken = 2007
 
 	//theta data code 3001 -> 4000
 	IdInvalid = 3001
@@ -32,6 +33,7 @@ var errorText = map[int]string{
 	EmailNotValid: "Email Not Valid",
 	InCorrectUserId: "Incorrect User Id",
 	NotEnoughTicketChangeName: "User Not Enough Ticket Change Name",
+	UserNameHasTaken: "This Name Has Taken",
 
 	//theta data code 3001 -> 4000
 	IdInvalid: "Id Not Valid",
