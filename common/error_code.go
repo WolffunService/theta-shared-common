@@ -6,15 +6,16 @@ const (
 	TokenInvalid = 1
 	TokenExpired = 2
 	UserNotFound = 3
+	UserBanned   = 4
 
 	//wolffunId ERROR_CODE 2001 -> 3000:
-	EmailNotExist   = 2001
-	EmailIsExist    = 2002
-	CodeNotValid    = 2003
-	EmailNotValid   = 2004
-	InCorrectUserId = 2005
+	EmailNotExist             = 2001
+	EmailIsExist              = 2002
+	CodeNotValid              = 2003
+	EmailNotValid             = 2004
+	InCorrectUserId           = 2005
 	NotEnoughTicketChangeName = 2006
-	UserNameHasTaken = 2007
+	UserNameHasTaken          = 2007
 
 	//theta data code 3001 -> 4000
 	IdInvalid = 3001
@@ -25,15 +26,16 @@ var errorText = map[int]string{
 	TokenInvalid: "Token Invalid",
 	TokenExpired: "Token Expired",
 	UserNotFound: "User Not Found",
+	UserBanned:   "User Banned",
 
 	//wolffunId ERROR_CODE 2001 -> 3000:
-	EmailNotExist: "Email Not Exist In Database",
-	EmailIsExist:  "Email Exist In Database",
-	CodeNotValid:  "Code Not Valid",
-	EmailNotValid: "Email Not Valid",
-	InCorrectUserId: "Incorrect User Id",
+	EmailNotExist:             "Email Not Exist In Database",
+	EmailIsExist:              "Email Exist In Database",
+	CodeNotValid:              "Code Not Valid",
+	EmailNotValid:             "Email Not Valid",
+	InCorrectUserId:           "Incorrect User Id",
 	NotEnoughTicketChangeName: "User Not Enough Ticket Change Name",
-	UserNameHasTaken: "This Name Has Taken",
+	UserNameHasTaken:          "This Name Has Taken",
 
 	//theta data code 3001 -> 4000
 	IdInvalid: "Id Not Valid",
