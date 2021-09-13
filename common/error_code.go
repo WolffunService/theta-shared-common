@@ -11,6 +11,7 @@ const (
 	WrongFormat  = 5
 	WrongPrice   = 6
 	OutOfLimit   = 7
+	CannotClaim = 8
 
 	//wolffunId ERROR_CODE 2001 -> 3000:
 	EmailNotExist             = 2001
@@ -46,6 +47,7 @@ var errorText = map[int]string{
 	WrongFormat:  "Wrong Data Format",
 	WrongPrice:   "Wrong Price Config",
 	OutOfLimit:   "Your Quantity Is Limited",
+	CannotClaim: "You Can't Claim Now",
 
 	//wolffunId ERROR_CODE 2001 -> 3000:
 	EmailNotExist:             "Email Not Exist In Database",
