@@ -35,8 +35,8 @@ func (e Response) Error() string {
 	return e.Message
 }
 
-func ErrorResponse(code int, message string) *Response {
-	debugMessage := ErrorText(code)
+func ErrorResponse(code int, debugMessage string) *Response {
+	message := ErrorText(code)
 	return &Response{
 		Success:      false,
 		Code:         code,
