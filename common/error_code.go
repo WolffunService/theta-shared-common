@@ -38,6 +38,7 @@ const (
 	//box
 	OutdatedBuying = 3100
 	OutOfBoxes     = 3101
+	NotEnoughBox   = 3102
 )
 
 var errorText = map[int]string{
@@ -76,6 +77,7 @@ var errorText = map[int]string{
 	//box
 	OutdatedBuying: "Outdated Buying",
 	OutOfBoxes:     "Out Of Thetan Boxes",
+	NotEnoughBox:   "Not Enough Quantity Box",
 }
 
 // StatusText returns a text for the common error code. It returns the empty
