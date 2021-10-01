@@ -39,6 +39,10 @@ const (
 	OutdatedBuying = 3100
 	OutOfBoxes     = 3101
 	NotEnoughBox   = 3102
+	//friend
+	OtherFullRequestReceived   = 3103
+	OtherFullFriendList   = 3104
+	FullFriendList   = 3105
 )
 
 var errorText = map[int]string{
@@ -78,6 +82,9 @@ var errorText = map[int]string{
 	OutdatedBuying: "Outdated Buying",
 	OutOfBoxes:     "Out Of Thetan Boxes",
 	NotEnoughBox:   "Not Enough Quantity Box",
+	OtherFullRequestReceived : "Your friend can't take any more friend requests",
+	OtherFullFriendList : "Your friend has full friend list",
+	FullFriendList : "You has full friend list",
 }
 
 // StatusText returns a text for the common error code. It returns the empty
