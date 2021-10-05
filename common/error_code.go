@@ -3,15 +3,16 @@ package common
 const (
 
 	//common code 1 - 1000
-	Error        = 0
-	TokenInvalid = 1
-	TokenExpired = 2
-	UserNotFound = 3
-	UserBanned   = 4
-	WrongFormat  = 5
-	WrongPrice   = 6
-	OutOfLimit   = 7
-	CannotClaim  = 8
+	Error               = 0
+	TokenInvalid        = 1
+	TokenExpired        = 2
+	UserNotFound        = 3
+	UserBanned          = 4
+	WrongFormat         = 5
+	WrongPrice          = 6
+	OutOfLimit          = 7
+	CannotClaim         = 8
+	NewVersionAvailable = 9
 
 	//wolffunId ERROR_CODE 2001 -> 3000:
 	EmailNotExist             = 2001
@@ -40,9 +41,9 @@ const (
 	OutOfBoxes     = 3101
 	NotEnoughBox   = 3102
 	//friend
-	OtherFullRequestReceived   = 3103
-	OtherFullFriendList   = 3104
-	FullFriendList   = 3105
+	OtherFullRequestReceived = 3103
+	OtherFullFriendList      = 3104
+	FullFriendList           = 3105
 )
 
 var errorText = map[int]string{
@@ -55,6 +56,7 @@ var errorText = map[int]string{
 	WrongPrice:   "Wrong Price Config",
 	OutOfLimit:   "Your Quantity Is Limited",
 	CannotClaim:  "You Can't Claim Now",
+	NewVersionAvailable: "New Version Available",
 
 	//wolffunId ERROR_CODE 2001 -> 3000:
 	EmailNotExist:             "Email Not Exist In Database",
@@ -79,12 +81,12 @@ var errorText = map[int]string{
 	HeroNotAvailable: "Hero Is Not Available",
 
 	//box
-	OutdatedBuying: "Outdated Buying",
-	OutOfBoxes:     "Out Of Thetan Boxes",
-	NotEnoughBox:   "Not Enough Quantity Box",
-	OtherFullRequestReceived : "Your friend can't take any more friend requests",
-	OtherFullFriendList : "Your friend has full friend list",
-	FullFriendList : "You has full friend list",
+	OutdatedBuying:           "Outdated Buying",
+	OutOfBoxes:               "Out Of Thetan Boxes",
+	NotEnoughBox:             "Not Enough Quantity Box",
+	OtherFullRequestReceived: "Your friend can't take any more friend requests",
+	OtherFullFriendList:      "Your friend has full friend list",
+	FullFriendList:           "You has full friend list",
 }
 
 // StatusText returns a text for the common error code. It returns the empty
