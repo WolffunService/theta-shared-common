@@ -13,6 +13,7 @@ const (
 	OutOfLimit          = 7
 	CannotClaim         = 8
 	NewVersionAvailable = 9
+	UserBannedFindMatch = 10
 
 	//wolffunId ERROR_CODE 2001 -> 3000:
 	EmailNotExist             = 2001
@@ -57,6 +58,7 @@ var errorText = map[int]string{
 	OutOfLimit:   "Your Quantity Is Limited",
 	CannotClaim:  "You Can't Claim Now",
 	NewVersionAvailable: "New Version Available",
+	UserBannedFindMatch: "User Has Been Banned FindMatch",
 
 	//wolffunId ERROR_CODE 2001 -> 3000:
 	EmailNotExist:             "Email Not Exist In Database",
