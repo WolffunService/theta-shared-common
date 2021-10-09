@@ -1,8 +1,8 @@
 package entity
 // Identity represents an authenticated user identity.
 type Identity interface {
-	// GetUserID returns the user ID.
-	GetUserID() string
+	// GetUserId returns the user ID.
+	GetUserId() string
 
 	GetUserName() string
 
