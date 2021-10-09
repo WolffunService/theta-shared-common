@@ -79,7 +79,7 @@ func (s service) generateJWT(identity entity.Identity) (*entity.TokenResBody, er
 	t, err := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
 		ClaimKeySid: identity.GetAddress(),
 		ClaimKeySub: identity.GetUserName(),
-		ClaimKeyId:    identity.GetUserID(),
+		ClaimKeyId:    identity.GetUserId(),
 		ClaimKeyCanMint: false,
 		ClaimKeyNbf: time.Now().Unix(),
 		ClaimKeyIss: s.issuer,
@@ -93,7 +93,7 @@ func (s service) generateJWT(identity entity.Identity) (*entity.TokenResBody, er
 	rt, err := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
 		ClaimKeySid: identity.GetAddress(),
 		ClaimKeySub: identity.GetUserName(),
-		ClaimKeyId:    identity.GetUserID(),
+		ClaimKeyId:    identity.GetUserId(),
 		ClaimKeyCanMint: false,
 		ClaimKeyNbf: time.Now().Unix(),
 		ClaimKeyIss: s.issuer,
