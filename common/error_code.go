@@ -25,18 +25,24 @@ const (
 	UserNameHasTaken          = 2007
 
 	//theta data code 3001 -> 4000
-	IdInvalid        = 3001
-	AddressInvalid   = 3002
-	TypeInvalid      = 3003
-	HeroIdInvalid    = 3004
-	Invalidate       = 3005
-	NotEnough        = 3006
-	NotEnoughTHC     = 3007
-	NotEnoughTHG     = 3008
-	NotEnoughPP      = 3009
-	NotOwnerHero     = 3010
-	HeroNotAvailable = 3011
-
+	IdInvalid            = 3001
+	AddressInvalid       = 3002
+	TypeInvalid          = 3003
+	HeroIdInvalid        = 3004
+	Invalidate           = 3005
+	NotEnough            = 3006
+	NotEnoughTHC         = 3007
+	NotEnoughTHG         = 3008
+	NotEnoughPP          = 3009
+	NotOwnerHero         = 3010
+	HeroNotAvailable     = 3011
+	NotRankEnoughCashout = 3012
+	NotOldEnoughCashout  = 3013
+	OutOfLimitCashout    = 3014
+	NotEnoughGTHG        = 3015
+	NotEnoughGTHC        = 3016
+	InvalidGTHG          = 3017
+	NotEnoughgFeeGTHG    = 3018
 	//box
 	OutdatedBuying = 3100
 	OutOfBoxes     = 3101
@@ -49,14 +55,14 @@ const (
 
 var errorText = map[int]string{
 	//common code 1 - 1000
-	TokenInvalid: "Token Invalid",
-	TokenExpired: "Token Expired",
-	UserNotFound: "User Not Found",
-	UserBanned:   "User Banned",
-	WrongFormat:  "Wrong Data Format",
-	WrongPrice:   "Wrong Price Config",
-	OutOfLimit:   "Your Quantity Is Limited",
-	CannotClaim:  "You Can't Claim Now",
+	TokenInvalid:        "Token Invalid",
+	TokenExpired:        "Token Expired",
+	UserNotFound:        "User Not Found",
+	UserBanned:          "User Banned",
+	WrongFormat:         "Wrong Data Format",
+	WrongPrice:          "Wrong Price Config",
+	OutOfLimit:          "Your Quantity Is Limited",
+	CannotClaim:         "You Can't Claim Now",
 	NewVersionAvailable: "New Version Available",
 	UserBannedFindMatch: "User Has Been Banned FindMatch",
 
@@ -70,17 +76,24 @@ var errorText = map[int]string{
 	UserNameHasTaken:          "This Name Has Taken",
 
 	//theta data code 3001 -> 4000
-	IdInvalid:        "Id Not Valid",
-	AddressInvalid:   "Address Not Valid",
-	TypeInvalid:      "Type Not Valid",
-	HeroIdInvalid:    "HeroId Not Valid",
-	Invalidate:       "Not Valid",
-	NotEnough:        "Not Enough",
-	NotEnoughTHC:     "Not Enough Thetan Coin",
-	NotEnoughTHG:     "Not Enough Thetan Gem",
-	NotEnoughPP:      "Not Enough Power Point",
-	NotOwnerHero:     "You Are Not The Owner Of This Hero",
-	HeroNotAvailable: "Hero Is Not Available",
+	IdInvalid:            "Id Not Valid",
+	AddressInvalid:       "Address Not Valid",
+	TypeInvalid:          "Type Not Valid",
+	HeroIdInvalid:        "HeroId Not Valid",
+	Invalidate:           "Not Valid",
+	NotEnough:            "Not Enough",
+	NotEnoughTHC:         "Not Enough Thetan Coin",
+	NotEnoughTHG:         "Not Enough Thetan Gem",
+	NotEnoughPP:          "Not Enough Power Point",
+	NotOwnerHero:         "You Are Not The Owner Of This Hero",
+	HeroNotAvailable:     "Hero Is Not Available",
+	NotRankEnoughCashout: "Reach Rank Bronze 1 To Start Claiming Your Token",
+	NotOldEnoughCashout:  "Start Claiming Your Token After: %v",
+	OutOfLimitCashout:    "Cash Out Is Out Of Limit",
+	NotEnoughGTHG:        "Not Enough InGame Thetan Gem",
+	NotEnoughGTHC:        "Not Enough InGame Thetan Coin",
+	InvalidGTHG:          "Invalid gTHG Balance!",
+	NotEnoughgFeeGTHG:    "Insufficient gTHG! Please Deposit To Proceed.",
 
 	//box
 	OutdatedBuying:           "Outdated Buying",
