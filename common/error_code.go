@@ -53,6 +53,7 @@ const (
 	OtherFullRequestReceived = 3103
 	OtherFullFriendList      = 3104
 	FullFriendList           = 3105
+	ReceiptDataInValid       = 3106
 )
 
 var errorText = map[int]string{
@@ -106,6 +107,7 @@ var errorText = map[int]string{
 	OtherFullRequestReceived: "Your friend can't take any more friend requests",
 	OtherFullFriendList:      "Your friend has full friend list",
 	FullFriendList:           "You has full friend list",
+	ReceiptDataInValid:       "Receipt Data Invalid",
 }
 
 // StatusText returns a text for the common error code. It returns the empty
