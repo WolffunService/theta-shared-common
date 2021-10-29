@@ -80,6 +80,7 @@ func (s service) generateJWT(identity entity.Identity) (*entity.TokenResBody, er
 		ClaimKeySid: identity.GetAddress(),
 		ClaimKeySub: identity.GetUserName(),
 		ClaimKeyId:    identity.GetUserId(),
+		ClaimKeyRole:    identity.GetRole(),
 		ClaimKeyCanMint: false,
 		ClaimKeyNbf: time.Now().Unix(),
 		ClaimKeyIss: s.issuer,

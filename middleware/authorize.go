@@ -3,6 +3,7 @@ package middleware
 import (
 	"github.com/WolffunGame/theta-shared-common/auth"
 	"github.com/WolffunGame/theta-shared-common/common"
+	"github.com/WolffunGame/theta-shared-database/user/usermodel"
 	"github.com/gin-gonic/gin"
 	"net/http"
 	"strings"
@@ -15,7 +16,7 @@ func extractTokenFromHeaderString(s string) (string, error) {
 	return parts[1], nil
 }
 
-func RequiredAuthVerified(service auth.Service) func(c *gin.Context) {
+func RequiredAuthVerified(service auth.Service, roles ...usermodel.UserRole) func(c *gin.Context) {
 	return func(c *gin.Context) {
 
 		//claims
@@ -24,10 +25,20 @@ func RequiredAuthVerified(service auth.Service) func(c *gin.Context) {
 			c.AbortWithStatusJSON(http.StatusUnauthorized, err)
 			return
 		}
+		if len(roles) == 0 {
+			roles = append(roles, usermodel.NONE)
+		}
 		//
 		//fmt.Println(claims)
 		c.Set(auth.ClaimKeyId, claims[auth.ClaimKeyId])
 		c.Set(auth.ClaimKeySid, claims[auth.ClaimKeySid])
-		c.Next()
+		userRole := claims[auth.ClaimKeyRole].(usermodel.UserRole)
+		for _, role := range roles {
+			if role == userRole{
+				c.Next()
+				break
+			}
+		}
+		c.AbortWithStatusJSON(http.StatusForbidden, "This account does not have this permission")
 	}
 }

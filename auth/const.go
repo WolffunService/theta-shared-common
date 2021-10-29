@@ -9,4 +9,5 @@ const (
 	ClaimKeyIss = "iss"
 	ClaimKeyAud = "aud"
 	ClaimKeyIat = "iat"
+	ClaimKeyRole = "role"
 )

@@ -1,4 +1,5 @@
 package entity
+
 // Identity represents an authenticated user identity.
 type Identity interface {
 	// GetUserId returns the user ID.
@@ -7,6 +8,8 @@ type Identity interface {
 	GetUserName() string
 
 	GetAddress() string
+
+	GetRole() int
 }
 
 type TokenResBody struct {
