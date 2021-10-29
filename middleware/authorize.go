@@ -22,6 +22,7 @@ func RequiredAuthVerified(service auth.Service, roles ...common.UserRole) func(c
 		claims, err := service.TokenValid(c.Request)
 		if err != nil {
 			c.JSON(http.StatusUnauthorized, common.ErrorResponse(common.Error,err.Error()))
+			c.Abort()
 			return
 		}
 		if len(roles) == 0 {
@@ -38,6 +39,8 @@ func RequiredAuthVerified(service auth.Service, roles ...common.UserRole) func(c
 				break
 			}
 		}
+
 		c.JSON(http.StatusForbidden, common.ErrorResponse(common.Error, "This account does not have this permission"))
+		c.Abort()
 	}
 }
