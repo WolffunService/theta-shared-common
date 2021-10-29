@@ -45,6 +45,7 @@ const (
 	NotEnoughGTHC        = 3016
 	InvalidGTHG          = 3017
 	NotEnoughgFeeGTHG    = 3018
+	HeroInTheMatch       = 3019
 	//box
 	OutdatedBuying = 3100
 	OutOfBoxes     = 3101
@@ -99,6 +100,7 @@ var errorText = map[int]string{
 	NotEnoughGTHC:        "Not Enough InGame Thetan Coin",
 	InvalidGTHG:          "Invalid gTHG Balance!",
 	NotEnoughgFeeGTHG:    "Insufficient gTHG! Please Deposit To Proceed.",
+	HeroInTheMatch:       "Hero In The Match",
 
 	//box
 	OutdatedBuying:           "Outdated Buying",
