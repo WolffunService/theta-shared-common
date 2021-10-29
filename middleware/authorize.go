@@ -34,7 +34,7 @@ func RequiredAuthVerified(service auth.Service, roles ...common.UserRole) func(c
 		for _, role := range roles {
 			if role == common.UserRole(userRole){
 				c.Next()
-				break
+				return
 			}
 		}
 		c.JSON(http.StatusForbidden, common.ErrorResponse(common.Error, "This account does not have this permission"))
