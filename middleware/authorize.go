@@ -17,7 +17,6 @@ func extractTokenFromHeaderString(s string) (string, error) {
 
 func RequiredAuthVerified(service auth.Service, roles ...common.UserRole) func(c *gin.Context) {
 	return func(c *gin.Context) {
-
 		//claims
 		claims, err := service.TokenValid(c.Request)
 		if err != nil {
@@ -28,8 +27,6 @@ func RequiredAuthVerified(service auth.Service, roles ...common.UserRole) func(c
 		if len(roles) == 0 {
 			roles = append(roles, common.NONE)
 		}
-		//
-		//fmt.Println(claims)
 		c.Set(auth.ClaimKeyId, claims[auth.ClaimKeyId])
 		c.Set(auth.ClaimKeySid, claims[auth.ClaimKeySid])
 		userRole := claims[auth.ClaimKeyRole].(float64)
@@ -39,7 +36,6 @@ func RequiredAuthVerified(service auth.Service, roles ...common.UserRole) func(c
 				break
 			}
 		}
-
 		c.JSON(http.StatusForbidden, common.ErrorResponse(common.Error, "This account does not have this permission"))
 		c.Abort()
 	}

@@ -4,6 +4,6 @@ type UserRole int
 
 const (
 	NONE  UserRole = 0
-	ROOT  UserRole = 1
-	ADMIN UserRole = 2
+	ADMIN UserRole = 1
+	ROOT  UserRole = 2
 )
