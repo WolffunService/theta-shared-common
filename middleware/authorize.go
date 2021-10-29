@@ -29,6 +29,7 @@ func RequiredAuthVerified(service auth.Service, roles ...common.UserRole) func(c
 		}
 		c.Set(auth.ClaimKeyId, claims[auth.ClaimKeyId])
 		c.Set(auth.ClaimKeySid, claims[auth.ClaimKeySid])
+		c.Set(auth.ClaimKeyRole, claims[auth.ClaimKeyRole])
 		userRole := claims[auth.ClaimKeyRole].(float64)
 		for _, role := range roles {
 			if role == common.UserRole(userRole){
