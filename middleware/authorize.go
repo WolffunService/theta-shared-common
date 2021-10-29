@@ -3,7 +3,6 @@ package middleware
 import (
 	"github.com/WolffunGame/theta-shared-common/auth"
 	"github.com/WolffunGame/theta-shared-common/common"
-	"github.com/WolffunGame/theta-shared-database/user/usermodel"
 	"github.com/gin-gonic/gin"
 	"net/http"
 	"strings"
@@ -16,29 +15,29 @@ func extractTokenFromHeaderString(s string) (string, error) {
 	return parts[1], nil
 }
 
-func RequiredAuthVerified(service auth.Service, roles ...usermodel.UserRole) func(c *gin.Context) {
+func RequiredAuthVerified(service auth.Service, roles ...common.UserRole) func(c *gin.Context) {
 	return func(c *gin.Context) {
 
 		//claims
 		claims, err := service.TokenValid(c.Request)
 		if err != nil {
-			c.AbortWithStatusJSON(http.StatusUnauthorized, err)
+			c.JSON(http.StatusUnauthorized, common.ErrorResponse(common.Error,err.Error()))
 			return
 		}
 		if len(roles) == 0 {
-			roles = append(roles, usermodel.NONE)
+			roles = append(roles, common.NONE)
 		}
 		//
 		//fmt.Println(claims)
 		c.Set(auth.ClaimKeyId, claims[auth.ClaimKeyId])
 		c.Set(auth.ClaimKeySid, claims[auth.ClaimKeySid])
-		userRole := claims[auth.ClaimKeyRole].(usermodel.UserRole)
+		userRole := claims[auth.ClaimKeyRole].(float64)
 		for _, role := range roles {
-			if role == userRole{
+			if role == common.UserRole(userRole){
 				c.Next()
 				break
 			}
 		}
-		c.AbortWithStatusJSON(http.StatusForbidden, "This account does not have this permission")
+		c.JSON(http.StatusForbidden, common.ErrorResponse(common.Error, "This account does not have this permission"))
 	}
 }
