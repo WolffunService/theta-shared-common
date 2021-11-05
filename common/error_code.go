@@ -70,7 +70,7 @@ var errorText = map[int]string{
 	CannotClaim:          "You Can't Claim Now",
 	NewVersionAvailable:  "New Version Available",
 	UserBannedFindMatch:  "User Has Been Banned FindMatch",
-	CantGetCurrencyPrice: "System can't get currency price right now",
+	CantGetCurrencyPrice: "System Can't Get Currency Price",
 
 	//wolffunId ERROR_CODE 2001 -> 3000:
 	EmailNotExist:             "Email Not Exist In Database",
