@@ -3,17 +3,18 @@ package common
 const (
 
 	//common code 1 - 1000
-	Error               = 0
-	TokenInvalid        = 1
-	TokenExpired        = 2
-	UserNotFound        = 3
-	UserBanned          = 4
-	WrongFormat         = 5
-	WrongPrice          = 6
-	OutOfLimit          = 7
-	CannotClaim         = 8
-	NewVersionAvailable = 9
-	UserBannedFindMatch = 10
+	Error                = 0
+	TokenInvalid         = 1
+	TokenExpired         = 2
+	UserNotFound         = 3
+	UserBanned           = 4
+	WrongFormat          = 5
+	WrongPrice           = 6
+	OutOfLimit           = 7
+	CannotClaim          = 8
+	NewVersionAvailable  = 9
+	UserBannedFindMatch  = 10
+	CantGetCurrencyPrice = 11
 
 	//wolffunId ERROR_CODE 2001 -> 3000:
 	EmailNotExist             = 2001
@@ -59,16 +60,17 @@ const (
 
 var errorText = map[int]string{
 	//common code 1 - 1000
-	TokenInvalid:        "Token Invalid",
-	TokenExpired:        "Token Expired",
-	UserNotFound:        "User Not Found",
-	UserBanned:          "User Banned",
-	WrongFormat:         "Wrong Data Format",
-	WrongPrice:          "Wrong Price Config",
-	OutOfLimit:          "Your Quantity Is Limited",
-	CannotClaim:         "You Can't Claim Now",
-	NewVersionAvailable: "New Version Available",
-	UserBannedFindMatch: "User Has Been Banned FindMatch",
+	TokenInvalid:         "Token Invalid",
+	TokenExpired:         "Token Expired",
+	UserNotFound:         "User Not Found",
+	UserBanned:           "User Banned",
+	WrongFormat:          "Wrong Data Format",
+	WrongPrice:           "Wrong Price Config",
+	OutOfLimit:           "Your Quantity Is Limited",
+	CannotClaim:          "You Can't Claim Now",
+	NewVersionAvailable:  "New Version Available",
+	UserBannedFindMatch:  "User Has Been Banned FindMatch",
+	CantGetCurrencyPrice: "System can't get currency price right now",
 
 	//wolffunId ERROR_CODE 2001 -> 3000:
 	EmailNotExist:             "Email Not Exist In Database",
