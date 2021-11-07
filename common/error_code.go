@@ -3,20 +3,20 @@ package common
 const (
 
 	//common code 1 - 1000
-	Error                = 0
-	TokenInvalid         = 1
-	TokenExpired         = 2
-	UserNotFound         = 3
-	UserBanned           = 4
-	WrongFormat          = 5
-	WrongPrice           = 6
-	OutOfLimit           = 7
-	CannotClaim          = 8
-	NewVersionAvailable  = 9
-	UserBannedFindMatch  = 10
-	CantGetCurrencyPrice = 11
+	Error                 = 0
+	TokenInvalid          = 1
+	TokenExpired          = 2
+	UserNotFound          = 3
+	UserBanned            = 4
+	WrongFormat           = 5
+	WrongPrice            = 6
+	OutOfLimit            = 7
+	CannotClaim           = 8
+	NewVersionAvailable   = 9
+	UserBannedFindMatch   = 10
+	CantGetCurrencyPrice  = 11
 	ExchangeRateDifferent = 12
-	MaintenanceCashout = 13
+	MaintenanceCashout    = 13
 
 	//wolffunId ERROR_CODE 2001 -> 3000:
 	EmailNotExist             = 2001
@@ -49,32 +49,38 @@ const (
 	InvalidGTHG          = 3017
 	NotEnoughgFeeGTHG    = 3018
 	HeroInTheMatch       = 3019
+
 	//box
 	OutdatedBuying = 3100
 	OutOfBoxes     = 3101
 	NotEnoughBox   = 3102
+
 	//friend
 	OtherFullRequestReceived = 3103
 	OtherFullFriendList      = 3104
 	FullFriendList           = 3105
 	ReceiptDataInValid       = 3106
+
+	//report battle end
+	ReachLimitReportInWeek = 3107
+	PreviouslyReported     = 3108
 )
 
 var errorText = map[int]string{
 	//common code 1 - 1000
-	TokenInvalid:         "Token Invalid",
-	TokenExpired:         "Token Expired",
-	UserNotFound:         "User Not Found",
-	UserBanned:           "User Banned",
-	WrongFormat:          "Wrong Data Format",
-	WrongPrice:           "Wrong Price Config",
-	OutOfLimit:           "Your Quantity Is Limited",
-	CannotClaim:          "You Can't Claim Now",
-	NewVersionAvailable:  "New Version Available",
-	UserBannedFindMatch:  "User Has Been Banned FindMatch",
-	CantGetCurrencyPrice: "System Can't Get Currency Price",
+	TokenInvalid:          "Token Invalid",
+	TokenExpired:          "Token Expired",
+	UserNotFound:          "User Not Found",
+	UserBanned:            "User Banned",
+	WrongFormat:           "Wrong Data Format",
+	WrongPrice:            "Wrong Price Config",
+	OutOfLimit:            "Your Quantity Is Limited",
+	CannotClaim:           "You Can't Claim Now",
+	NewVersionAvailable:   "New Version Available",
+	UserBannedFindMatch:   "User Has Been Banned FindMatch",
+	CantGetCurrencyPrice:  "System Can't Get Currency Price",
 	ExchangeRateDifferent: "Exchange Rate Is Not The Same At This Time, Try Again!",
-	MaintenanceCashout: "Feature Cashout Under Maintenance",
+	MaintenanceCashout:    "Feature Cashout Under Maintenance",
 
 	//wolffunId ERROR_CODE 2001 -> 3000:
 	EmailNotExist:             "Email Not Exist In Database",
@@ -109,13 +115,19 @@ var errorText = map[int]string{
 	HeroInTheMatch:       "Hero In The Match",
 
 	//box
-	OutdatedBuying:           "Outdated Buying",
-	OutOfBoxes:               "Out Of Thetan Boxes",
-	NotEnoughBox:             "Not Enough Quantity Box",
+	OutdatedBuying: "Outdated Buying",
+	OutOfBoxes:     "Out Of Thetan Boxes",
+	NotEnoughBox:   "Not Enough Quantity Box",
+
+	//friend
 	OtherFullRequestReceived: "Your friend can't take any more friend requests",
 	OtherFullFriendList:      "Your friend has full friend list",
 	FullFriendList:           "You has full friend list",
 	ReceiptDataInValid:       "Receipt Data Invalid",
+
+	// report battle end
+	ReachLimitReportInWeek: "Reach limit report in week (Max: 7 times/week)",
+	PreviouslyReported:     "Previously reported",
 }
 
 // StatusText returns a text for the common error code. It returns the empty
