@@ -15,6 +15,8 @@ const (
 	NewVersionAvailable  = 9
 	UserBannedFindMatch  = 10
 	CantGetCurrencyPrice = 11
+	ExchangeRateDifferent = 12
+	MaintenanceCashout = 13
 
 	//wolffunId ERROR_CODE 2001 -> 3000:
 	EmailNotExist             = 2001
@@ -71,6 +73,8 @@ var errorText = map[int]string{
 	NewVersionAvailable:  "New Version Available",
 	UserBannedFindMatch:  "User Has Been Banned FindMatch",
 	CantGetCurrencyPrice: "System Can't Get Currency Price",
+	ExchangeRateDifferent: "Exchange Rate Is Not The Same At This Time, Try Again!",
+	MaintenanceCashout: "Feature Cashout Under Maintenance",
 
 	//wolffunId ERROR_CODE 2001 -> 3000:
 	EmailNotExist:             "Email Not Exist In Database",
