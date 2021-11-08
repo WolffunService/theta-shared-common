@@ -2,13 +2,14 @@ package auth
 
 import (
 	"fmt"
-	"github.com/WolffunGame/theta-shared-common/auth/entity"
-	"github.com/WolffunGame/theta-shared-common/common"
-	"github.com/dgrijalva/jwt-go"
 	"log"
 	"net/http"
 	"strings"
 	"time"
+
+	"github.com/WolffunGame/theta-shared-common/auth/entity"
+	"github.com/WolffunGame/theta-shared-common/common"
+	"github.com/dgrijalva/jwt-go"
 )
 
 //check token http author
@@ -27,26 +28,25 @@ func (s service) tokenValidString(tokenString string) (jwt.MapClaims, error) {
 	}
 	if claims, ok := token.Claims.(jwt.MapClaims); ok && token.Valid {
 		if claims[ClaimKeyId] == nil {
-			return nil, common.ErrorResponse(common.TokenInvalid,err.Error())
+			return nil, common.ErrorResponse(common.TokenInvalid, err.Error())
 		}
 		return claims, nil
 	} else {
 		log.Printf("Invalid JWT Token")
-		return nil, common.ErrorResponse(common.TokenInvalid,err.Error())
+		return nil, common.ErrorResponse(common.TokenInvalid, err.Error())
 	}
 }
-
 
 func (s service) parseUnverified(tokenString string) (jwt.MapClaims, error) {
 	token, _, err := new(jwt.Parser).ParseUnverified(tokenString, jwt.MapClaims{})
 	if err != nil {
-		return nil, common.ErrorResponse(common.TokenInvalid,err.Error())
+		return nil, common.ErrorResponse(common.TokenInvalid, err.Error())
 	}
 
 	if claims, ok := token.Claims.(jwt.MapClaims); ok {
 		return claims, nil
 	} else {
-		return nil, common.ErrorResponse(common.TokenInvalid,err.Error())
+		return nil, common.ErrorResponse(common.TokenInvalid, err.Error())
 	}
 }
 
@@ -59,7 +59,7 @@ func extractToken(r *http.Request) string {
 	return ""
 }
 
-func (s service) verifyToken(tokenString string)  (*jwt.Token, error) {
+func (s service) verifyToken(tokenString string) (*jwt.Token, error) {
 	token, err := jwt.Parse(tokenString, func(token *jwt.Token) (interface{}, error) {
 		if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
 			return nil, fmt.Errorf("Unexpected signing method: %v", token.Header["alg"])
@@ -68,38 +68,37 @@ func (s service) verifyToken(tokenString string)  (*jwt.Token, error) {
 	})
 	if err != nil {
 		errorToken := err.(*jwt.ValidationError)
-		return nil,common.ErrorResponse(common.TokenInvalid,err.Error()).RootCode(int(errorToken.Errors))
+		return nil, common.ErrorResponse(common.TokenInvalid, err.Error()).RootCode(int(errorToken.Errors))
 	}
 	return token, nil
 }
 
-
 // generateJWT generates a JWT that encodes an identity.
 func (s service) generateJWT(identity entity.Identity) (*entity.TokenResBody, error) {
 	t, err := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
-		ClaimKeySid: identity.GetAddress(),
-		ClaimKeySub: identity.GetUserName(),
-		ClaimKeyId:    identity.GetUserId(),
+		ClaimKeySid:     identity.GetAddress(),
+		ClaimKeySub:     identity.GetUserName(),
+		ClaimKeyId:      identity.GetUserId(),
 		ClaimKeyRole:    identity.GetRole(),
 		ClaimKeyCanMint: false,
-		ClaimKeyNbf: time.Now().Unix(),
-		ClaimKeyIss: s.issuer,
-		ClaimKeyAud: s.audience,
-		ClaimKeyExp:   time.Now().Add(time.Second *  time.Duration(s.tokenExpiration)).Unix(),
+		ClaimKeyNbf:     time.Now().Unix(),
+		ClaimKeyIss:     s.issuer,
+		ClaimKeyAud:     s.audience,
+		ClaimKeyExp:     time.Now().Add(time.Second * time.Duration(s.tokenExpiration)).Unix(),
 	}).SignedString([]byte(s.signingKey))
 	if err != nil {
 		return nil, err
 	}
 
 	rt, err := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
-		ClaimKeySid: identity.GetAddress(),
-		ClaimKeySub: identity.GetUserName(),
-		ClaimKeyId:    identity.GetUserId(),
+		ClaimKeySid:     identity.GetAddress(),
+		ClaimKeySub:     identity.GetUserName(),
+		ClaimKeyId:      identity.GetUserId(),
 		ClaimKeyCanMint: false,
-		ClaimKeyNbf: time.Now().Unix(),
-		ClaimKeyIss: s.issuer,
-		ClaimKeyAud: s.audience,
-		ClaimKeyExp:   time.Now().Add(time.Second * time.Duration(s.refreshTokenExpiration)).Unix(),
+		ClaimKeyNbf:     time.Now().Unix(),
+		ClaimKeyIss:     s.issuer,
+		ClaimKeyAud:     s.audience,
+		ClaimKeyExp:     time.Now().Add(time.Second * time.Duration(s.refreshTokenExpiration)).Unix(),
 	}).SignedString([]byte(s.signingKey))
 	if err != nil {
 		return nil, err
