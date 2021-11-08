@@ -31,7 +31,7 @@ func RequiredAuthVerified(service auth.Service, roles ...common.UserRole) func(c
 		c.Set(auth.ClaimKeySid, claims[auth.ClaimKeySid])
 
 		userRole := common.NONE
-		if claims[auth.ClaimKeyRole] == nil {
+		if claims[auth.ClaimKeyRole] != nil {
 			userRole = common.UserRole(claims[auth.ClaimKeyRole].(float64))
 		}
 		c.Set(auth.ClaimKeyRole, userRole)
