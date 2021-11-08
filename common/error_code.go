@@ -85,7 +85,7 @@ var errorText = map[int]string{
 	CantGetCurrencyPrice:  "System Can't Get Currency Price",
 	ExchangeRateDifferent: "Exchange Rate Is Not The Same At This Time, Try Again!",
 	MaintenanceCashout:    "Feature Cashout Under Maintenance",
-	AFKSession:            "The session has expired due to inactivity. Please try again",
+	OutdatedSession:       "The session has expired due to inactivity. Please try again",
 
 	//wolffunId ERROR_CODE 2001 -> 3000:
 	EmailNotExist:             "Email Not Exist In Database",
