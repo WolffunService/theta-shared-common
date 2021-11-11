@@ -18,6 +18,7 @@ const (
 	ExchangeRateDifferent = 12
 	MaintenanceCashout    = 13
 	OutdatedSession       = 14
+	MismatchToken         = 15
 
 	//wolffunId ERROR_CODE 2001 -> 3000:
 	EmailNotExist             = 2001
@@ -86,6 +87,7 @@ var errorText = map[int]string{
 	ExchangeRateDifferent: "Exchange Rate Is Not The Same At This Time, Try Again!",
 	MaintenanceCashout:    "Feature Cashout Under Maintenance",
 	OutdatedSession:       "The session has expired due to inactivity. Please try again",
+	MismatchToken:         "You can't claim this token",
 
 	//wolffunId ERROR_CODE 2001 -> 3000:
 	EmailNotExist:             "Email Not Exist In Database",
