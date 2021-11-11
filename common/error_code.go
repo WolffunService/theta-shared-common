@@ -19,6 +19,7 @@ const (
 	MaintenanceCashout    = 13
 	OutdatedSession       = 14
 	MismatchToken         = 15
+	BusyServer            = 16
 
 	//wolffunId ERROR_CODE 2001 -> 3000:
 	EmailNotExist             = 2001
@@ -88,6 +89,7 @@ var errorText = map[int]string{
 	MaintenanceCashout:    "Feature Cashout Under Maintenance",
 	OutdatedSession:       "The session has expired due to inactivity. Please try again",
 	MismatchToken:         "You can't claim this token",
+	BusyServer:            "Server is too busy now, try again later",
 
 	//wolffunId ERROR_CODE 2001 -> 3000:
 	EmailNotExist:             "Email Not Exist In Database",
