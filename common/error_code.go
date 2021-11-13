@@ -22,6 +22,7 @@ const (
 	BusyServer            = 16
 	ClaimedToken          = 17
 	MaintainceServer      = 18
+	ComingSoon            = 19
 
 	//wolffunId ERROR_CODE 2001 -> 3000:
 	EmailNotExist             = 2001
@@ -94,6 +95,7 @@ var errorText = map[int]string{
 	BusyServer:            "Server is too busy now, try again later",
 	ClaimedToken:          "This token was claimed",
 	MaintainceServer:      "Server Currently Is Maintenance",
+	ComingSoon:            "This feature is under construction",
 
 	//wolffunId ERROR_CODE 2001 -> 3000:
 	EmailNotExist:             "Email Not Exist In Database",
