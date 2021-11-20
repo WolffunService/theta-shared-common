@@ -49,12 +49,14 @@ const (
 	HeroNotAvailable     = 3011
 	NotRankEnoughCashout = 3012
 	NotOldEnoughCashout  = 3013
-	OutOfLimitCashout    = 3014
-	NotEnoughGTHG        = 3015
-	NotEnoughGTHC        = 3016
-	InvalidGTHG          = 3017
-	NotEnoughgFeeGTHG    = 3018
-	HeroInTheMatch       = 3019
+	//OutOfLimitCashout    = 3014
+	NotEnoughGTHG     = 3015
+	NotEnoughGTHC     = 3016
+	InvalidGTHG       = 3017
+	NotEnoughgFeeGTHG = 3018
+	HeroInTheMatch    = 3019
+	MinimumCashout    = 3020
+	MaximumCashout    = 3021
 
 	//box
 	OutdatedBuying = 3100
@@ -122,12 +124,14 @@ var errorText = map[int]string{
 	HeroNotAvailable:     "Hero Is Not Available",
 	NotRankEnoughCashout: "Reach Rank Bronze 1 To Start Claiming Your Token",
 	NotOldEnoughCashout:  "Start Claiming Your Token After: %v",
-	OutOfLimitCashout:    "Cash Out Is Out Of Limit",
-	NotEnoughGTHG:        "Not Enough InGame Thetan Gem",
-	NotEnoughGTHC:        "Not Enough InGame Thetan Coin",
-	InvalidGTHG:          "Invalid gTHG Balance!",
-	NotEnoughgFeeGTHG:    "Insufficient gTHG! Please Deposit To Proceed.",
-	HeroInTheMatch:       "Hero In The Match",
+	//OutOfLimitCashout:    "Cash Out Is Out Of Limit",
+	NotEnoughGTHG:     "Not Enough InGame Thetan Gem",
+	NotEnoughGTHC:     "Not Enough InGame Thetan Coin",
+	InvalidGTHG:       "Invalid gTHG Balance!",
+	NotEnoughgFeeGTHG: "Insufficient gTHG! Please Deposit To Proceed.",
+	HeroInTheMatch:    "Hero In The Match",
+	MinimumCashout:    "Min convertable: %v",
+	MaximumCashout:    "Max convertable: %v",
 
 	//box
 	OutdatedBuying:  "Outdated Buying",
