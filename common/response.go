@@ -1,5 +1,7 @@
 package common
 
+import "github.com/WolffunGame/theta-shared-common/common/customerror"
+
 // Response is the response that represents an error.
 type Response struct {
 	Success       bool        `json:"success"`
@@ -33,6 +35,9 @@ func (e Response) RootCode(code int) *Response {
 // Error is required by the error interface.
 func (e Response) Error() string {
 	return e.Message
+}
+func ErrorResponseCustom(customerror *customerror.CustomError) *Response {
+	return ErrorResponse(customerror.ErrorCode(), customerror.Error())
 }
 
 func ErrorResponse(code int, debugMessage string) *Response {
