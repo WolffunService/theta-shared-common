@@ -1,7 +1,5 @@
 package customerror
 
-import "github.com/WolffunGame/theta-shared-common/common"
-
 func New(code int, message string) error {
 	return &CustomError{code: code,message: message}
 }
@@ -23,5 +21,5 @@ func ParseToErrorCustom(err error) *CustomError {
 	if errCus,ok := err.(*CustomError); ok {
 		return errCus
 	}
-	return &CustomError{code: common.Error, message: err.Error()}
+	return &CustomError{code: 0, message: err.Error()}//common.Error == 0
 }
