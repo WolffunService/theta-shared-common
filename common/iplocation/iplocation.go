@@ -9,15 +9,15 @@ import (
 
 func ReadUserIp(r *http.Request) (string, error) {
 
-	//Get IP from the X-Real-IP header
-	ip := r.Header.Get("X-Real-IP")
+	//Get IP from the cf-connecting-ip header
+	ip := r.Header.Get("cf-connecting-ip")
 	netIP := net.ParseIP(ip)
 	if netIP != nil {
 		return ip, nil
 	}
 
-	//Get IP from the cf-connecting-ip header
-	ip = r.Header.Get("cf-connecting-ip")
+	//Get IP from the X-Real-IP header
+	ip = r.Header.Get("X-Real-IP")
 	netIP = net.ParseIP(ip)
 	if netIP != nil {
 		return ip, nil
