@@ -2,7 +2,7 @@ package sendgrid
 
 type Service interface {
 	SendCodeForMail(email string, code int) error
-	SendCustomMail(from, email, templateId string) error
+	SendCustomMail(fromName, fromAddr, email, templateId string) error
 }
 type service struct {
 	sendgridAPIKey      string

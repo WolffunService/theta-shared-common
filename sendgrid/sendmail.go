@@ -44,23 +44,23 @@ func(s service) mailBody(email string, code int) []byte {
 }
 
 //for mkt
-func(s service) SendCustomMail(from, email, templateId string) error {
+func(s service) SendCustomMail(fromName, fromAddr, email, templateId string) error {
 	var request = s.newSendRequestPost()
-	body := s.customMailBody(from, email, templateId)
+	body := s.customMailBody(fromName, fromAddr, email, templateId)
 	request.Body = body
 
 	_, err := sendgrid.API(request)
 	return err
 }
 
-func(s service) customMailBody(fromAddr, email, templateId string) []byte {
+func(s service) customMailBody(fromName, fromAddr, email, templateId string) []byte {
 	m := mail.NewV3Mail()
 
 	//from
 	if fromAddr == "" {
 		fromAddr = s.sendgridAddressFrom
 	}
-	from := mail.NewEmail("", fromAddr)
+	from := mail.NewEmail(fromName, fromAddr)
 	m.SetFrom(from)
 
 	//to
