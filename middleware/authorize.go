@@ -20,7 +20,8 @@ func RequiredAuthVerified(service auth.Service, roles ...common.UserRole) func(c
 		//claims
 		claims, err := service.TokenValid(c.Request)
 		if err != nil {
-			c.JSON(http.StatusUnauthorized, common.ErrorResponse(common.Error,err.Error()))
+			//c.JSON(http.StatusUnauthorized, common.ErrorResponse(common.Error,err.Error()))
+			c.JSON(http.StatusUnauthorized, err)//this err was common.ErrorResponse
 			c.Abort()
 			return
 		}

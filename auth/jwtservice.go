@@ -68,6 +68,9 @@ func (s service) verifyToken(tokenString string) (*jwt.Token, error) {
 	})
 	if err != nil {
 		errorToken := err.(*jwt.ValidationError)
+		if errorToken.Errors == jwt.ValidationErrorExpired {
+			return nil, common.ErrorResponse(common.TokenExpired, err.Error())
+		}
 		return nil, common.ErrorResponse(common.TokenInvalid, err.Error()).RootCode(int(errorToken.Errors))
 	}
 	return token, nil
