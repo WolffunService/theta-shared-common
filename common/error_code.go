@@ -73,8 +73,14 @@ const (
 	ReachLimitReportInWeek = 3107
 	PreviouslyReported     = 3108
 
-	// Box =))
+	// Box
 	BoxExchangeRate = 3109
+
+	// Rental
+	RentedHero      = 3120
+	LowRentBattles  = 3121
+	HighRentBattles = 3122
+	LowRentPrice    = 3123
 )
 
 var errorText = map[int]string{
@@ -148,6 +154,12 @@ var errorText = map[int]string{
 	// report battle end
 	ReachLimitReportInWeek: "Reach limit report in week (Max: 7 times/week)",
 	PreviouslyReported:     "Previously reported",
+
+	// rental
+	RentedHero:      "This hero has been rented by someone",
+	LowRentBattles:  "Insufficient number of battles for rent",
+	HighRentBattles: "Exceed the number of rent battles",
+	LowRentPrice:    "Rental price is lower than minimum",
 }
 
 // StatusText returns a text for the common error code. It returns the empty
