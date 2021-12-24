@@ -77,10 +77,14 @@ const (
 	BoxExchangeRate = 3109
 
 	// Rental
-	RentedHero      = 3120
+	RentedItem      = 3120
 	LowRentBattles  = 3121
 	HighRentBattles = 3122
 	LowRentPrice    = 3123
+	ItemIsForRent   = 3124
+	MaxBattleRented = 3125
+	OutdateRented   = 3126
+	ReturningOwner  = 3127
 )
 
 var errorText = map[int]string{
@@ -156,11 +160,20 @@ var errorText = map[int]string{
 	PreviouslyReported:     "Previously reported",
 
 	// rental
-	RentedHero:      "This hero has been rented by someone",
+	RentedItem:      "This hero has been rented by someone",
 	LowRentBattles:  "Insufficient number of battles for rent",
 	HighRentBattles: "Exceed the number of rent battles",
 	LowRentPrice:    "Rental price is lower than minimum",
+	ItemIsForRent:   "Item is being rent out",
+	MaxBattleRented: "The rental item has reached its battle limit",
+	OutdateRented:   "The rental item has expired",
+	ReturningOwner:  "The rental item is being returned",
 }
+
+// ItemIsForRent   = 3124
+// 	MaxBattleRented = 3125
+// 	OutdateRented   = 3126
+// 	ReturningOwner  = 3127
 
 // StatusText returns a text for the common error code. It returns the empty
 // string if the code is unknown.
