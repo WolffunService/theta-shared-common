@@ -83,6 +83,7 @@ const (
 	LowRentPrice          = 3123
 	ItemIsForRent         = 3124
 	MaxBattleRented       = 3125
+	HighRentPrice         = 3126
 	ReturningOwner        = 3127
 	MaintenanceHeroRental = 3128
 )
@@ -164,6 +165,7 @@ var errorText = map[int]string{
 	LowRentBattles:        "Insufficient number of battles for rent",
 	HighRentBattles:       "Exceed the number of rent battles",
 	LowRentPrice:          "Rental price is lower than minimum",
+	HighRentPrice:         "Rental price is higher than maximum",
 	ItemIsForRent:         "Item is being rent out",
 	MaxBattleRented:       "The rental item has reached its battle limit",
 	ReturningOwner:        "The rental item is being returned",
