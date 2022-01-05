@@ -2,6 +2,26 @@ package common
 
 const (
 
+	// Error TODO
+	//Renaming all error code to use Error prefix ex:
+	//ErrorConflict     = 3  // action cannot be performed
+	//ErrorInternal     = 1  // internal error
+	//ErrorInvalid      = 2  // validation failed
+	//ErrorNotFound     = 4  // entity does not exist
+	//ErrorValidate     = 5  // entity does not exist
+	//ErrorAuthorize    = 11 //cannot authorize
+	//ErrorAuthenticate = 10 //cannot authorize
+	//ErrorStorage      = 20
+	//ErrorDatabase     = 30
+	//ErrorOTPLimit     = 40
+	//ErrorOTPInvalid   = 41
+	//ErrorInputForm    = 50
+	//
+	//
+	//ErrorUserPassword   = 1000
+	//ErrorUserName       = 1001
+	//ErrorMailRegistered = 1002
+
 	//common code 1 - 1000
 	Error                 = 0
 	TokenInvalid          = 1
