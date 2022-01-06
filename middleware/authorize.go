@@ -1,11 +1,14 @@
 package middleware
 
 import (
+	"fmt"
 	"github.com/WolffunGame/theta-shared-common/auth"
 	"github.com/WolffunGame/theta-shared-common/common"
+	"github.com/WolffunGame/theta-shared-database/auth/secretkey/secretkeymodel"
 	"github.com/gin-gonic/gin"
 	"net/http"
 	"strings"
+	"time"
 )
 
 func extractTokenFromHeaderString(s string) (string, error) {
@@ -29,6 +32,7 @@ func RequiredAuthVerified(service auth.Service, roles ...common.UserRole) func(c
 		if len(roles) == 0 {
 			roles = append(roles, common.NONE)
 		}
+
 		c.Set(auth.ClaimKeyId, claims[auth.ClaimKeyId])
 		c.Set(auth.ClaimKeySid, claims[auth.ClaimKeySid])
 
@@ -72,4 +76,35 @@ func ParseValidToken(service auth.Service) func(c *gin.Context) {
 		c.Set(auth.ClaimKeyRole, userRole)
 		c.Next()
 	}
+}
+
+func RequiredAuthSecretKey(service auth.Service, arrSecretKey []*secretkeymodel.SecretKey) func(c *gin.Context) {
+	return func(c *gin.Context) {
+		authKey := "authKey" // TODO: get from header
+		authSecret := "authSecret" // TODO: get from header
+
+		var errRS = fmt.Errorf("")
+		for _, secretKey := range arrSecretKey{
+			err := IsValidSecretKey(secretKey, authKey, authSecret)
+			if err == nil{
+				c.Next()
+				return
+			} else {
+				errRS = err
+			}
+		}
+		c.JSON(http.StatusUnauthorized, common.ErrorResponse(common.Error, errRS.Error()))
+		c.Abort()
+		return
+	}
+}
+
+func IsValidSecretKey(secretKey *secretkeymodel.SecretKey, key string, secret string) error {
+	if  secretKey.Expired.Sub(time.Now()).Minutes() <= 0 {
+		return fmt.Errorf("This secret key is expired")
+	}
+	if secretKey.Key == key && secretKey.Secret == secret {
+		return nil
+	}
+	return fmt.Errorf("This secret key does not have this permission")
 }
