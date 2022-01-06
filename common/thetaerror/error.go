@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"fmt"
 	"github.com/WolffunGame/theta-shared-common/common"
+	"github.com/WolffunGame/theta-shared-common/thetalog"
 )
 
 type Error struct {
@@ -38,6 +39,16 @@ func (e *Error) Error() string {
 		buf.WriteString(e.Message)
 	}
 	return buf.String()
+}
+
+func New(code int, message string, op string, err error) error {
+	return &Error{Code: code, Message: message, Op: op, Err: err}
+}
+
+func NewWithLog(code int, message string, op string, err error) error {
+	e := New(code, message, op, err)
+	thetalog.Err(e)
+	return e
 }
 
 func ErrorCode(err error) int {

@@ -8,6 +8,10 @@ import (
 	"encoding/pem"
 	"flag"
 	"fmt"
+	"github.com/WolffunGame/theta-shared-common/common"
+	"github.com/WolffunGame/theta-shared-common/common/thetaerror"
+	"github.com/WolffunGame/theta-shared-common/thetalog"
+	"github.com/rs/zerolog/log"
 )
 
 func ExportPublicKeyAsPemStr(pubkey *rsa.PublicKey) string {
@@ -48,4 +52,31 @@ func main() {
 	plainText, _ := rsa.DecryptOAEP(hash, rand.Reader, bobPrivateKey, ciphertext, label)
 
 	fmt.Printf("RSA decrypted to [%s]", plainText)
+
+	////////////How to use json logger
+	debug := false
+	// Apply log level in the beginning of the application
+	thetalog.SetGlobalLevel(thetalog.InfoLevel)
+	if debug {
+		thetalog.SetGlobalLevel(thetalog.DebugLevel)
+	}
+
+	thetalog.Info().
+		Str("service", "my-service").
+		Int("Some integer", 10).
+		Msg("Hello")
+	// Debug log
+	log.Debug().Msg("Exiting Program")
+
+	////////////How to use json logger with default value
+	logger := thetalog.With().Str("service", "theta-data").
+		Str("node", "localhost").
+		Logger()
+
+	logger.Err(&thetaerror.Error{
+		Code:    common.BusyServer,
+		Message: "Server is too busy",
+		Op:      "Convert",
+		Err:     nil,
+	})
 }
