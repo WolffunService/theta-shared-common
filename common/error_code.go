@@ -86,6 +86,10 @@ const (
 	HighRentPrice         = 3126
 	ReturningOwner        = 3127
 	MaintenanceHeroRental = 3128
+
+	// VestingSafe
+	MaintenanceVestingSafe = 3140
+	AlreadClaimed          = 3141
 )
 
 var errorText = map[int]string{
@@ -170,6 +174,10 @@ var errorText = map[int]string{
 	MaxBattleRented:       "The rental item has reached its battle limit",
 	ReturningOwner:        "The rental item is being returned",
 	MaintenanceHeroRental: "The rental feature is being maintained",
+
+	// vesting safe
+	MaintenanceVestingSafe: "This feature is under maintenance, please try again in a few minutes",
+	AlreadClaimed:          "You have already received all gTHG today, please try again the next day",
 }
 
 // StatusText returns a text for the common error code. It returns the empty
