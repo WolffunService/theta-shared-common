@@ -89,7 +89,7 @@ const (
 
 	// VestingSafe
 	MaintenanceVestingSafe = 3140
-	AlreadClaimed          = 3141
+	AlreadyClaimed         = 3141
 )
 
 var errorText = map[int]string{
@@ -177,7 +177,7 @@ var errorText = map[int]string{
 
 	// vesting safe
 	MaintenanceVestingSafe: "This feature is under maintenance, please try again in a few minutes",
-	AlreadClaimed:          "You have already received all gTHG today, please try again the next day",
+	AlreadyClaimed:         "You have already received all gTHG today, please try again the next day",
 }
 
 // StatusText returns a text for the common error code. It returns the empty
