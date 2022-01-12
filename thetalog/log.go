@@ -11,7 +11,9 @@ import (
 type Event *zerolog.Event
 
 // Level defines log levels.
-type Level int8
+type Level zerolog.Level
+type Context zerolog.Context
+type Logger zerolog.Logger
 
 var (
 	L = log.Logger
@@ -45,55 +47,55 @@ func SetGlobalLevel(l Level) {
 }
 
 // Output duplicates the global logger and sets w as its output.
-func Output(w io.Writer) zerolog.Logger {
-	return L.Output(w)
+func Output(w io.Writer) Logger {
+	return Logger(L.Output(w))
 }
 
 // With creates a child logger with the field added to its context.
-func With() zerolog.Context {
-	return L.With()
+func With() Context {
+	return Context(L.With())
 }
 
 // Err starts a new message with error level with err as a field if not nil or
 // with info level if err is nil.
 //
 // You must call Msg on the returned event in order to send the event.
-func Err(err error) *zerolog.Event {
+func Err(err error) Event {
 	return L.Err(err)
 }
 
 // Trace starts a new message with trace level.
 //
 // You must call Msg on the returned event in order to send the event.
-func Trace() *zerolog.Event {
+func Trace() Event {
 	return L.Trace()
 }
 
 // Debug starts a new message with debug level.
 //
 // You must call Msg on the returned event in order to send the event.
-func Debug() *zerolog.Event {
+func Debug() Event {
 	return L.Debug()
 }
 
 // Info starts a new message with info level.
 //
 // You must call Msg on the returned event in order to send the event.
-func Info() *zerolog.Event {
+func Info() Event {
 	return L.Info()
 }
 
 // Warn starts a new message with warn level.
 //
 // You must call Msg on the returned event in order to send the event.
-func Warn() *zerolog.Event {
+func Warn() Event {
 	return L.Warn()
 }
 
 // Error starts a new message with error level.
 //
 // You must call Msg on the returned event in order to send the event.
-func Error() *zerolog.Event {
+func Error() Event {
 	return L.Error()
 }
 
@@ -101,7 +103,7 @@ func Error() *zerolog.Event {
 // is called by the Msg method.
 //
 // You must call Msg on the returned event in order to send the event.
-func Fatal() *zerolog.Event {
+func Fatal() Event {
 	return L.Fatal()
 }
 
@@ -109,22 +111,22 @@ func Fatal() *zerolog.Event {
 // to the panic function.
 //
 // You must call Msg on the returned event in order to send the event.
-func Panic() *zerolog.Event {
+func Panic() Event {
 	return L.Panic()
 }
 
 // WithLevel starts a new message with level.
 //
 // You must call Msg on the returned event in order to send the event.
-func WithLevel(level zerolog.Level) *zerolog.Event {
-	return L.WithLevel(level)
+func WithLevel(level Level) Event {
+	return L.WithLevel(zerolog.Level(level))
 }
 
 // Log starts a new message with no level. Setting zerolog.GlobalLevel to
 // zerolog.Disabled will still disable events produced by this method.
 //
 // You must call Msg on the returned event in order to send the event.
-func Log() *zerolog.Event {
+func Log() Event {
 	return L.Log()
 }
 
@@ -142,8 +144,9 @@ func Printf(format string, v ...interface{}) {
 
 // Ctx returns the Logger associated with the ctx. If no logger
 // is associated, a disabled logger is returned.
-func Ctx(ctx context.Context) *zerolog.Logger {
-	return zerolog.Ctx(ctx)
+func Ctx(ctx context.Context) *Logger {
+	return (*Logger)(zerolog.Ctx(ctx))
+
 }
 
 func test() {
