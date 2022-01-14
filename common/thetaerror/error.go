@@ -3,7 +3,6 @@ package thetaerror
 import (
 	"bytes"
 	"fmt"
-	"github.com/WolffunGame/theta-shared-common/common"
 	"github.com/WolffunGame/theta-shared-common/thetalog"
 )
 
@@ -59,7 +58,7 @@ func ErrorCode(err error) int {
 	} else if ok && e.Err != nil {
 		return ErrorCode(e.Err)
 	}
-	return common.Error
+	return ErrorInternal
 }
 
 func ErrorMessage(err error) string {
@@ -69,6 +68,11 @@ func ErrorMessage(err error) string {
 		return e.Message
 	} else if ok && e.Err != nil {
 		return ErrorMessage(e.Err)
+	} else if ok && e.Message == "" {
+		if msg, defined := errorText[e.Code]; defined {
+			return msg
+		}
 	}
+
 	return "An internal error has occurred. Please contact technical support."
 }
