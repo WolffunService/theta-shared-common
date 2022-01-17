@@ -1,17 +1,16 @@
 package main
 
 import (
-	"crypto/rand"
 	"crypto/rsa"
-	"crypto/sha256"
 	"crypto/x509"
 	"encoding/pem"
-	"flag"
 	"fmt"
 	"github.com/WolffunGame/theta-shared-common/common"
 	"github.com/WolffunGame/theta-shared-common/common/thetaerror"
+	EventBus "github.com/WolffunGame/theta-shared-common/eventbus"
 	"github.com/WolffunGame/theta-shared-common/thetalog"
 	"github.com/rs/zerolog/log"
+	"time"
 )
 
 func ExportPublicKeyAsPemStr(pubkey *rsa.PublicKey) string {
@@ -27,32 +26,6 @@ func ExportMsgAsPemStr(msg []byte) string {
 	return msg_pem
 }
 func main() {
-	bits := 1024
-	flag.Parse()
-	args := flag.Args()
-
-	m := args[0]
-
-	bobPrivateKey, _ := rsa.GenerateKey(rand.Reader, bits)
-
-	bobPublicKey := &bobPrivateKey.PublicKey
-
-	fmt.Printf("%s\n", ExportPrivateKeyAsPemStr(bobPrivateKey))
-
-	fmt.Printf("%s\n", ExportPublicKeyAsPemStr(bobPublicKey))
-
-	message := []byte(m)
-	label := []byte("123123")
-	hash := sha256.New()
-
-	ciphertext, _ := rsa.EncryptOAEP(hash, rand.Reader, bobPublicKey, message, label)
-
-	fmt.Printf("%s\n", ExportMsgAsPemStr(ciphertext))
-
-	plainText, _ := rsa.DecryptOAEP(hash, rand.Reader, bobPrivateKey, ciphertext, label)
-
-	fmt.Printf("RSA decrypted to [%s]", plainText)
-
 	////////////How to use json logger
 	debug := false
 	// Apply log level in the beginning of the application
@@ -79,4 +52,30 @@ func main() {
 		Op:      "Convert",
 		Err:     nil,
 	})
+
+	//How to use eventbus
+	handler := func(a, b int) {
+		time.Sleep(3 * time.Second)
+		fmt.Printf("Event handler")
+		fmt.Printf("%d\n", a+b)
+	}
+
+	bus := EventBus.New()
+	err := bus.SubscribeAsync("main:slow_calculator", handler, false)
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	bus.Publish("main:slow_calculator", 20, 60)
+	time.Sleep(5 * time.Second)
+	bus.Publish("main:slow_calculator", 10, 20)
+
+	fmt.Println("start: do some stuff while waiting for a result")
+	fmt.Println("end: do some stuff while waiting for a result")
+
+	//bus.WaitAsync() // wait for all async callbacks to complete
+
+	time.Sleep(20 * time.Second)
+
+	fmt.Println("do some stuff after waiting for result")
 }
