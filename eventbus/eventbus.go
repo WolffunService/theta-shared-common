@@ -58,7 +58,7 @@ func New() Bus {
 	return Bus(b)
 }
 
-//S i stand for Super/Singleton/Server
+//S i stand for Super/Singleton/Server - no need to use New()
 var S = New()
 
 // doSubscribe handles the subscription logic and is utilized by the public Subscribe functions
