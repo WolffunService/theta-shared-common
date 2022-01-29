@@ -90,6 +90,9 @@ const (
 	// VestingSafe
 	ErrorMaintenanceVestingSafe = 3140
 	ErrorAlreadyClaimed         = 3141
+
+	// Creator Program
+	ErrorMaintenanceCreatorProgram = 3150
 )
 
 var errorText = map[int]string{
@@ -178,4 +181,7 @@ var errorText = map[int]string{
 	// vesting safe
 	ErrorMaintenanceVestingSafe: "This feature is under maintenance, please try again in a few minutes",
 	ErrorAlreadyClaimed:         "You have already received all gTHG today, please try again the next day",
+
+	// Creator Program
+	ErrorMaintenanceCreatorProgram: "This feature is under maintenance, please try again in a few minutes",
 }
