@@ -77,6 +77,7 @@ const (
 	HeroInTheMatch    = 3019
 	MinimumCashout    = 3020
 	MaximumCashout    = 3021
+	WrongHeroModel    = 3022
 
 	//box
 	OutdatedBuying = 3100
