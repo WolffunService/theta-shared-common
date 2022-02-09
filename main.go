@@ -5,12 +5,7 @@ import (
 	"crypto/x509"
 	"encoding/pem"
 	"fmt"
-	"github.com/WolffunGame/theta-shared-common/common"
-	"github.com/WolffunGame/theta-shared-common/common/thetaerror"
-	EventBus "github.com/WolffunGame/theta-shared-common/eventbus"
 	"github.com/WolffunGame/theta-shared-common/thetalog"
-	"github.com/rs/zerolog/log"
-	"time"
 )
 
 func ExportPublicKeyAsPemStr(pubkey *rsa.PublicKey) string {
@@ -35,48 +30,52 @@ func main() {
 		thetalog.SetGlobalLevel(thetalog.DebugLevel)
 	}
 
-	thetalog.Info().
-		Str("service", "my-service").
-		Int("Some integer", 10).
-		Msg("Hello")
-	// Debug log
-	log.Debug().Msg("Exiting Program")
+	//thetalog.Info().
+	//	Str("service", "my-service").
+	//	Int("Some integer", 10).
+	//	Msg("Hello")
+	//// Debug log
+	//log.Debug().Msg("Exiting Program")
+	//
+	//////////////How to use json logger with default value
+	//logger := thetalog.With().Str("service", "theta-data").
+	//	Str("node", "localhost").
+	//	Logger()
+	//
+	//logger.Err(&thetaerror.Error{
+	//	Code:    common.BusyServer,
+	//	Message: "Server is too busy",
+	//	Op:      "Convert",
+	//	Err:     nil,
+	//})
+	//
+	////How to use eventbus
+	//handler := func(a, b int) {
+	//	time.Sleep(3 * time.Second)
+	//	fmt.Printf("Event handler")
+	//	fmt.Printf("%d\n", a+b)
+	//}
+	//
+	//bus := EventBus.New()
+	//err := bus.SubscribeAsync("main:slow_calculator", handler, false)
+	//if err != nil {
+	//	fmt.Println(err)
+	//}
+	//
+	//bus.Publish("main:slow_calculator", 20, 60)
+	//time.Sleep(5 * time.Second)
+	//bus.Publish("main:slow_calculator", 10, 20)
+	//
+	//fmt.Println("start: do some stuff while waiting for a result")
+	//fmt.Println("end: do some stuff while waiting for a result")
+	//
+	////bus.WaitAsync() // wait for all async callbacks to complete
+	//
+	//time.Sleep(20 * time.Second)
+	//
+	//fmt.Println("do some stuff after waiting for result")
 
-	////////////How to use json logger with default value
-	logger := thetalog.With().Str("service", "theta-data").
-		Str("node", "localhost").
-		Logger()
-
-	logger.Err(&thetaerror.Error{
-		Code:    common.BusyServer,
-		Message: "Server is too busy",
-		Op:      "Convert",
-		Err:     nil,
-	})
-
-	//How to use eventbus
-	handler := func(a, b int) {
-		time.Sleep(3 * time.Second)
-		fmt.Printf("Event handler")
-		fmt.Printf("%d\n", a+b)
-	}
-
-	bus := EventBus.New()
-	err := bus.SubscribeAsync("main:slow_calculator", handler, false)
-	if err != nil {
-		fmt.Println(err)
-	}
-
-	bus.Publish("main:slow_calculator", 20, 60)
-	time.Sleep(5 * time.Second)
-	bus.Publish("main:slow_calculator", 10, 20)
-
-	fmt.Println("start: do some stuff while waiting for a result")
-	fmt.Println("end: do some stuff while waiting for a result")
-
-	//bus.WaitAsync() // wait for all async callbacks to complete
-
-	time.Sleep(20 * time.Second)
-
-	fmt.Println("do some stuff after waiting for result")
+	logger := thetalog.NewBizLogger("bizname")
+	logger.Log().Op("bussinessName")
+	logger.Err(fmt.Errorf("error ")).Op("main").Int("int", 1).Msg("hahahaaaaa")
 }
