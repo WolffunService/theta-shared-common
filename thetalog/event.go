@@ -12,6 +12,8 @@ type Event interface {
 	Send()
 	Str(key, val string) Event
 	Int(key string, i int) Event
+	Int64(key string, i int64) Event
+	Float64(key string, f float64) Event
 	Op(val string) Event
 	Bool(key string, b bool) Event
 	Var(key string, i interface{}) Event
@@ -24,6 +26,16 @@ func (e *event) Str(key, val string) Event {
 
 func (e *event) Int(key string, i int) Event {
 	e.Event.Int(key, i)
+	return e
+}
+
+func (e *event) Int64(key string, i int64) Event {
+	e.Event.Int64(key, i)
+	return e
+}
+
+func (e *event) Float64(key string, f float64) Event {
+	e.Event.Float64(key, f)
 	return e
 }
 
