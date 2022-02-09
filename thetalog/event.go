@@ -8,11 +8,13 @@ type event struct {
 
 type Event interface {
 	Msg(msg string)
-	Send()
 	Msgf(format string, v ...interface{})
+	Send()
 	Str(key, val string) Event
 	Int(key string, i int) Event
 	Op(val string) Event
+	Bool(key string, b bool) Event
+	Var(key string, i interface{}) Event
 }
 
 func (e *event) Str(key, val string) Event {
@@ -25,6 +27,16 @@ func (e *event) Int(key string, i int) Event {
 	return e
 }
 
+func (e *event) Bool(key string, b bool) Event {
+	e.Event.Bool(key, b)
+	return e
+}
+
 func (e *event) Op(val string) Event {
 	return e.Str("operation", val)
+}
+
+func (e *event) Var(key string, i interface{}) Event {
+	e.Event.Interface(key, i)
+	return e
 }
