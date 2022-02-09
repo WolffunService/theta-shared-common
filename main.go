@@ -6,6 +6,7 @@ import (
 	"encoding/pem"
 	"fmt"
 	"github.com/WolffunGame/theta-shared-common/thetalog"
+	"time"
 )
 
 func ExportPublicKeyAsPemStr(pubkey *rsa.PublicKey) string {
@@ -75,7 +76,16 @@ func main() {
 	//
 	//fmt.Println("do some stuff after waiting for result")
 
+	defer TimeTrack(time.Now(), "main")
 	logger := thetalog.NewBizLogger("bizname")
 	logger.Log().Op("bussinessName")
-	logger.Err(fmt.Errorf("error ")).Op("main").Int("int", 1).Msg("hahahaaaaa")
+	for i := 0; i < 100000; i++ {
+
+		logger.Err(fmt.Errorf("error ")).Op("main").Int("z", 1).Msg("hahahaaaaa")
+	}
+}
+
+func TimeTrack(start time.Time, name string) {
+	elapsed := time.Since(start)
+	fmt.Printf("%s took %s", name, elapsed)
 }

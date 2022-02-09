@@ -116,92 +116,94 @@ func (l logger) Ctx(ctx ctx.Context) Logger {
 	return l
 }
 
+var (
+	L = NewLogger()
+)
+
 //// Output duplicates the global logger and sets w as its output.
-//func Output(w io.Writer) zerolog.Logger {
+//func Output(w io.Writer) Logger {
 //	return L.Output(w)
 //}
 //
-// With creates a child logger with the field added to its context.
+//With creates a child logger with the field added to its context.
 //func With() Context {
 //	return &logger{L.With()}
 //}
 
-//
-//// Err starts a new message with error level with err as a field if not nil or
-//// with info level if err is nil.
-////
-//// You must call Msg on the returned event in order to send the event.
-//func Err(err error) *zerolog.Event {
-//	return L.Err(err)
-//}
-//
-//// Trace starts a new message with trace level.
-////
-//// You must call Msg on the returned event in order to send the event.
-//func Trace() *zerolog.Event {
-//	return L.Trace()
-//}
-//
-//// Debug starts a new message with debug level.
-////
-//// You must call Msg on the returned event in order to send the event.
-//func Debug() *zerolog.Event {
-//	return L.Debug()
-//}
-//
-//// Info starts a new message with info level.
-////
-//// You must call Msg on the returned event in order to send the event.
-//func Info() *zerolog.Event {
-//	return L.Info()
-//}
-//
-//// Warn starts a new message with warn level.
-////
-//// You must call Msg on the returned event in order to send the event.
-//func (l logger) Warn() Event {
-//	return &l{L.Warn()}
-//}
-//
-//// Error starts a new message with error level.
-////
-//// You must call Msg on the returned event in order to send the event.
-//func Error() *zerolog.Event {
-//	return L.Error()
-//}
-//
-//// Fatal starts a new message with fatal level. The os.Exit(1) function
-//// is called by the Msg method.
-////
-//// You must call Msg on the returned event in order to send the event.
-//func Fatal() *zerolog.Event {
-//	return L.Fatal()
-//}
-//
-// Panic starts a new message with panic level. The message is also sent
-// to the panic function.
+// Err starts a new message with error level with err as a field if not nil or
+// with info level if err is nil.
 //
 // You must call Msg on the returned event in order to send the event.
-//func Panic() Event {
-//	return L.Panic()
-//}
+func Err(err error) Event {
+	return L.Err(err)
+}
 
+// Trace starts a new message with trace level.
 //
-//// WithLevel starts a new message with level.
-////
-//// You must call Msg on the returned event in order to send the event.
-//func WithLevel(level zerolog.Level) *zerolog.Event {
-//	return L.WithLevel(level)
-//}
+// You must call Msg on the returned event in order to send the event.
+func Trace() Event {
+	return L.Trace()
+}
+
+// Debug starts a new message with debug level.
 //
-//// Log starts a new message with no level. Setting zerolog.GlobalLevel to
-//// zerolog.Disabled will still disable events produced by this method.
-////
-//// You must call Msg on the returned event in order to send the event.
-//func Log() *zerolog.Event {
-//	return L.Log()
-//}
+// You must call Msg on the returned event in order to send the event.
+func Debug() Event {
+	return L.Debug()
+}
+
+// Info starts a new message with info level.
 //
+// You must call Msg on the returned event in order to send the event.
+func Info() Event {
+	return L.Info()
+}
+
+// Warn starts a new message with warn level.
+//
+// You must call Msg on the returned event in order to send the event.
+func Warn() Event {
+	return L.Warn()
+}
+
+// Error starts a new message with error level.
+//
+// You must call Msg on the returned event in order to send the event.
+func Error() Event {
+	return L.Error()
+}
+
+// Fatal starts a new message with fatal level. The os.Exit(1) function
+// is called by the Msg method.
+//
+// You must call Msg on the returned event in order to send the event.
+func Fatal() Event {
+	return L.Fatal()
+}
+
+//Panic starts a new message with panic level. The message is also sent
+//to the panic function.
+//
+//You must call Msg on the returned event in order to send the event.
+func Panic() Event {
+	return L.Panic()
+}
+
+// WithLevel starts a new message with level.
+//
+// You must call Msg on the returned event in order to send the event.
+func WithLevel(level Level) Event {
+	return L.WithLevel(level)
+}
+
+// Log starts a new message with no level. Setting zerolog.GlobalLevel to
+// zerolog.Disabled will still disable events produced by this method.
+//
+// You must call Msg on the returned event in order to send the event.
+func Log() Event {
+	return L.Log()
+}
+
 //// Print sends a log event using debug level and no extra field.
 //// Arguments are handled in the manner of fmt.Print.
 //func Print(v ...interface{}) {
@@ -213,9 +215,9 @@ func (l logger) Ctx(ctx ctx.Context) Logger {
 //func (l logger) Printf(format string, v ...interface{}) {
 //	return NewLogger().Debug().CallerSkipFrame(1).Msgf(format, v...)
 //}
-
-// Ctx returns the Logger associated with the ctx. If no logger
-// is associated, a disabled logger is returned.
+//
+//Ctx returns the Logger associated with the ctx. If no logger
+//is associated, a disabled logger is returned.
 //func (l logger) Ctx(ctx context.Context) Logger {
 //	return &logger{zerolog.Ctx(ctx)}
 //}
