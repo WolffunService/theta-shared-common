@@ -45,7 +45,7 @@ func InitService(db *mongo.Database, dbName string) error {
 	if err != nil {
 		return err
 	}
-	e.AddRoleForUser("admin", "3rd_default")
+	e.AddRoleForUser("admin", "3rd_api_default")
 
 	Service = AuthorizationService{e: e}
 

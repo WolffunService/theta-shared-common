@@ -19,7 +19,7 @@ import (
 
 const defaultTimeout time.Duration = 10 * time.Second
 const defaultDatabaseName string = "thetan"
-const defaultCollectionName string = "rbac_rule"
+const defaultCollectionName string = "rbacRule"
 
 // CasbinRule represents a rule in Casbin.
 type CasbinRule struct {
