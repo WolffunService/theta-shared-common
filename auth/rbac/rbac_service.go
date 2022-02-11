@@ -30,7 +30,7 @@ type AuthorizationService struct {
 
 var Service AuthorizationService
 
-func NewService(db *mongo.Database, dbName string) (error, *AuthorizationService) {
+func InitService(db *mongo.Database, dbName string) error {
 	if len(dbName) == 0 {
 		dbName = defaultCollectionName
 	}
@@ -43,11 +43,13 @@ func NewService(db *mongo.Database, dbName string) (error, *AuthorizationService
 
 	e, err := casbin.NewEnforcer(m, a)
 	if err != nil {
-		return err, nil
+		return err
 	}
 	e.AddRoleForUser("admin", "3rd_default")
 
-	return nil, &AuthorizationService{e: e}
+	Service = AuthorizationService{e: e}
+
+	return nil
 }
 
 func (s *AuthorizationService) LoadPolicy() error {
