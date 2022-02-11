@@ -9,7 +9,7 @@ import (
 
 type Service interface {
 	RefreshToken(identity entity.Identity) (*entity.TokenResBody, error)
-	TokenValid(r *http.Request) (jwt.MapClaims,error)
+	TokenValid(r *http.Request) (jwt.MapClaims, error)
 	ParseUnverified(tokenString string) (jwt.MapClaims, error)
 	StringTokenValid(refreshToken string) (jwt.MapClaims, error)
 }
@@ -24,30 +24,33 @@ type service struct {
 }
 
 // NewService creates a new authentication service.
-func NewService(signingKey string, tokenExpiration, refreshTokenExpiration int,audience,issuer string, logger log.Logger) Service {
+func NewService(signingKey string, tokenExpiration, refreshTokenExpiration int, audience, issuer string, logger log.Logger) Service {
 	return service{signingKey, tokenExpiration,
-		refreshTokenExpiration,audience,issuer, logger}
+		refreshTokenExpiration, audience, issuer, logger}
 }
 func Default() Service {
 	return service{}
 }
+
 ////generate new token
 //func (s service) RefreshToken(identity entity.Identity) (*entity.TokenResBody, *errors.Response)  {
-//	return s.generateJWT(identity)
+//	return s.generateJWT(iden tity)
 //}
 
-//check token valid - return claims
-func (s service) TokenValid(r *http.Request) (jwt.MapClaims, error){
+// TokenValid check token valid - return claims
+func (s service) TokenValid(r *http.Request) (jwt.MapClaims, error) {
 	return s.tokenValid(r)
 }
-//check token valid - return jwt token
+
+// StringTokenValid check token valid - return jwt token
 func (s service) StringTokenValid(refreshToken string) (jwt.MapClaims, error) {
 	return s.tokenValidString(refreshToken)
 }
 func (s service) ParseUnverified(tokenString string) (jwt.MapClaims, error) {
 	return s.parseUnverified(tokenString)
 }
-//generate new token
+
+// RefreshToken generate new token
 func (s service) RefreshToken(identity entity.Identity) (*entity.TokenResBody, error) {
 	return s.generateJWT(identity)
 }
