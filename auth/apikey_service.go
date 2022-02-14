@@ -2,6 +2,8 @@ package auth
 
 import (
 	"context"
+	"crypto/md5"
+	"encoding/hex"
 	"github.com/WolffunGame/theta-shared-common/auth/entity"
 	"github.com/WolffunGame/theta-shared-common/auth/rbac"
 	"github.com/WolffunGame/theta-shared-common/common/thetaerror"
@@ -39,10 +41,7 @@ var apiKeyService apiKeyServiceImplement
 func (a apiKeyServiceImplement) Generate(ctx context.Context, owner string, role string) (*entity.APIKeyResult, error) {
 	prefix := randStringBytesMaskImprSrc(7)
 	apiKey := randStringBytesMaskImprSrc(64)
-	hashKey, err := HashRawKey(apiKey)
-	if err != nil {
-		return nil, err
-	}
+	hashKey := HashRawKey(apiKey)
 
 	key := entity.APIKey{
 		Prefix:  prefix,
@@ -52,7 +51,7 @@ func (a apiKeyServiceImplement) Generate(ctx context.Context, owner string, role
 	}
 	key.CreatedAt = time.Now().UTC()
 
-	err = createAPIKey(ctx, &key)
+	err := createAPIKey(ctx, &key)
 
 	if err != nil {
 		return nil, err
@@ -82,7 +81,7 @@ func (a apiKeyServiceImplement) Parse(ctx context.Context, r *http.Request) (*en
 	}
 
 	prefix := segments[0]
-	hashKey, _ := HashRawKey(segments[1])
+	hashKey := HashRawKey(segments[1])
 
 	apiKey, err := getAPIKey(ctx, prefix, hashKey)
 
@@ -98,9 +97,9 @@ func (a apiKeyServiceImplement) Revoke(rawKey string) error {
 	return err
 }
 
-func HashRawKey(raw string) (string, error) {
-	bytes, err := bcrypt.GenerateFromPassword([]byte(raw), 14)
-	return string(bytes), err
+func HashRawKey(raw string) string {
+	hash := md5.Sum([]byte(raw))
+	return hex.EncodeToString(hash[:])
 }
 
 func checkKeyHash(rawKey, hashKey string) bool {

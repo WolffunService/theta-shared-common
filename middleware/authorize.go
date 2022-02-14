@@ -72,7 +72,7 @@ func RequiredAPIKeyVerified(apiKeyService auth.APIKeyService, rbac rbac.Authoriz
 		}
 
 		prefix := segments[0]
-		hashKey, _ := auth.HashRawKey(segments[1])
+		hashKey := auth.HashRawKey(segments[1])
 
 		isAllow, err := rbac.Enforce(prefix+"."+hashKey, object, action)
 		if err != nil {
