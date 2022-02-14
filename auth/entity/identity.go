@@ -40,3 +40,7 @@ const (
 	APIKeyStatusEnabled  = 1
 	APIKeyStatusDisabled = 0
 )
+
+func (c APIKey) CollectionName() string {
+	return "APIKeys"
+}

@@ -22,7 +22,7 @@ type APIKeyService interface {
 }
 
 func NewAPIKeyService() APIKeyService {
-	err := rbac.InitService(mongodb.GetDB(), "rbacRule")
+	err := rbac.InitService(mongodb.GetDB(), "RBACRules")
 	if err != nil {
 		thetalog.Err(err).Msg("Init API Key service error")
 	}
@@ -72,8 +72,19 @@ func (a apiKeyServiceImplement) Generate(ctx context.Context, owner string, role
 
 func (a apiKeyServiceImplement) Parse(ctx context.Context, r *http.Request) (*entity.APIKey, error) {
 	rawAPIKey := r.Header.Get("X-API-KEY")
+	segments := strings.Split(rawAPIKey, ".")
 
-	apiKey, err := getAPIKey(ctx, rawAPIKey)
+	if len(segments) < 2 {
+		return nil, &thetaerror.Error{
+			Code:    thetaerror.ErrorInternal,
+			Message: "API Key is not valid",
+		}
+	}
+
+	prefix := segments[0]
+	hashKey, _ := HashRawKey(segments[1])
+
+	apiKey, err := getAPIKey(ctx, prefix, hashKey)
 
 	if err != nil {
 		return nil, err
@@ -134,19 +145,7 @@ func createAPIKey(ctx context.Context, data *entity.APIKey) error {
 	return nil
 }
 
-func getAPIKey(ctx context.Context, rawKey string) (*entity.APIKey, error) {
-	segments := strings.Split(rawKey, ".")
-
-	if len(segments) < 2 {
-		return nil, &thetaerror.Error{
-			Code:    thetaerror.ErrorInternal,
-			Message: "API Key is not valid",
-		}
-	}
-
-	prefix := segments[0]
-	hashKey, _ := HashRawKey(segments[1])
-
+func getAPIKey(ctx context.Context, prefix string, hashKey string) (*entity.APIKey, error) {
 	filter := bson.D{
 		{Key: "prefix", Value: prefix},
 		{Key: "hashKey", Value: hashKey},
