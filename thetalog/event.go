@@ -17,6 +17,7 @@ type Event interface {
 	Op(val string) Event
 	Bool(key string, b bool) Event
 	Var(key string, i interface{}) Event
+	Err(err error) Event
 }
 
 func (e *event) Str(key, val string) Event {
@@ -50,5 +51,10 @@ func (e *event) Op(val string) Event {
 
 func (e *event) Var(key string, i interface{}) Event {
 	e.Event.Interface(key, i)
+	return e
+}
+
+func (e *event) Err(err error) Event {
+	e.Event.Err(err)
 	return e
 }
