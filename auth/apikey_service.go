@@ -39,7 +39,7 @@ var apiKeyService apiKeyServiceImplement
 func (a apiKeyServiceImplement) Generate(ctx context.Context, owner string, role string) (*entity.APIKeyResult, error) {
 	prefix := randStringBytesMaskImprSrc(7)
 	apiKey := randStringBytesMaskImprSrc(64)
-	hashKey, err := hashRawKey(apiKey)
+	hashKey, err := HashRawKey(apiKey)
 	if err != nil {
 		return nil, err
 	}
@@ -64,7 +64,7 @@ func (a apiKeyServiceImplement) Generate(ctx context.Context, owner string, role
 	}
 
 	return &entity.APIKeyResult{
-		RawKey: key.Prefix + "." + key.HashKey,
+		RawKey: key.Prefix + "." + apiKey,
 		Role:   role,
 		Owner:  owner,
 	}, nil
@@ -87,7 +87,7 @@ func (a apiKeyServiceImplement) Revoke(rawKey string) error {
 	return err
 }
 
-func hashRawKey(raw string) (string, error) {
+func HashRawKey(raw string) (string, error) {
 	bytes, err := bcrypt.GenerateFromPassword([]byte(raw), 14)
 	return string(bytes), err
 }
@@ -145,7 +145,7 @@ func getAPIKey(ctx context.Context, rawKey string) (*entity.APIKey, error) {
 	}
 
 	prefix := segments[0]
-	hashKey, _ := hashRawKey(segments[1])
+	hashKey, _ := HashRawKey(segments[1])
 
 	filter := bson.D{
 		{Key: "prefix", Value: prefix},

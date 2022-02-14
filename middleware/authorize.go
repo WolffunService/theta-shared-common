@@ -61,7 +61,20 @@ func RequiredAPIKeyVerified(apiKeyService auth.APIKeyService, rbac rbac.Authoriz
 		//claims
 
 		rawAPIKey := c.Request.Header.Get("X-API-KEY")
-		isAllow, err := rbac.Enforce(rawAPIKey, object, action)
+		segments := strings.Split(rawAPIKey, ".")
+		if len(segments) < 2 {
+			c.JSON(http.StatusUnauthorized, &thetaerror.Error{
+				Code:    thetaerror.ErrorInternal,
+				Message: "API Key is not valid",
+			}) //this err was common.ErrorResponse
+			c.Abort()
+			return
+		}
+
+		prefix := segments[0]
+		hashKey, _ := auth.HashRawKey(segments[1])
+
+		isAllow, err := rbac.Enforce(prefix+"."+hashKey, object, action)
 		if err != nil {
 			//c.JSON(http.StatusUnauthorized, common.ErrorResponse(common.Error,err.Error()))
 			c.JSON(http.StatusUnauthorized, err) //this err was common.ErrorResponse
