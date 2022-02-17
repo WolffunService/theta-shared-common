@@ -2,7 +2,9 @@ package middleware
 
 import (
 	"github.com/WolffunGame/theta-shared-common/auth"
+	"github.com/WolffunGame/theta-shared-common/auth/rbac"
 	"github.com/WolffunGame/theta-shared-common/common"
+	"github.com/WolffunGame/theta-shared-common/common/thetaerror"
 	"github.com/gin-gonic/gin"
 	"net/http"
 	"strings"
@@ -50,6 +52,42 @@ func RequiredAuthVerified(service auth.Service, roles ...common.UserRole) func(c
 			}
 		}
 		c.JSON(http.StatusForbidden, common.ErrorResponse(common.Error, "This account does not have this permission"))
+		c.Abort()
+	}
+}
+
+func RequiredAPIKeyVerified(apiKeyService auth.APIKeyService, rbac rbac.AuthorizationService, object string, action string) func(c *gin.Context) {
+	return func(c *gin.Context) {
+		//claims
+
+		rawAPIKey := c.Request.Header.Get("X-API-KEY")
+		segments := strings.Split(rawAPIKey, ".")
+		if len(segments) < 2 {
+			c.JSON(http.StatusUnauthorized, &thetaerror.Error{
+				Code:    thetaerror.ErrorInternal,
+				Message: "API Key is not valid",
+			}) //this err was common.ErrorResponse
+			c.Abort()
+			return
+		}
+
+		prefix := segments[0]
+		hashKey := auth.HashRawKey(segments[1])
+
+		isAllow, err := rbac.Enforce(prefix+"."+hashKey, object, action)
+		if err != nil {
+			//c.JSON(http.StatusUnauthorized, common.ErrorResponse(common.Error,err.Error()))
+			c.JSON(http.StatusUnauthorized, err) //this err was common.ErrorResponse
+			c.Abort()
+			return
+		}
+
+		if isAllow {
+			c.Next()
+			return
+		}
+
+		c.JSON(http.StatusForbidden, common.ErrorResponse(thetaerror.ErrorInternal, "This API Key does not have permission to do this action"))
 		c.Abort()
 	}
 }
