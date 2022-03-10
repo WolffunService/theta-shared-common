@@ -107,6 +107,7 @@ const (
 	HighRentPrice         = 3126
 	ReturningOwner        = 3127
 	MaintenanceHeroRental = 3128
+	InvalidSignature      = 3129
 
 	// VestingSafe
 	MaintenanceVestingSafe = 3140
@@ -195,6 +196,7 @@ var errorText = map[int]string{
 	MaxBattleRented:       "The rental item has reached its battle limit",
 	ReturningOwner:        "The rental item is being returned",
 	MaintenanceHeroRental: "The rental feature is being maintained",
+	InvalidSignature:      "The signature is wrong",
 
 	// vesting safe
 	MaintenanceVestingSafe: "This feature is under maintenance, please try again in a few minutes",
