@@ -93,6 +93,16 @@ const (
 
 	// Creator Program
 	ErrorMaintenanceCreatorProgram = 3150
+
+	// Staking
+	ErrorMaintenanceStaking = 3160
+	ErrorInvalidPlan        = 3161
+	ErrorInvalidStakeAmount = 3162
+	ErrorOutOfTimeStake     = 3163
+	ErrorStakePoolIsFull    = 3164
+	ErrorHeroUnavailable    = 3165
+	ErrorNotReadyToUnstake  = 3166
+	ErrorPreviousUnstake    = 3167
 )
 
 var errorText = map[int]string{
@@ -184,4 +194,14 @@ var errorText = map[int]string{
 
 	// Creator Program
 	ErrorMaintenanceCreatorProgram: "This feature is under maintenance, please try again in a few minutes",
+
+	// Staking
+	ErrorMaintenanceStaking: "This feature is under maintenance, please try again in a few minutes",
+	ErrorInvalidPlan:        "The staking plan is invalid",
+	ErrorInvalidStakeAmount: "The staking amount is invalid",
+	ErrorOutOfTimeStake:     "Can not stake this time",
+	ErrorStakePoolIsFull:    "Staking pool is full",
+	ErrorHeroUnavailable:    "Your selected heroes is unavailable",
+	ErrorNotReadyToUnstake:  "Your stake is not ready to unstake",
+	ErrorPreviousUnstake:    "You are previous unstake",
 }
