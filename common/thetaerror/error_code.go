@@ -105,6 +105,7 @@ const (
 	ErrorPreviousUnstake     = 3167
 	ErrorCooldownClaimReward = 3168
 	ErrorMaxPendingStake     = 3169
+	ErrorEmptyReward         = 3170
 )
 
 var errorText = map[int]string{
@@ -208,4 +209,5 @@ var errorText = map[int]string{
 	ErrorPreviousUnstake:     "You are previous unstake",
 	ErrorCooldownClaimReward: "You only claim reward each every 24 hours",
 	ErrorMaxPendingStake:     "Waiting for your pending stake processed after new stake",
+	ErrorEmptyReward:         "Current reward for this stake is empty",
 }
