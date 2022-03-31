@@ -31,3 +31,16 @@ func GetTopLeaderboardMember(ctx context.Context, leaderboardId string, pageNumb
 
 	return res, err
 }
+
+func GetTotalMember(ctx context.Context, leaderboardId string) (*podium.TotalMembersResponse, error) {
+	req := podium.TotalMembersRequest{
+		LeaderboardId: leaderboardId,
+	}
+
+	if err := validatePodium(); err != nil {
+		return nil, err
+	}
+
+	return podiumClient.TotalMembers(ctx, &req)
+
+}
