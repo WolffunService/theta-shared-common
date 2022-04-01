@@ -1,13 +1,19 @@
 package middleware
 
 import (
+	"context"
+	"fmt"
 	"github.com/WolffunGame/theta-shared-common/auth"
+	"github.com/WolffunGame/theta-shared-common/auth/entity"
 	"github.com/WolffunGame/theta-shared-common/auth/rbac"
 	"github.com/WolffunGame/theta-shared-common/common"
 	"github.com/WolffunGame/theta-shared-common/common/thetaerror"
+	"github.com/WolffunGame/theta-shared-database/database/mredis"
 	"github.com/gin-gonic/gin"
 	"net/http"
 	"strings"
+	"time"
+	goredislib "github.com/go-redis/redis/v8"
 )
 
 func extractTokenFromHeaderString(s string) (string, error) {
@@ -59,6 +65,7 @@ func RequiredAuthVerified(service auth.Service, roles ...common.UserRole) func(c
 func RequiredAPIKeyVerified(apiKeyService auth.APIKeyService, rbac rbac.AuthorizationService, object string, action string) func(c *gin.Context) {
 	return func(c *gin.Context) {
 		//claims
+		ctx := context.Background()
 
 		rawAPIKey := c.Request.Header.Get("X-API-KEY")
 		segments := strings.Split(rawAPIKey, ".")
@@ -87,6 +94,26 @@ func RequiredAPIKeyVerified(apiKeyService auth.APIKeyService, rbac rbac.Authoriz
 			return
 		}
 
+		apiKey, err := auth.GetAPIKey(ctx, prefix, hashKey)
+		if err != nil {
+			c.JSON(http.StatusUnauthorized, err)
+			c.Abort()
+			return
+		}
+
+		isValidAccess, err := IsValidAccess(ctx, rawAPIKey, apiKey.AccessLimit, time.Now())
+		if err != nil {
+			c.JSON(http.StatusUnauthorized, err)
+			c.Abort()
+			return
+		}
+
+		if (!isValidAccess) {
+			c.JSON(http.StatusForbidden, common.ErrorResponse(thetaerror.ErrorInternal, "This API Key has limited access"))
+			c.Abort()
+			return
+		}
+
 		c.JSON(http.StatusForbidden, common.ErrorResponse(thetaerror.ErrorInternal, "This API Key does not have permission to do this action"))
 		c.Abort()
 	}
@@ -110,4 +137,42 @@ func ParseValidToken(service auth.Service) func(c *gin.Context) {
 		c.Set(auth.ClaimKeyRole, userRole)
 		c.Next()
 	}
+}
+
+func IsValidAccess(ctx context.Context, rawAPIKey string, accessLimit map[entity.AccessLimitType]int64, dtnow time.Time) (bool, error) {
+
+	if accessLimit == nil || len(accessLimit) <= 0 {
+		return true, nil
+	}
+	client := mredis.GetClient()
+	key := ""
+	timeDuration := time.Second
+	for limitType, limitCount := range accessLimit {
+		switch limitType {
+		case entity.AccessLimitTypeSecond:
+			key = fmt.Sprintf("%v_%v", rawAPIKey, dtnow.Format("20060102150405"))
+			timeDuration = time.Second
+			break
+		case entity.AccessLimitTypeMinute:
+			key = fmt.Sprintf("%v_%v", rawAPIKey, dtnow.Format("200601021504"))
+			timeDuration = time.Minute
+			break
+		case entity.AccessLimitTypeHour:
+			key = fmt.Sprintf("%v_%v", rawAPIKey, dtnow.Format("2006010215"))
+			timeDuration = time.Hour
+			break
+		default:
+			return false, nil
+			break
+		}
+		accessCount, errRedis := client.Get(ctx, key).Int64()
+		if errRedis != nil && errRedis != goredislib.Nil {
+			return false, errRedis
+		}
+		if accessCount >= limitCount {
+			return false, nil
+		}
+		_, errRedis = client.Set(ctx, key, accessCount + 1, timeDuration).Result()
+	}
+	return true, nil
 }

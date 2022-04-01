@@ -31,7 +31,8 @@ type APIKey struct {
 	Prefix               string       `json:"prefix" bson:"prefix"`
 	HashKey              string       `json:"hashKey" bson:"hashKey"`
 	Owner                string       `json:"owner" bson:"owner"`
-	Status               APIKeyStatus `json:"status" bson:"status"`
+	Status               APIKeyStatus      `json:"status" bson:"status"`
+	AccessLimit          map[AccessLimitType]int64 `json:"accessLimit" bson:"accessLimit"`
 }
 
 type APIKeyStatus int
@@ -43,4 +44,17 @@ const (
 
 func (c APIKey) CollectionName() string {
 	return "APIKeys"
+}
+
+type AccessLimitType int
+
+const (
+	AccessLimitTypeSecond AccessLimitType  = 1
+	AccessLimitTypeMinute AccessLimitType = 2
+	AccessLimitTypeHour AccessLimitType = 3
+)
+
+type AccessLimitInfo struct {
+	LimitType  AccessLimitType `json:"limitType" bson:"limitType"`
+	LimitCount int64           `json:"limitCount" bson:"limitCount"`
 }
