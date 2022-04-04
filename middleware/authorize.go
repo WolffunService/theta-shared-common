@@ -90,27 +90,27 @@ func RequiredAPIKeyVerified(apiKeyService auth.APIKeyService, rbac rbac.Authoriz
 		}
 
 		if isAllow {
+			apiKey, err := auth.GetAPIKey(ctx, prefix, hashKey)
+			if err != nil {
+				c.JSON(http.StatusUnauthorized, err)
+				c.Abort()
+				return
+			}
+
+			isValidAccess, err := IsValidAccess(ctx, rawAPIKey, apiKey.AccessLimit, time.Now())
+			if err != nil {
+				c.JSON(http.StatusUnauthorized, err)
+				c.Abort()
+				return
+			}
+
+			if (!isValidAccess) {
+				c.JSON(http.StatusForbidden, common.ErrorResponse(thetaerror.ErrorInternal, "This API Key has limited access"))
+				c.Abort()
+				return
+			}
+
 			c.Next()
-			return
-		}
-
-		apiKey, err := auth.GetAPIKey(ctx, prefix, hashKey)
-		if err != nil {
-			c.JSON(http.StatusUnauthorized, err)
-			c.Abort()
-			return
-		}
-
-		isValidAccess, err := IsValidAccess(ctx, rawAPIKey, apiKey.AccessLimit, time.Now())
-		if err != nil {
-			c.JSON(http.StatusUnauthorized, err)
-			c.Abort()
-			return
-		}
-
-		if (!isValidAccess) {
-			c.JSON(http.StatusForbidden, common.ErrorResponse(thetaerror.ErrorInternal, "This API Key has limited access"))
-			c.Abort()
 			return
 		}
 
