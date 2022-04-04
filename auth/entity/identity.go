@@ -52,6 +52,7 @@ const (
 	AccessLimitTypeSecond AccessLimitType  = 1
 	AccessLimitTypeMinute AccessLimitType = 2
 	AccessLimitTypeHour AccessLimitType = 3
+	AccessLimitTypeDay AccessLimitType = 4
 )
 
 type AccessLimitInfo struct {

@@ -161,6 +161,10 @@ func IsValidAccess(ctx context.Context, rawAPIKey string, accessLimit map[entity
 			key = fmt.Sprintf("%v_%v", rawAPIKey, dtnow.Format("2006010215"))
 			timeDuration = time.Hour
 			break
+		case entity.AccessLimitTypeDay:
+			key = fmt.Sprintf("%v_%v", rawAPIKey, dtnow.Format("20060102"))
+			timeDuration = time.Hour * 24
+			break
 		default:
 			return false, nil
 			break
