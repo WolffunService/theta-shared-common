@@ -10,10 +10,10 @@ import (
 	"github.com/WolffunGame/theta-shared-common/common/thetaerror"
 	"github.com/WolffunGame/theta-shared-database/database/mredis"
 	"github.com/gin-gonic/gin"
+	goredislib "github.com/go-redis/redis/v8"
 	"net/http"
 	"strings"
 	"time"
-	goredislib "github.com/go-redis/redis/v8"
 )
 
 func extractTokenFromHeaderString(s string) (string, error) {
@@ -166,13 +166,16 @@ func IsValidAccess(ctx context.Context, rawAPIKey string, accessLimit map[entity
 			break
 		}
 		accessCount, errRedis := client.Get(ctx, key).Int64()
-		if errRedis != nil && errRedis != goredislib.Nil {
+		if errRedis == goredislib.Nil {
+			client.Set(ctx, key, 1, timeDuration)
+		} else if errRedis != nil {
 			return false, errRedis
+		} else {
+			if accessCount >= limitCount {
+				return false, nil
+			}
+			client.Incr(ctx, key)
 		}
-		if accessCount >= limitCount {
-			return false, nil
-		}
-		_, errRedis = client.Set(ctx, key, accessCount + 1, timeDuration).Result()
 	}
 	return true, nil
 }
