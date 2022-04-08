@@ -117,9 +117,12 @@ const (
 	AlreadyClaimed         = 3141
 
 	// Ingame Skill Ads
-	TheDayHasPassed        = 3150
-	MaxAdsViewed           = 3151
-	SkillIdNotFound        = 3152
+	TheDayHasPassed = 3150
+	MaxAdsViewed    = 3151
+	SkillIdNotFound = 3152
+
+	// Minigame
+	MinigameTooFast = 3200
 )
 
 var errorText = map[int]string{
@@ -143,9 +146,9 @@ var errorText = map[int]string{
 	ClaimedToken:          "This token was claimed",
 	MaintainceServer:      "Server Currently Is Maintenance",
 	ComingSoon:            "This feature is under construction",
-	DataNotFound:           "Data not found",
-	DatabaseException:      "Database exception occurred. Please try again",
-	CurrencyException:      "Process currency exception occurred. Please try again",
+	DataNotFound:          "Data not found",
+	DatabaseException:     "Database exception occurred. Please try again",
+	CurrencyException:     "Process currency exception occurred. Please try again",
 
 	//wolffunId ERROR_CODE 2001 -> 3000:
 	EmailNotExist:             "Email Not Exist In Database",
@@ -214,9 +217,12 @@ var errorText = map[int]string{
 	AlreadyClaimed:         "You have already received all gTHG today, please try again the next day",
 
 	// Ingame Skill Ads
-	TheDayHasPassed:        "The day has passed, please syndata and try again.",
-	MaxAdsViewed:           "Max Ads Viewed",
-	SkillIdNotFound:        "SkillId not found, please syndata and try again.",
+	TheDayHasPassed: "The day has passed, please syndata and try again.",
+	MaxAdsViewed:    "Max Ads Viewed",
+	SkillIdNotFound: "SkillId not found, please syndata and try again.",
+
+	// Minigame
+	MinigameTooFast: "You play too fast, please try again.",
 }
 
 // StatusText returns a text for the common error code. It returns the empty
