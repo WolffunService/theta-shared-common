@@ -73,14 +73,15 @@ const (
 	NotRankEnoughCashout = 3012
 	NotOldEnoughCashout  = 3013
 	//OutOfLimitCashout    = 3014
-	NotEnoughGTHG     = 3015
-	NotEnoughGTHC     = 3016
-	InvalidGTHG       = 3017
-	NotEnoughgFeeGTHG = 3018
-	HeroInTheMatch    = 3019
-	MinimumCashout    = 3020
-	MaximumCashout    = 3021
-	WrongHeroModel    = 3022
+	NotEnoughGTHG           = 3015
+	NotEnoughGTHC           = 3016
+	InvalidGTHG             = 3017
+	NotEnoughgFeeGTHG       = 3018
+	HeroInTheMatch          = 3019
+	MinimumCashout          = 3020
+	MaximumCashout          = 3021
+	WrongHeroModel          = 3022
+	NotEnoughMinigameTicket = 3023
 
 	//box
 	OutdatedBuying = 3100
@@ -222,7 +223,8 @@ var errorText = map[int]string{
 	SkillIdNotFound: "SkillId not found, please syndata and try again.",
 
 	// Minigame
-	MinigameTooFast: "You play too fast, please try again.",
+	MinigameTooFast:         "You play too fast, please try again.",
+	NotEnoughMinigameTicket: "Not enough ticket to play, please buy ticket.",
 }
 
 // StatusText returns a text for the common error code. It returns the empty
