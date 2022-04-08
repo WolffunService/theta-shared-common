@@ -43,6 +43,9 @@ const (
 	ClaimedToken          = 17
 	MaintainceServer      = 18
 	ComingSoon            = 19
+	DataNotFound          = 20
+	DatabaseException     = 21
+	CurrencyException     = 22
 
 	//wolffunId ERROR_CODE 2001 -> 3000:
 	EmailNotExist             = 2001
@@ -113,13 +116,10 @@ const (
 	MaintenanceVestingSafe = 3140
 	AlreadyClaimed         = 3141
 
-	DataNotFound           = 3200
-	DatabaseException      = 3201
-
 	// Ingame Skill Ads
-	TheDayHasPassed        = 3300
-	MaxAdsViewed           = 3301
-	SkillIdNotFound        = 3302
+	TheDayHasPassed        = 3150
+	MaxAdsViewed           = 3151
+	SkillIdNotFound        = 3152
 )
 
 var errorText = map[int]string{
@@ -143,6 +143,9 @@ var errorText = map[int]string{
 	ClaimedToken:          "This token was claimed",
 	MaintainceServer:      "Server Currently Is Maintenance",
 	ComingSoon:            "This feature is under construction",
+	DataNotFound:           "Data not found",
+	DatabaseException:      "Database exception occurred. Please try again",
+	CurrencyException:      "Process currency exception occurred. Please try again",
 
 	//wolffunId ERROR_CODE 2001 -> 3000:
 	EmailNotExist:             "Email Not Exist In Database",
@@ -210,13 +213,10 @@ var errorText = map[int]string{
 	MaintenanceVestingSafe: "This feature is under maintenance, please try again in a few minutes",
 	AlreadyClaimed:         "You have already received all gTHG today, please try again the next day",
 
-	DataNotFound:           "Data not found",
-	DatabaseException:      "Database exception occurred",
-
 	// Ingame Skill Ads
-	TheDayHasPassed:        "The day has passed",
+	TheDayHasPassed:        "The day has passed, please syndata and try again.",
 	MaxAdsViewed:           "Max Ads Viewed",
-	SkillIdNotFound:        "SkillId not found",
+	SkillIdNotFound:        "SkillId not found, please syndata and try again.",
 }
 
 // StatusText returns a text for the common error code. It returns the empty
