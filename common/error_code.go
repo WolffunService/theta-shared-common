@@ -112,6 +112,14 @@ const (
 	// VestingSafe
 	MaintenanceVestingSafe = 3140
 	AlreadyClaimed         = 3141
+
+	DataNotFound           = 3200
+	DatabaseException      = 3201
+
+	// Ingame Skill Ads
+	TheDayHasPassed        = 3300
+	MaxAdsViewed           = 3301
+	SkillIdNotFound        = 3302
 )
 
 var errorText = map[int]string{
@@ -201,6 +209,14 @@ var errorText = map[int]string{
 	// vesting safe
 	MaintenanceVestingSafe: "This feature is under maintenance, please try again in a few minutes",
 	AlreadyClaimed:         "You have already received all gTHG today, please try again the next day",
+
+	DataNotFound:           "Data not found",
+	DatabaseException:      "Database exception occurred",
+
+	// Ingame Skill Ads
+	TheDayHasPassed:        "The day has passed",
+	MaxAdsViewed:           "Max Ads Viewed",
+	SkillIdNotFound:        "SkillId not found",
 }
 
 // StatusText returns a text for the common error code. It returns the empty
