@@ -82,6 +82,7 @@ const (
 	MaximumCashout          = 3021
 	WrongHeroModel          = 3022
 	NotEnoughMinigameTicket = 3023
+	MaximumHeroLevel        = 3024
 
 	//box
 	OutdatedBuying = 3100
