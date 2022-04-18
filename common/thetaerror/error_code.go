@@ -118,6 +118,7 @@ const (
 	ErrorPrivateSaleAlreadyEnded            = 3186
 	ErrorPrivateSaleTHCPriceExpired         = 3187
 	ErrorPrivateSaleUserProjectNotFound     = 3188
+	ErrorPrivateSaleInvalidTHCFee           = 3189
 )
 
 var errorText = map[int]string{
