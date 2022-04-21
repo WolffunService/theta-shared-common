@@ -18,7 +18,7 @@ import (
 )
 
 type APIKeyService interface {
-	Generate(ctx context.Context, owner string, role string) (*entity.APIKeyResult, error)
+	Generate(ctx context.Context, owner string, role string, listAccessLimit []entity.AccessLimitInfo) (*entity.APIKeyResult, error)
 	Parse(ctx context.Context, r *http.Request) (*entity.APIKey, error)
 	Revoke(key string) error
 }
@@ -38,16 +38,22 @@ type apiKeyServiceImplement struct {
 
 var apiKeyService apiKeyServiceImplement
 
-func (a apiKeyServiceImplement) Generate(ctx context.Context, owner string, role string) (*entity.APIKeyResult, error) {
+func (a apiKeyServiceImplement) Generate(ctx context.Context, owner string, role string, accessLimit []entity.AccessLimitInfo) (*entity.APIKeyResult, error) {
 	prefix := randStringBytesMaskImprSrc(7)
 	apiKey := randStringBytesMaskImprSrc(64)
 	hashKey := HashRawKey(apiKey)
 
+	var mapAccessLimit = make(map[entity.AccessLimitType]int64)
+	for _, limit := range accessLimit {
+		mapAccessLimit[limit.LimitType] = limit.LimitCount
+	}
+
 	key := entity.APIKey{
-		Prefix:  prefix,
-		HashKey: hashKey,
-		Owner:   owner,
-		Status:  entity.APIKeyStatusEnabled,
+		Prefix:      prefix,
+		HashKey:     hashKey,
+		Owner:       owner,
+		Status:      entity.APIKeyStatusEnabled,
+		AccessLimit: mapAccessLimit,
 	}
 	key.CreatedAt = time.Now().UTC()
 
@@ -83,7 +89,7 @@ func (a apiKeyServiceImplement) Parse(ctx context.Context, r *http.Request) (*en
 	prefix := segments[0]
 	hashKey := HashRawKey(segments[1])
 
-	apiKey, err := getAPIKey(ctx, prefix, hashKey)
+	apiKey, err := GetAPIKey(ctx, prefix, hashKey)
 
 	if err != nil {
 		return nil, err
@@ -144,7 +150,7 @@ func createAPIKey(ctx context.Context, data *entity.APIKey) error {
 	return nil
 }
 
-func getAPIKey(ctx context.Context, prefix string, hashKey string) (*entity.APIKey, error) {
+func GetAPIKey(ctx context.Context, prefix string, hashKey string) (*entity.APIKey, error) {
 	filter := bson.D{
 		{Key: "prefix", Value: prefix},
 		{Key: "hashKey", Value: hashKey},

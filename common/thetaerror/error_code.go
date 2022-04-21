@@ -108,6 +108,19 @@ const (
 	ErrorEmptyReward         = 3170
 	ErrorNotReadyForClaim    = 3171
 	ErrorMaxHeroesPerStake   = 3172
+
+	// PrivateSale
+	ErrorPrivateSaleInvalidAmountAllocation = 3180
+	ErrorPrivateSaleExceedPool              = 3181
+	ErrorPrivateSaleInvalidTHCPrice         = 3182
+	ErrorPrivateSaleNotEnoughPTicket        = 3183
+	ErrorPrivateSaleAlreadyBuyProject       = 3184
+	ErrorPrivateSaleNotStartYet             = 3185
+	ErrorPrivateSaleAlreadyEnded            = 3186
+	ErrorPrivateSaleTHCPriceExpired         = 3187
+	ErrorPrivateSaleUserProjectNotFound     = 3188
+	ErrorPrivateSaleInvalidTHCFee           = 3189
+	ErrorPrivateSaleInactiveProject         = 3190
 )
 
 var errorText = map[int]string{
