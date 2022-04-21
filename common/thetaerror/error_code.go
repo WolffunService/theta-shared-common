@@ -107,6 +107,7 @@ const (
 	ErrorMaxPendingStake     = 3169
 	ErrorEmptyReward         = 3170
 	ErrorNotReadyForClaim    = 3171
+	ErrorMaxHeroesPerStake   = 3172
 )
 
 var errorText = map[int]string{
@@ -212,4 +213,5 @@ var errorText = map[int]string{
 	ErrorMaxPendingStake:     "Waiting for your pending stake processed after new stake",
 	ErrorEmptyReward:         "Current reward for this stake is empty",
 	ErrorNotReadyForClaim:    "This stake is not ready for claim reward",
+	ErrorMaxHeroesPerStake:   "Limit heroes per stake. You can stake maximum 200 heroes per stake",
 }
