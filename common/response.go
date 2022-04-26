@@ -13,6 +13,16 @@ type Response struct {
 	Data          interface{} `json:"data,omitempty"`
 }
 
+type ResponseG[T any] struct {
+	Success       bool   `json:"success"`
+	Code          int    `json:"code,omitempty"`
+	DebugMessage  string `json:"status,omitempty"`
+	RootError     error  `json:"-"`
+	RootErrorCode int    `json:"rootCode,omitempty"`
+	Message       string `json:"message,omitempty"`
+	Data          T      `json:"data,omitempty"`
+}
+
 type Paging struct {
 	Total int64 `json:"total"`
 }

@@ -1,6 +1,6 @@
 module github.com/WolffunGame/theta-shared-common
 
-go 1.16
+go 1.18
 
 require (
 	github.com/WolffunGame/theta-shared-database v1.2.22
