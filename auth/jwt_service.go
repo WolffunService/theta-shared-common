@@ -9,7 +9,7 @@ import (
 
 	"github.com/WolffunGame/theta-shared-common/auth/entity"
 	"github.com/WolffunGame/theta-shared-common/common"
-	"github.com/dgrijalva/jwt-go"
+	"github.com/golang-jwt/jwt"
 )
 
 //check token http author

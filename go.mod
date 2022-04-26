@@ -5,10 +5,11 @@ go 1.18
 require (
 	github.com/WolffunGame/theta-shared-database v1.2.22
 	github.com/casbin/casbin/v2 v2.41.0
-	github.com/dgrijalva/jwt-go v3.2.0+incompatible
 	github.com/gin-gonic/gin v1.7.3
 	github.com/go-errors/errors v1.4.2
+	github.com/go-redis/redis/v8 v8.11.3
 	github.com/go-stack/stack v1.8.1 // indirect
+	github.com/golang-jwt/jwt v3.2.2+incompatible
 	github.com/golang/protobuf v1.5.2
 	github.com/golang/snappy v0.0.4 // indirect
 	github.com/google/uuid v1.3.0
