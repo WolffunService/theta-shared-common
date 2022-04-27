@@ -93,6 +93,8 @@ const (
 
 	// Creator Program
 	ErrorMaintenanceCreatorProgram = 3150
+	ErrorAreNotCreator             = 3151
+	ErrorAreNotViewer              = 3152
 
 	// Staking
 	ErrorMaintenanceStaking  = 3160
@@ -212,6 +214,8 @@ var errorText = map[int]string{
 
 	// Creator Program
 	ErrorMaintenanceCreatorProgram: "This feature is under maintenance, please try again in a few minutes",
+	ErrorAreNotCreator:             "You are a Creator. You can’t earn gift as a Viewer",
+	ErrorAreNotViewer:              "You are not a Creator, please contact us for more information",
 
 	// Staking
 	ErrorMaintenanceStaking:  "This feature is under maintenance, please try again in a few minutes",
