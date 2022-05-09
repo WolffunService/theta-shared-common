@@ -47,6 +47,19 @@ const (
 	DatabaseException     = 21
 	CurrencyException     = 22
 
+	// turn + season
+	ExpiredTurn      = 100
+	ExpiredSeason    = 101
+	NotExpiredSeason = 102
+	NotStartSeason   = 103
+
+	// price
+	ExpiredPrice = 200
+
+	// reward
+	RewardNotFound      = 300
+	NotYetReceiveReward = 301
+
 	//wolffunId ERROR_CODE 2001 -> 3000:
 	EmailNotExist             = 2001
 	EmailIsExist              = 2002
@@ -125,6 +138,11 @@ const (
 
 	// Minigame
 	MinigameTooFast = 3200
+
+	// fusion
+	ErrWrongSet     = 3300
+	ErrFusing       = 3301
+	ErrNegativeCost = 3302
 )
 
 var errorText = map[int]string{
@@ -151,6 +169,20 @@ var errorText = map[int]string{
 	DataNotFound:          "Data not found",
 	DatabaseException:     "Database exception occurred. Please try again",
 	CurrencyException:     "Process currency exception occurred. Please try again",
+
+	// general
+	// turn + season
+	ExpiredTurn:      "Turn was expired, please refresh the turn",
+	ExpiredSeason:    "Season time has expired, please wait for the next season",
+	NotExpiredSeason: "Season is not expired yet, please wait till the end",
+	NotStartSeason:   "Season is not start yet, please wait",
+
+	// price
+	ExpiredPrice: "Price is updated, please refresh the price",
+
+	// reward
+	RewardNotFound:      "You have not had any reward or already claimed",
+	NotYetReceiveReward: "Please receive previous season rewards first",
 
 	//wolffunId ERROR_CODE 2001 -> 3000:
 	EmailNotExist:             "Email Not Exist In Database",
@@ -226,6 +258,11 @@ var errorText = map[int]string{
 	// Minigame
 	MinigameTooFast:         "You play too fast, please try again.",
 	NotEnoughMinigameTicket: "Not enough ticket to play, please buy ticket.",
+
+	// fusion
+	ErrWrongSet:     "Wrong fusion set of heroes",
+	ErrFusing:       "Please wait for the previous fusing turn completed",
+	ErrNegativeCost: "Material heroes is too valuable than output hero",
 }
 
 // StatusText returns a text for the common error code. It returns the empty
