@@ -54,7 +54,7 @@ func ErrorResponseCustom(customerror *customerror.CustomError) *Response {
 
 func ErrorResponse(code int, debugMessage string) *Response {
 	message := ErrorText(code)
-	if !_IsGlobal {
+	if _IsGlobal {
 		debugMessage = ""
 	}
 	return &Response{
