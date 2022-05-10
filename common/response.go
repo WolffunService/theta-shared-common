@@ -2,10 +2,12 @@ package common
 
 import "github.com/WolffunGame/theta-shared-common/common/customerror"
 
+var _IsGlobal = false
+
 // Response is the response that represents an error.
 type Response struct {
 	Success       bool        `json:"success"`
-	Code          int         `json:"code,omitempty"`
+	Code          int         `json:"code"`
 	DebugMessage  string      `json:"status,omitempty"`
 	RootError     error       `json:"-"`
 	RootErrorCode int         `json:"rootCode,omitempty"`
@@ -15,7 +17,7 @@ type Response struct {
 
 type ResponseG[T any] struct {
 	Success       bool   `json:"success"`
-	Code          int    `json:"code,omitempty"`
+	Code          int    `json:"code"`
 	DebugMessage  string `json:"status,omitempty"`
 	RootError     error  `json:"-"`
 	RootErrorCode int    `json:"rootCode,omitempty"`
@@ -52,6 +54,9 @@ func ErrorResponseCustom(customerror *customerror.CustomError) *Response {
 
 func ErrorResponse(code int, debugMessage string) *Response {
 	message := ErrorText(code)
+	if !_IsGlobal {
+		debugMessage = ""
+	}
 	return &Response{
 		Success:      false,
 		Code:         code,
@@ -75,4 +80,8 @@ func SuccessResponseWithPaging(data interface{}, page *Paging) ResponseWithPagin
 	response.Data = data
 	response.Page = page
 	return response
+}
+
+func SetGlobalResponse(isGlobal bool) {
+	_IsGlobal = isGlobal
 }
