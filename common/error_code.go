@@ -46,6 +46,7 @@ const (
 	DataNotFound          = 20
 	DatabaseException     = 21
 	CurrencyException     = 22
+	AlreadyClaimedReward  = 23
 
 	// turn + season
 	ExpiredTurn      = 100
@@ -169,6 +170,7 @@ var errorText = map[int]string{
 	DataNotFound:          "Data not found",
 	DatabaseException:     "Database exception occurred. Please try again",
 	CurrencyException:     "Process currency exception occurred. Please try again",
+	AlreadyClaimedReward:  "You have already claimed",
 
 	// general
 	// turn + season
