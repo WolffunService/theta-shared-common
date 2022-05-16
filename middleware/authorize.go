@@ -47,7 +47,9 @@ func RequiredAuthVerified(service auth.Service, roles ...common.UserRole) func(c
 		c.Set(auth.ClaimKeyRole, userRole)
 
 		if userRole == common.ROOT {
-			c.Next()
+			//c.Next()
+			c.JSON(http.StatusForbidden, common.ErrorResponse(common.Error, "This account does not have this permission"))
+			c.Abort()
 			return
 		}
 
@@ -104,7 +106,7 @@ func RequiredAPIKeyVerified(apiKeyService auth.APIKeyService, rbac rbac.Authoriz
 				return
 			}
 
-			if (!isValidAccess) {
+			if !isValidAccess {
 				c.JSON(http.StatusForbidden, common.ErrorResponse(thetaerror.ErrorInternal, "This API Key has limited access"))
 				c.Abort()
 				return
