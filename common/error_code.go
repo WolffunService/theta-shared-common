@@ -174,17 +174,17 @@ var errorText = map[int]string{
 
 	// general
 	// turn + season
-	ExpiredTurn:      "Turn was expired, please refresh the turn",
-	ExpiredSeason:    "Season time has expired, please wait for the next season",
-	NotExpiredSeason: "Season is not expired yet, please wait till the end",
-	NotStartSeason:   "Season is not start yet, please wait",
+	ExpiredTurn:      "Turned expired!",
+	ExpiredSeason:    "Event has ended!",
+	NotExpiredSeason: "Unable to proceed! Please wait for the event to end.",
+	NotStartSeason:   "Unable to proceed! Please wait for the event to start.",
 
 	// price
-	ExpiredPrice: "Price is updated, please refresh the price",
+	ExpiredPrice: "Price updated! Please refresh to proceed.",
 
 	// reward
-	RewardNotFound:      "You have not had any reward or already claimed",
-	NotYetReceiveReward: "Please receive previous season rewards first",
+	RewardNotFound:      "Unable to claim! No reward is available.",
+	NotYetReceiveReward: "Please claim all rewards from the previous event to join a new one.",
 
 	//wolffunId ERROR_CODE 2001 -> 3000:
 	EmailNotExist:             "Email Not Exist In Database",
@@ -262,9 +262,9 @@ var errorText = map[int]string{
 	NotEnoughMinigameTicket: "Not enough ticket to play, please buy ticket.",
 
 	// fusion
-	ErrWrongSet:     "Wrong fusion set of heroes",
-	ErrFusing:       "Please wait for the previous fusing turn completed",
-	ErrNegativeCost: "Material heroes is too valuable than output hero",
+	ErrWrongSet:     "Wrong input heroes!",
+	ErrFusing:       "Complete the available fusion to start the others",
+	ErrNegativeCost: "Heroes used to fuse has greater total value than output hero. Please change your input!",
 }
 
 // StatusText returns a text for the common error code. It returns the empty
