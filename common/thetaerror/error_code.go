@@ -74,7 +74,11 @@ const (
 	ErrorPreviouslyReported     = 3108
 
 	// Box
-	ErrorBoxExchangeRate = 3109
+	ErrorBoxExchangeRate     = 3109
+	ErrorMustLinkedWolffunId = 3110
+	ErrorMustInstalledGame   = 3111
+	ErrorNeedMoreTimeToOpen  = 3112
+	ErrorAlreadyClaimFreeBox = 3113
 
 	// Rental
 	ErrorRentedItem            = 3120
@@ -186,6 +190,12 @@ var errorText = map[int]string{
 	ErrorOutOfBoxes:      "Out Of Thetan Boxes",
 	ErrorNotEnoughBox:    "Not Enough Quantity Box",
 	ErrorBoxExchangeRate: "Box price has been updated, please try again!",
+
+	// Gift box
+	ErrorMustLinkedWolffunId: "Hey, you must link your account with WolffunId first!",
+	ErrorMustInstalledGame:   "Hey, you must install ThetanArena and log in to your account!",
+	ErrorNeedMoreTimeToOpen:  "Hmm, you need at least 24 hours before opening your gift box!",
+	ErrorAlreadyClaimFreeBox: "Oh no, you already claimed this box before!",
 
 	//friend
 	ErrorOtherFullRequestReceived: "Your friend can't take any more friend requests",
