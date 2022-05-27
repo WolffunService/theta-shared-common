@@ -1,13 +1,6 @@
 package customerror
 
-import "github.com/WolffunGame/theta-shared-common/common"
-
 func New(code int, message string) error {
-	return &CustomError{code: code, message: message}
-}
-
-func NewDefault(code int) error {
-	message := common.ErrorText(code)
 	return &CustomError{code: code, message: message}
 }
 
