@@ -277,8 +277,13 @@ var errorText = map[int]string{
 	ErrNegativeCost: "Heroes used to fuse has greater total value than output hero. Please change your input!",
 }
 
-// StatusText returns a text for the common error code. It returns the empty
+const unknownErrorMessage = "An internal error has occurred. Please contact technical support!"
+
+// ErrorText returns a text for the common error code. It returns the default
 // string if the code is unknown.
 func ErrorText(code int) string {
-	return errorText[code]
+	if errorMessage, found := errorText[code]; found {
+		return errorMessage
+	}
+	return unknownErrorMessage
 }
