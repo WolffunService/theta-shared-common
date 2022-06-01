@@ -2,6 +2,7 @@ package eventbus
 
 import (
 	"fmt"
+	"github.com/WolffunGame/theta-shared-common/common"
 	"reflect"
 	"sync"
 )
@@ -159,6 +160,7 @@ func (bus *EventBus) Publish(topic string, args ...interface{}) {
 }
 
 func (bus *EventBus) doPublish(handler *eventHandler, topic string, args ...interface{}) {
+	defer common.Recover("topic: " + topic)
 	passedArguments := bus.setUpPublish(handler, args...)
 	handler.callBack.Call(passedArguments)
 }
