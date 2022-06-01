@@ -13,8 +13,8 @@ const (
 	ROOT  UserRole = 2
 )
 
-func Recover() {
+func Recover(message ...string) {
 	if err := recover(); err != nil {
-		log.Println("recovered from ", errors.Wrap(err, 2).ErrorStack())
+		log.Println("recovered mes: ", message, " -- from: ", errors.Wrap(err, 2).ErrorStack())
 	}
 }
