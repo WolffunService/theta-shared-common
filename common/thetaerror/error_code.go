@@ -81,6 +81,7 @@ const (
 	ErrorAlreadyClaimFreeBox = 3113
 	ErrorMustConnectCoinbase = 3114
 	ErrorGiftCodeInvalid     = 3115
+	ErrorRequestProcessing	 = 3116
 
 	// Rental
 	ErrorRentedItem            = 3120
@@ -200,6 +201,7 @@ var errorText = map[int]string{
 	ErrorAlreadyClaimFreeBox: "Oh no, you already claimed this box before!",
 	ErrorMustConnectCoinbase: "Hey, you must connect your account with the Coinbase wallet!",
 	ErrorGiftCodeInvalid:     "Oh no, the gift code is not valid or expired!",
+	ErrorRequestProcessing:     "Your request is being handled!",
 
 	//friend
 	ErrorOtherFullRequestReceived: "Your friend can't take any more friend requests",
