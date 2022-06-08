@@ -79,6 +79,8 @@ const (
 	ErrorMustInstalledGame   = 3111
 	ErrorNeedMoreTimeToOpen  = 3112
 	ErrorAlreadyClaimFreeBox = 3113
+	ErrorMustConnectCoinbase = 3114
+	ErrorGiftCodeInvalid     = 3115
 
 	// Rental
 	ErrorRentedItem            = 3120
@@ -196,6 +198,8 @@ var errorText = map[int]string{
 	ErrorMustInstalledGame:   "Hey, you must install ThetanArena and log in to your account!",
 	ErrorNeedMoreTimeToOpen:  "Hmm, you need at least 24 hours before opening your gift box!",
 	ErrorAlreadyClaimFreeBox: "Oh no, you already claimed this box before!",
+	ErrorMustConnectCoinbase: "Hey, you must connect your account with the Coinbase wallet!",
+	ErrorGiftCodeInvalid:     "Oh no, the gift code is not valid or expired!",
 
 	//friend
 	ErrorOtherFullRequestReceived: "Your friend can't take any more friend requests",
