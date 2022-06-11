@@ -2,6 +2,7 @@ package currency
 
 import (
 	"fmt"
+	"github.com/WolffunGame/theta-shared-common/common/thetaerror"
 	"github.com/WolffunGame/theta-shared-common/thetalog"
 	"github.com/gocql/gocql"
 	"github.com/scylladb/gocqlx/v2"
@@ -11,6 +12,7 @@ import (
 
 type TransferId = gocql.UUID
 type TransferState int32
+type Row = map[string]interface{}
 
 const (
 	TransferStateNew       TransferState = 2
@@ -25,7 +27,7 @@ func NewTransferId() TransferId {
 }
 
 type UserBalance struct {
-	UserID          string
+	UserId          string
 	CurrencyType    int
 	Balance         int64
 	PendingTransfer gocql.UUID
@@ -34,12 +36,13 @@ type UserBalance struct {
 }
 
 type Transfer struct {
-	TransferID   gocql.UUID
+	TransferId   TransferId
 	CurrencyType int
 	SourceID     string
 	DestID       string
 	Amount       int64
 	State        TransferState
+	ClientId     gocql.UUID
 	CreatedAt    time.Time
 }
 
@@ -55,7 +58,8 @@ type Stats struct {
 type Client struct {
 	clientId             gocql.UUID // For locking
 	session              gocqlx.Session
-	payStats             *Stats
+	rawSession           *gocql.Session
+	stats                *Stats
 	logger               thetalog.Logger
 	insertTransfer       *gocql.Query
 	setTransferClient    *gocql.Query
@@ -70,55 +74,134 @@ type Client struct {
 	updateAccountBalance *gocql.Query
 }
 
+func (c *Client) Init(session gocqlx.Session, stats *Stats) {
+	c.clientId = gocql.TimeUUID()
+	c.logger.Info().Op("CurrencyClientInit").Var("client_id", c.clientId).Send()
+
+	c.session = session
+	c.rawSession = session.Session
+	c.stats = stats
+	c.insertTransfer = session.Session.Query(INSERT_TRANSFER)
+	c.setTransferClient = session.Session.Query(SET_TRANSFER_CLIENT)
+	c.setTransferState = session.Session.Query(SET_TRANSFER_STATE)
+	c.clearTransferClient = session.Session.Query(CLEAR_TRANSFER_CLIENT)
+	c.deleteTransfer = session.Session.Query(DELETE_TRANSFER)
+	c.fetchTransfer = session.Session.Query(FETCH_TRANSFER)
+	c.fetchTransfer.SerialConsistency(gocql.Serial)
+	c.fetchTransferClient = session.Session.Query(FETCH_TRANSFER_CLIENT)
+	c.fetchTransferClient.SerialConsistency(gocql.Serial)
+	c.lockAccount = session.Session.Query(LOCK_ACCOUNT)
+	c.unlockAccount = session.Session.Query(UNLOCK_ACCOUNT)
+	c.updateAccountBalance = session.Session.Query(UPDATE_BALANCE)
+	c.fetchAccountBalance = session.Session.Query(FETCH_BALANCE)
+	c.fetchAccountBalance.SerialConsistency(gocql.Serial)
+}
+
 func (c *Client) RegisterTransfer(t *Transfer) error {
 	c.logger.Info().Op("RegisterTransfer").Var("client_id", c.clientId).Send()
 
-	qb.Insert(transferMetadata.Name).Unique().Query(c.session).Consistency(gocql.Quorum).BindStruct(t)
+	q := qb.Insert(transferMetadata.Name).Unique().Query(c.session).Consistency(gocql.Quorum).BindStruct(t)
+	var prev Transfer
 
-	// Register a new transfer
-	cql := c.insertTransfer
-	cql.Bind(t.id, t.acs[0].bic, t.acs[0].ban, t.acs[1].bic, t.acs[1].ban, t.amount)
-	row := Row{}
-	if applied, err := cql.MapScanCAS(row); err != nil || !applied {
+	if applied, err := q.GetCASRelease(&prev); err != nil || !applied {
 		if err == nil && !applied {
 			// Should never happen, transfer id is globally unique
-			llog.Fatalf("[%v] [%v] Failed to create: a duplicate transfer exists",
-				c.shortId, t.id)
+			c.logger.Fatal().Op("RegisterTransfer").Var("client_id", c.clientId).Var("transfer_id", t.TransferId).Send()
 		}
-		return merry.Wrap(err)
+
+		return &thetaerror.Error{
+			Code:    thetaerror.ErrorInternal,
+			Message: "RegisterTransfer Error",
+			Op:      "RegisterTransfer",
+			Err:     err,
+		}
 	}
-	return c.SetTransferClient(t.id)
+	return c.SetTransferClient(t.TransferId)
 }
 
 func (c *Client) SetTransferClient(transferId TransferId) error {
-	c.logger.Info().Op("RegisterTransfer").Var("client_id", c.clientId).Var("transfer_id", transferId).Send()
+	c.logger.Info().Op("SetTransferClient").Var("client_id", c.clientId).Var("transfer_id", transferId).Send()
 
-	cql := c.setTransferClient
-	cql.Bind(c.clientId, transferId)
-	// Change transfer - set client id
+	type TransferQuery struct {
+		TransferID        TransferId
+		Amount            interface{}
+		ClientID          gocql.UUID
+		ConditionClientID interface{}
+	}
 
-	qb.Update(transferMetadata.Name).
+	q := qb.Update(transferMetadata.Name).
 		Set("client_id").
 		Where(qb.Eq("transfer_id")).
-		If(qb.Ne("amount"))
+		If(qb.Ne("amount")).
+		If(qb.EqNamed("client_id", "condition_client_id")).Query(c.session).Consistency(gocql.Quorum).BindStruct(&TransferQuery{
+		TransferID:        transferId,
+		Amount:            nil,
+		ClientID:          c.clientId,
+		ConditionClientID: nil,
+	})
+	var prev Transfer
 
+	if applied, err := q.GetCASRelease(prev); err != nil || !applied {
+		if err != nil {
+			return &thetaerror.Error{
+				Code: thetaerror.ErrorInternal,
+				Err:  err,
+			}
+		}
+
+		if prev.ClientId == nilUuid {
+			c.logger.Trace().Op("SetTransferClient").Var("transfer_id", transferId).Msg("Failed to set client: no such transfer")
+			return &thetaerror.Error{
+				Code: thetaerror.ErrorInternal,
+				Err:  gocql.ErrNotFound,
+			}
+		}
+
+		if c.clientId != prev.ClientId {
+			// The transfer is already worked on.
+			return &thetaerror.Error{
+				Message: fmt.Sprintf("our id %v, previous id %v",
+					c.clientId, prev.ClientId),
+				Code: thetaerror.ErrorInternal,
+				Err:  gocql.ErrNotFound,
+			}
+		}
+
+		// c.clientId == rowClientId
+	}
+
+	return nil
+}
+
+func (c *Client) SetTransferState(t *Transfer, state TransferState) error {
+	c.logger.Info().Op("SetTransferState").Var("transfer_id", t.TransferId).Send()
+
+	cql := c.setTransferState
+	cql.Bind(state, t.TransferId, c.clientId)
 	row := Row{}
 	if applied, err := cql.MapScanCAS(row); err != nil || !applied {
 		if err != nil {
-			return merry.Wrap(err)
+			return &thetaerror.Error{
+				Code: thetaerror.ErrorInternal,
+				Err:  err,
+			}
 		}
+
 		rowClientId, exists := row["client_id"]
 		if !exists || rowClientId == nilUuid {
-			llog.Tracef("[%v] [%v] Failed to set client: no such transfer",
-				c.shortId, transferId)
-			return merry.Wrap(gocql.ErrNotFound)
+			c.logger.Trace().Op("SetTransferState").Var("client_id", c.clientId).Msg("Failed to set state: no such transfer")
+			return &thetaerror.Error{
+				Code: thetaerror.ErrorInternal,
+				Err:  gocql.ErrNotFound,
+			}
 		}
-		if c.clientId != rowClientId {
-			// The transfer is already worked on.
-			err := merry.New(fmt.Sprintf("our id %v, previous id %v",
-				c.clientId, rowClientId))
-			return merry.WithCause(gocql.ErrNotFound, err)
-		} // c.clientId == rowClientId
+		return &thetaerror.Error{
+			Message: fmt.Sprintf("our id %v, previous id %v",
+				c.clientId, rowClientId),
+			Code: thetaerror.ErrorInternal,
+			Err:  gocql.ErrNotFound,
+		}
 	}
+	t.State = state
 	return nil
 }
