@@ -49,7 +49,7 @@ var transferMetadata = table.Metadata{
 }
 
 // Client id has to be updated separately to let it expire
-const INSERT_TRANSFER = `
+const InsertTransfer = `
 INSERT INTO transfers
   (transfer_id, src_bic, src_ban, dst_bic, dst_ban, amount, state)
   VALUES (?, ?, ?, ?, ?, ?, 'new')
@@ -58,7 +58,7 @@ INSERT INTO transfers
 
 // Because of a Cassandra/Scylla bug we can't supply NULL as a parameter marker
 // Always check the row exists to not accidentally add a transfer
-const SET_TRANSFER_CLIENT = `
+const SetTransferClient = `
 UPDATE transfers USING TTL 30
   SET client_id = ?
   WHERE transfer_id = ?
@@ -73,82 +73,81 @@ UPDATE transfers
 `
 
 // Always check the row exists to not accidentally add a transfer
-const CLEAR_TRANSFER_CLIENT = `
+const ClearTransferClient = `
 UPDATE transfers
   SET client_id = NULL
   WHERE transfer_id = ?
   IF amount != NULL AND client_id = ?
 `
 
-const DELETE_TRANSFER = `
+const DeleteTransfer = `
 DELETE FROM transfers
   WHERE transfer_id = ?
   IF client_id = ?
 `
 
-const FETCH_TRANSFER = `
-SELECT src_bic, src_ban, dst_bic, dst_ban, amount, state
+const FetchTransfer = `
+SELECT source_id, dest_id, amount, state
   FROM transfers
   WHERE transfer_id = ?
 `
 
-const FETCH_TRANSFER_CLIENT = `
+const FetchTransferClient = `
 SELECT client_id
   FROM transfers
   WHERE transfer_id = ?
 `
 
-// Cassandra/Scylla don't handle IF client_id = NUll queries
+// FetchDeadTransfers Cassandra/Scylla don't handle IF client_id = NUll queries
 // correctly. But NULLs are implicitly converted to mintimeuuids
 // during comparison. Use one bug to workaround another.
 // WHERE client_id < minTimeuuid('1979-08-12 21:35+0000')
-const FETCH_DEAD_TRANSFERS = `
+const FetchDeadTransfers = `
 SELECT transfer_id
   FROM transfers
   ALLOW FILTERING
 `
 
-// Condition balance column:
+// LockAccount Condition balance column:
 // 1) To avoid accidentally inserting a new account here
 // 2) To get it back (Scylla only)
-const LOCK_ACCOUNT = `
-UPDATE accounts
+const LockAccount = `
+UPDATE users_balance
   SET pending_transfer = ?, pending_amount = ?
-  WHERE bic = ? AND ban = ?
+  WHERE user_id = ? AND currency_type = ?
   IF balance != NULL AND pending_amount != NULL AND pending_transfer = NULL
 `
 
-// Always check the row exists in IF to not accidentally add a transfer
-//
-const UNLOCK_ACCOUNT = `
-UPDATE accounts
+// UnlockAccount Always check the row exists in IF to not accidentally add a transfer
+const UnlockAccount = `
+UPDATE users_balance
   SET pending_transfer = NULL, pending_amount = 0
-  WHERE bic = ? AND ban = ?
+  WHERE user_id = ? AND currency_type = ?
   IF balance != NULL AND pending_transfer = ?
 `
 
-const FETCH_BALANCE = `
+const FetchBalance = `
 SELECT balance, pending_amount
-  FROM accounts
-  WHERE bic = ? AND ban = ?
+  FROM users_balance
+  WHERE user_id = ? AND currency_type = ?
 `
 
 // Always check the row exists in IF to not accidentally add a transfer
-const UPDATE_BALANCE = `
+const UpdateBalance = `
 UPDATE accounts
   SET pending_amount = 0, balance = ?
   WHERE bic = ? AND ban = ?
   IF balance != NULL AND pending_transfer = ?
 `
 
-const CHECK_BALANCE = `
+const CheckBalance = `
 SELECT SUM(balance) FROM accounts
 `
 
-const PERSIST_TOTAL = `
+const PersistTotal = `
 UPDATE lightest.check SET amount = ?  WHERE name = 'total'
 `
 
-const FETCH_TOTAL = `
+const FetchTotal = `
 SELECT amount FROM lightest.check WHERE name = 'total'
 `

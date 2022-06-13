@@ -4,6 +4,7 @@ go 1.18
 
 require (
 	github.com/WolffunGame/theta-shared-database v1.2.22
+	github.com/ansel1/merry/v2 v2.0.1
 	github.com/casbin/casbin/v2 v2.41.0
 	github.com/gin-gonic/gin v1.7.3
 	github.com/go-errors/errors v1.4.2
@@ -16,17 +17,20 @@ require (
 	github.com/scylladb/gocqlx/v2 v2.7.0
 	github.com/sendgrid/rest v2.6.5+incompatible
 	github.com/sendgrid/sendgrid-go v3.10.3+incompatible
+	github.com/spenczar/tdigest v2.1.0+incompatible
 	go.mongodb.org/mongo-driver v1.8.3
 	go.uber.org/zap v1.19.0
 	golang.org/x/crypto v0.0.0-20220210151621-f4118a5b28e2
-	google.golang.org/genproto v0.0.0-20210927142257-433400c27d05
-	google.golang.org/grpc v1.41.0
+	google.golang.org/genproto v0.0.0-20220208230804-65c12eb4c068
+	google.golang.org/grpc v1.44.0
 	google.golang.org/protobuf v1.27.1
+	gopkg.in/inf.v0 v0.9.1
 )
 
 require (
 	github.com/Knetic/govaluate v3.0.1-0.20171022003610-9aa49832a739+incompatible // indirect
 	github.com/cespare/xxhash/v2 v2.1.1 // indirect
+	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/dgryski/go-rendezvous v0.0.0-20200823014737-9f7001d12a5f // indirect
 	github.com/gin-contrib/sse v0.1.0 // indirect
 	github.com/go-playground/locales v0.13.0 // indirect
@@ -59,6 +63,5 @@ require (
 	golang.org/x/sync v0.0.0-20210220032951-036812b2e83c // indirect
 	golang.org/x/sys v0.0.0-20210927094055-39ccf1dd6fa6 // indirect
 	golang.org/x/text v0.3.7 // indirect
-	gopkg.in/inf.v0 v0.9.1 // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 )
