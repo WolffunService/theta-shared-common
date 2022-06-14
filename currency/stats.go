@@ -48,7 +48,7 @@ type stats struct {
 
 var s stats
 
-type cookie struct {
+type Cookie struct {
 	time time.Time
 }
 
@@ -104,13 +104,13 @@ func StatsInit() {
 	go statsWorker()
 }
 
-func StatsRequestStart() cookie {
-	return cookie{
+func StatsRequestStart() Cookie {
+	return Cookie{
 		time: time.Now(),
 	}
 }
 
-func StatsRequestEnd(c cookie) {
+func StatsRequestEnd(c Cookie) {
 	s.queue <- time.Since(c.time)
 }
 

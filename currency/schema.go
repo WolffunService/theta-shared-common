@@ -87,7 +87,7 @@ DELETE FROM transfers
 `
 
 const FetchTransfer = `
-SELECT source_id, dest_id, amount, state
+SELECT source_id, dest_id, amount, state, currency_type
   FROM transfers
   WHERE transfer_id = ?
 `
@@ -134,14 +134,14 @@ SELECT balance, pending_amount
 
 // Always check the row exists in IF to not accidentally add a transfer
 const UpdateBalance = `
-UPDATE accounts
+UPDATE users_balance
   SET pending_amount = 0, balance = ?
-  WHERE bic = ? AND ban = ?
+  WHERE user_id = ? AND currency_type = ?
   IF balance != NULL AND pending_transfer = ?
 `
 
 const CheckBalance = `
-SELECT SUM(balance) FROM accounts
+SELECT SUM(balance) FROM users_balance
 `
 
 const PersistTotal = `
