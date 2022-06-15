@@ -83,6 +83,7 @@ type Client struct {
 
 func (c *Client) Init(session gocqlx.Session, stats *Stats) {
 	c.clientId = gocql.TimeUUID()
+	c.logger = thetalog.NewBizLogger("new_currency")
 	c.logger.Info().Op("CurrencyClientInit").Var("client_id", c.clientId).Send()
 
 	c.session = session
@@ -92,7 +93,7 @@ func (c *Client) Init(session gocqlx.Session, stats *Stats) {
 	c.insertTransfer = session.Session.Query(InsertTransfer)
 
 	c.setTransferClient = session.Session.Query(SetTransferClient)
-	c.setTransferState = session.Session.Query(SET_TRANSFER_STATE)
+	c.setTransferState = session.Session.Query(SetTransferState)
 	c.clearTransferClient = session.Session.Query(ClearTransferClient)
 	c.deleteTransfer = session.Session.Query(DeleteTransfer)
 	c.fetchTransfer = session.Session.Query(FetchTransfer)

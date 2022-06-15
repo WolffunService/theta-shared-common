@@ -1,8 +1,12 @@
 package currency
 
-import "github.com/scylladb/gocqlx/v2/table"
+import (
+	"github.com/ansel1/merry/v2"
+	"github.com/gocql/gocql"
+	"github.com/scylladb/gocqlx/v2/table"
+)
 
-const CreateUsersBalanceTable = `CREATE TABLE IF NOT EXISTS thetan.users_balance (
+const CreateUsersBalanceTable = `CREATE TABLE IF NOT EXISTS thetancurrency.users_balance (
 		  	user_id text,
 			currency_type int,
 			balance bigint,
@@ -11,7 +15,7 @@ const CreateUsersBalanceTable = `CREATE TABLE IF NOT EXISTS thetan.users_balance
 			updated_at timestamp,
 		  PRIMARY KEY (user_id, currency_type))`
 
-const CreateTransfersTable = `CREATE TABLE IF NOT EXISTS thetan.transfers (
+const CreateTransfersTable = `CREATE TABLE IF NOT EXISTS thetancurrency.transfers (
 		  	transfer_id UUID,
 			currency_type tinyint,
 			source_id text,
@@ -21,6 +25,13 @@ const CreateTransfersTable = `CREATE TABLE IF NOT EXISTS thetan.transfers (
 			client_id UUID, -- the client performing the transfer
 			created_at timestamp,
 		  PRIMARY KEY (transfer_id))`
+
+const CreateCheckTable = `
+CREATE TABLE thetancurrency.check (
+	name TEXT,
+	amount bigint,
+	PRIMARY KEY(name)
+)`
 
 var balanceMetadata = table.Metadata{
 	Name: "thetan.users_balance",
@@ -48,7 +59,7 @@ var transferMetadata = table.Metadata{
 	//SortKey: []string{"currency_type"},
 }
 
-// Client id has to be updated separately to let it expire
+// InsertTransfer Client id has to be updated separately to let it expire
 const InsertTransfer = `
 INSERT INTO transfers
   (transfer_id, src_bic, src_ban, dst_bic, dst_ban, amount, state)
@@ -56,7 +67,7 @@ INSERT INTO transfers
   IF NOT EXISTS
 `
 
-// Because of a Cassandra/Scylla bug we can't supply NULL as a parameter marker
+// SetTransferClient Because of a Cassandra/Scylla bug we can't supply NULL as a parameter marker
 // Always check the row exists to not accidentally add a transfer
 const SetTransferClient = `
 UPDATE transfers USING TTL 30
@@ -65,14 +76,14 @@ UPDATE transfers USING TTL 30
   IF amount != NULL AND client_id = NULL
 `
 
-const SET_TRANSFER_STATE = `
+const SetTransferState = `
 UPDATE transfers
   SET state = ?
   WHERE transfer_id = ?
   IF amount != NULL AND client_id = ?
 `
 
-// Always check the row exists to not accidentally add a transfer
+// ClearTransferClient Always check the row exists to not accidentally add a transfer
 const ClearTransferClient = `
 UPDATE transfers
   SET client_id = NULL
@@ -132,7 +143,7 @@ SELECT balance, pending_amount
   WHERE user_id = ? AND currency_type = ?
 `
 
-// Always check the row exists in IF to not accidentally add a transfer
+// UpdateBalance Always check the row exists in IF to not accidentally add a transfer
 const UpdateBalance = `
 UPDATE users_balance
   SET pending_amount = 0, balance = ?
@@ -151,3 +162,32 @@ UPDATE lightest.check SET amount = ?  WHERE name = 'total'
 const FetchTotal = `
 SELECT amount FROM lightest.check WHERE name = 'total'
 `
+
+const CreateKeySpace = `CREATE KEYSPACE IF NOT EXISTS thetancurrency
+WITH REPLICATION = { 'class': 'NetworkTopologyStrategy', 'replication_factor' : 3 }
+AND DURABLE_WRITES=true`
+
+const DropKeySpace = `
+DROP KEYSPACE IF EXISTS thetancurrency
+`
+
+func BootstrapDatabase(session *gocql.Session) error {
+	if err := session.Query(DropKeySpace).Exec(); err != nil {
+		return merry.Wrap(err)
+	}
+	if err := session.Query(CreateKeySpace).Exec(); err != nil {
+		return merry.Wrap(err)
+	}
+
+	if err := session.Query(CreateUsersBalanceTable).Exec(); err != nil {
+		return merry.Wrap(err)
+	}
+	if err := session.Query(CreateTransfersTable).Exec(); err != nil {
+		return merry.Wrap(err)
+	}
+	if err := session.Query(CreateCheckTable).Exec(); err != nil {
+		return merry.Wrap(err)
+	}
+
+	return nil
+}
