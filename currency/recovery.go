@@ -5,13 +5,13 @@ import (
 	"sync"
 )
 
-func recoveryWorker(session gocqlx.Session, stats *Stats,
+func recoveryWorker(session gocqlx.Session, stats *Stats, settings *Settings,
 	wg *sync.WaitGroup) {
 
 	defer wg.Done()
 
 	var c = Client{}
-	c.Init(session, stats)
+	c.Init(session, stats, settings)
 
 loop:
 	for {
@@ -24,23 +24,25 @@ loop:
 }
 
 type RecoveryQueue struct {
-	queue   chan TransferId
-	wg      sync.WaitGroup
-	session gocqlx.Session
-	stats   *Stats
+	queue    chan TransferId
+	wg       sync.WaitGroup
+	session  gocqlx.Session
+	stats    *Stats
+	settings *Settings
 }
 
-func (q *RecoveryQueue) Init(session gocqlx.Session, stats *Stats) {
+func (q *RecoveryQueue) Init(session gocqlx.Session, stats *Stats, settings *Settings) {
 
 	q.session = session
 	q.stats = stats
+	q.settings = settings
 	// Recovery is recursive, create the channels first
 	q.queue = make(chan TransferId, 4096000)
 }
 
 func (q *RecoveryQueue) StartRecoveryWorker() {
 	q.wg.Add(1)
-	go recoveryWorker(q.session, q.stats, &q.wg)
+	go recoveryWorker(q.session, q.stats, q.settings, &q.wg)
 }
 
 func (q *RecoveryQueue) Stop() {
@@ -56,7 +58,7 @@ func RecoverTransfer(transferId TransferId) {
 
 func Recover() {
 	var c = Client{}
-	c.Init(q.session, q.stats)
+	c.Init(q.session, q.stats, q.settings)
 
 	c.logger.Info().Op("TransferRecovery").Msg("Fetching dead transfer")
 
@@ -80,8 +82,8 @@ func Recover() {
 	}
 }
 
-func RecoveryStart(session gocqlx.Session, stat *Stats) {
-	q.Init(session, stat)
+func RecoveryStart(session gocqlx.Session, stat *Stats, settings *Settings) {
+	q.Init(session, stat, settings)
 
 	// Start background fiber working on the queue to
 	// make sure we purge it even during the initial recovery

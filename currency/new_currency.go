@@ -2,12 +2,10 @@ package currency
 
 import (
 	"fmt"
-	"github.com/WolffunGame/theta-shared-common/common/thetaerror"
 	"github.com/WolffunGame/theta-shared-common/thetalog"
 	"github.com/ansel1/merry/v2"
 	"github.com/gocql/gocql"
 	"github.com/scylladb/gocqlx/v2"
-	"github.com/scylladb/gocqlx/v2/qb"
 	"math/rand"
 	"sync/atomic"
 	"time"
@@ -21,6 +19,8 @@ const (
 	TransferStateNew       TransferState = 2
 	TransferStateLocked    TransferState = 1
 	TransferStateCompleted TransferState = 0
+
+	System = "system"
 )
 
 var nilUuid gocql.UUID
@@ -62,6 +62,11 @@ type Stats struct {
 	recoveries        uint64
 }
 
+type Settings struct {
+	DeleteHistory bool
+	Check         bool
+}
+
 type Client struct {
 	clientId             gocql.UUID // For locking
 	session              gocqlx.Session
@@ -79,10 +84,12 @@ type Client struct {
 	unlockAccount        *gocql.Query
 	fetchAccountBalance  *gocql.Query
 	updateAccountBalance *gocql.Query
+	settings             *Settings
 }
 
-func (c *Client) Init(session gocqlx.Session, stats *Stats) {
+func (c *Client) Init(session gocqlx.Session, stats *Stats, s *Settings) {
 	c.clientId = gocql.TimeUUID()
+	c.settings = s
 	c.logger = thetalog.NewBizLogger("new_currency")
 	c.logger.Info().Op("CurrencyClientInit").Var("client_id", c.clientId).Send()
 
@@ -116,61 +123,45 @@ func (c *Client) Init(session gocqlx.Session, stats *Stats) {
 }
 
 func (c *Client) RegisterTransfer(t *Transfer) error {
-	c.logger.Info().Op("RegisterTransfer").Var("client_id", c.clientId).Send()
+	c.logger.Info().Op("RegisterTransfer").Var("client_id", c.clientId).Msg("Registering transfer")
 
-	q := qb.Insert(transferMetadata.Name).Unique().Query(c.session).Consistency(gocql.Quorum).BindStruct(t)
-	var prev Transfer
-
-	if applied, err := q.GetCASRelease(&prev); err != nil || !applied {
+	cql := c.insertTransfer
+	cql.Bind(t.TransferId, t.SourceID, t.DestID, t.CurrencyType, t.Amount, time.Now(), TransferStateNew)
+	row := Row{}
+	if applied, err := cql.MapScanCAS(row); err != nil || !applied {
 		if err == nil && !applied {
 			// Should never happen, transfer id is globally unique
-			c.logger.Fatal().Op("RegisterTransfer").Var("client_id", c.clientId).Var("transfer_id", t.TransferId).Send()
+			c.logger.Fatal().Op("RegisterTransfer").Var("client_id", c.clientId).Var("transfer_id", t.TransferId).Msg("Failed to create: a duplicate transfer exists")
 		}
-
 		return merry.Wrap(err)
 	}
+
 	return c.SetTransferClient(t.TransferId)
 }
 
 func (c *Client) SetTransferClient(transferId TransferId) error {
-	c.logger.Info().Op("SetTransferClient").Var("client_id", c.clientId).Var("transfer_id", transferId).Send()
+	c.logger.Info().Op("SetTransferClient").Var("client_id", c.clientId).Var("transfer_id", transferId).Msg("Setting transfer client")
 
-	type TransferQuery struct {
-		TransferID        TransferId
-		Amount            interface{}
-		ClientID          gocql.UUID
-		ConditionClientID interface{}
-	}
-
-	q := qb.Update(transferMetadata.Name).
-		Set("client_id").
-		Where(qb.Eq("transfer_id")).
-		If(qb.Ne("amount")).
-		If(qb.EqNamed("client_id", "condition_client_id")).Query(c.session).Consistency(gocql.Quorum).BindStruct(&TransferQuery{
-		TransferID:        transferId,
-		Amount:            nil,
-		ClientID:          c.clientId,
-		ConditionClientID: nil,
-	})
-	var prev Transfer
-
-	if applied, err := q.GetCASRelease(prev); err != nil || !applied {
+	cql := c.setTransferClient
+	cql.Bind(c.clientId, transferId)
+	// Change transfer - set client id
+	row := Row{}
+	if applied, err := cql.MapScanCAS(row); err != nil || !applied {
 		if err != nil {
-			return &thetaerror.Error{
-				Code: thetaerror.ErrorInternal,
-				Err:  err,
-			}
+			return merry.Wrap(err)
 		}
 
-		if prev.ClientId == nilUuid {
+		rowClientId, exists := row["client_id"]
+
+		if !exists || rowClientId == nilUuid {
 			c.logger.Trace().Op("SetTransferClient").Var("transfer_id", transferId).Msg("Failed to set client: no such transfer")
 			return merry.Wrap(gocql.ErrNotFound)
 		}
 
-		if c.clientId != prev.ClientId {
+		if c.clientId != rowClientId {
 			// The transfer is already worked on.
 			return merry.New(fmt.Sprintf("our id %v, previous id %v",
-				c.clientId, prev.ClientId), merry.WithCause(gocql.ErrNotFound))
+				c.clientId, rowClientId), merry.WithCause(gocql.ErrNotFound))
 		}
 
 		// c.clientId == rowClientId
@@ -234,6 +225,7 @@ func (c *Client) FetchAccountBalance(bal *UserBalance) error {
 	if err := cql.Scan(&bal.Balance, &bal.PendingAmount); err != nil {
 		return err
 	}
+
 	bal.Found = true
 	return nil
 }
@@ -246,10 +238,11 @@ func (c *Client) LockAccounts(t *Transfer, wait bool) error {
 	if t.State == TransferStateCompleted {
 		return nil
 	}
+
 	if t.State == TransferStateLocked {
 		// Transfer đã được lock, fetch balance kiểm tra các account tham gia vào quá trình giao dịch có tồn tại không
 		for i := 0; i < 2; i++ {
-			if t.Participation[i].UserId == "" {
+			if t.Participation[i].UserId == System {
 				//system credit
 				continue
 			}
@@ -263,7 +256,7 @@ func (c *Client) LockAccounts(t *Transfer, wait bool) error {
 		return nil
 	}
 
-	c.logger.Trace().Op("LockAccounts").Var("transfer", t).Var("transfer_id", t.TransferId).Msg("Locking")
+	c.logger.Trace().Op("LockAccounts").Var("transfer", t).Var("transfer_id", t.TransferId).Msg("Locking participated account")
 	sleepDuration := time.Millisecond*time.Duration(rand.Intn(10)) + time.Millisecond
 	maxSleepDuration, _ := time.ParseDuration("10s")
 
@@ -277,11 +270,13 @@ func (c *Client) LockAccounts(t *Transfer, wait bool) error {
 	var i = 0
 	for i < 2 {
 		account := t.LockOrder[i]
-		if account.UserId == "" {
+		if account.UserId == System {
 			//system credit
+			i++
 			continue
 		}
 		cql := c.lockAccount
+
 		cql.Bind(t.TransferId, account.PendingAmount, account.UserId, account.CurrencyType)
 		row := Row{}
 		// If the update is not applied because we've already locked the
@@ -405,6 +400,7 @@ func (c *Client) CompleteTransfer(t *Transfer) error {
 	}
 
 	acs := t.Participation
+
 	if t.State == TransferStateLocked {
 
 		//if c.oracle != nil {
@@ -419,7 +415,8 @@ func (c *Client) CompleteTransfer(t *Transfer) error {
 				acs[i].Balance += acs[i].PendingAmount
 			}
 
-			if acs[0].Balance >= 0 {
+			// Nếu người chuyển là system thì ko cần check balance
+			if acs[0].UserId != System && acs[0].Balance >= 0 {
 
 				c.logger.Trace().Op("CompleteTransfer").Var("transfer", t).Var("transfer_id", t.TransferId).Msg("Updating balance")
 
@@ -428,7 +425,7 @@ func (c *Client) CompleteTransfer(t *Transfer) error {
 				// 30 seconds have elapsed.
 				cql := c.updateAccountBalance
 				for i := 0; i < 2; i++ {
-					if acs[i].UserId == "" {
+					if acs[i].UserId == System {
 						continue
 					}
 
@@ -459,7 +456,7 @@ func (c *Client) CompleteTransfer(t *Transfer) error {
 	c.logger.Trace().Op("CompleteTransfer").Var("transfer", t).Msg("Unlocking")
 
 	for i := 0; i < 2; i++ {
-		if acs[i].UserId == "" {
+		if acs[i].UserId == System {
 			continue
 		}
 		if err := c.UnlockAccount(t.TransferId, &acs[i]); err != nil {
@@ -474,6 +471,11 @@ func (c *Client) CompleteTransfer(t *Transfer) error {
 func (c *Client) DeleteTransfer(transferId TransferId) error {
 	// Move transfer to "complete". Typically a transfer is kept
 	// for a few years, we just delete it for simplicity.
+
+	if !c.settings.DeleteHistory {
+		return nil
+	}
+
 	row := Row{}
 	cql := c.deleteTransfer
 	cql.Bind(transferId, c.clientId)
@@ -501,9 +503,11 @@ func (c *Client) MakeTransfer(t *Transfer) error {
 	if err := c.RegisterTransfer(t); err != nil {
 		return merry.Wrap(err)
 	}
+
 	if err := c.LockAccounts(t, true); err != nil {
 		return merry.Wrap(err)
 	}
+
 	return c.CompleteTransfer(t)
 }
 
@@ -611,3 +615,90 @@ func (t *Transfer) InitAccounts() {
 	acs[0].PendingAmount = -t.Amount
 	acs[1].PendingAmount = t.Amount
 }
+
+func NewTransfer(source, dest string, amount int64, currencyType int) Transfer {
+	t := Transfer{
+		TransferId:   NewTransferId(),
+		CurrencyType: currencyType,
+		SourceID:     source,
+		DestID:       dest,
+		Amount:       amount,
+		State:        TransferStateNew,
+		CreatedAt:    time.Now(),
+	}
+
+	t.Participation = make([]UserBalance, 2, 2)
+	t.Participation[0].UserId = source
+	t.Participation[1].UserId = dest
+	t.Participation[0].CurrencyType = currencyType
+	t.Participation[1].CurrencyType = currencyType
+	t.InitAccounts()
+
+	return t
+}
+
+//func (c *Client) RegisterTransfer(t *Transfer) error {
+//	c.logger.Info().Op("RegisterTransfer").Var("client_id", c.clientId).Msg("Registering transfer")
+//
+//	q := qb.Insert(transferMetadata.Name).Unique().Query(c.session).Consistency(gocql.Quorum).BindStruct(t)
+//	var prev Transfer
+//
+//	fmt.Println(q.String())
+//
+//	if applied, err := q.GetCASRelease(&prev); err != nil || !applied {
+//		if err == nil && !applied {
+//			// Should never happen, transfer id is globally unique
+//			c.logger.Fatal().Op("RegisterTransfer").Var("client_id", c.clientId).Var("transfer_id", t.TransferId).Send()
+//		}
+//
+//		return merry.Wrap(err)
+//	}
+//	return c.SetTransferClient(t.TransferId)
+//}
+
+//func (c *Client) SetTransferClient(transferId TransferId) error {
+//	c.logger.Info().Op("SetTransferClient").Var("client_id", c.clientId).Var("transfer_id", transferId).Msg("Setting transfer client")
+//
+//	type TransferQuery struct {
+//		TransferID        TransferId
+//		Amount            interface{}
+//		ClientID          gocql.UUID
+//		ConditionClientID interface{}
+//	}
+//
+//	q := qb.Update(transferMetadata.Name).
+//		Set("client_id").
+//		Where(qb.Eq("transfer_id")).
+//		If(qb.Ne("amount")).
+//		If(qb.EqNamed("client_id", "condition_client_id")).Query(c.session).Consistency(gocql.Quorum).BindStruct(&TransferQuery{
+//		TransferID:        transferId,
+//		Amount:            nil,
+//		ClientID:          c.clientId,
+//		ConditionClientID: nil,
+//	})
+//	var prev Transfer
+//
+//	if applied, err := q.GetCASRelease(&prev); err != nil || !applied {
+//		if err != nil {
+//			return &thetaerror.Error{
+//				Code: thetaerror.ErrorInternal,
+//				Err:  err,
+//			}
+//		}
+//
+//		if prev.ClientId == nilUuid {
+//			c.logger.Trace().Op("SetTransferClient").Var("transfer_id", transferId).Msg("Failed to set client: no such transfer")
+//			return merry.Wrap(gocql.ErrNotFound)
+//		}
+//
+//		if c.clientId != prev.ClientId {
+//			// The transfer is already worked on.
+//			return merry.New(fmt.Sprintf("our id %v, previous id %v",
+//				c.clientId, prev.ClientId), merry.WithCause(gocql.ErrNotFound))
+//		}
+//
+//		// c.clientId == rowClientId
+//	}
+//
+//	return nil
+//}

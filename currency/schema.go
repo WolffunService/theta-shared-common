@@ -62,8 +62,8 @@ var transferMetadata = table.Metadata{
 // InsertTransfer Client id has to be updated separately to let it expire
 const InsertTransfer = `
 INSERT INTO transfers
-  (transfer_id, src_bic, src_ban, dst_bic, dst_ban, amount, state)
-  VALUES (?, ?, ?, ?, ?, ?, 'new')
+  (transfer_id, source_id, dest_id, currency_type, amount, created_at, state)
+  VALUES (?, ?, ?, ?, ?, ?, ?)
   IF NOT EXISTS
 `
 
@@ -172,9 +172,9 @@ DROP KEYSPACE IF EXISTS thetancurrency
 `
 
 func BootstrapDatabase(session *gocql.Session) error {
-	if err := session.Query(DropKeySpace).Exec(); err != nil {
-		return merry.Wrap(err)
-	}
+	//if err := session.Query(DropKeySpace).Exec(); err != nil {
+	//	return merry.Wrap(err)
+	//}
 	if err := session.Query(CreateKeySpace).Exec(); err != nil {
 		return merry.Wrap(err)
 	}

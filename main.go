@@ -5,6 +5,7 @@ import (
 	"github.com/WolffunGame/theta-shared-common/currency"
 	"github.com/WolffunGame/theta-shared-common/eventbus"
 	"github.com/WolffunGame/theta-shared-common/thetalog"
+	"github.com/ansel1/merry/v2"
 	"github.com/gocql/gocql"
 	"github.com/scylladb/gocqlx/v2"
 	"time"
@@ -13,8 +14,16 @@ import (
 func main() {
 	var stats currency.Stats
 	var client currency.Client
-	client.Init(GetSession(), &stats)
+	client.Init(GetSession(), &stats, &currency.Settings{
+		DeleteHistory: false,
+		Check:         false,
+	})
 
+	t := currency.NewTransfer(currency.System, "sotuanhoang", 100000000, 13)
+
+	err := client.MakeTransfer(&t)
+
+	fmt.Println(merry.Details(err))
 }
 
 // S Singleton session
@@ -27,6 +36,9 @@ func init() {
 	cluster.Timeout = 5 * time.Second
 	cluster.Compressor = &gocql.SnappyCompressor{}
 	cluster.RetryPolicy = &gocql.SimpleRetryPolicy{NumRetries: 5}
+	cluster.Consistency = gocql.Quorum
+	cluster.Timeout, _ = time.ParseDuration("30s")
+	cluster.Keyspace = "thetancurrency"
 
 	sess, err := gocqlx.WrapSession(cluster.CreateSession())
 	if err != nil {
