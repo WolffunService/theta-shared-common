@@ -16,9 +16,11 @@ type TransferState int32
 type Row = map[string]interface{}
 
 const (
-	TransferStateNew       TransferState = 2
-	TransferStateLocked    TransferState = 1
-	TransferStateCompleted TransferState = 0
+	TransferStateNew            TransferState = 2
+	TransferStateLocked         TransferState = 1
+	TransferStateCompleted      TransferState = 0
+	TransferStateInsufficient   TransferState = -1
+	TransferStateInvalidAccount TransferState = -2
 
 	System = "system"
 )
@@ -402,6 +404,7 @@ func (c *Client) CompleteTransfer(t *Transfer) error {
 	acs := t.Participation
 
 	if t.State == TransferStateLocked {
+		state := TransferStateCompleted
 
 		//if c.oracle != nil {
 		//	c.oracle.BeginTransfer(t.id, acs, t.amount)
@@ -416,7 +419,7 @@ func (c *Client) CompleteTransfer(t *Transfer) error {
 			}
 
 			// Nếu người chuyển là system thì ko cần check balance
-			if acs[0].UserId != System && acs[0].Balance >= 0 {
+			if acs[0].UserId == System || acs[0].Balance >= 0 {
 
 				c.logger.Trace().Op("CompleteTransfer").Var("transfer", t).Var("transfer_id", t.TransferId).Msg("Updating balance")
 
@@ -429,7 +432,7 @@ func (c *Client) CompleteTransfer(t *Transfer) error {
 						continue
 					}
 
-					cql.Bind(acs[i].Balance, acs[i].UserId, acs[i].CurrencyType, t.TransferId)
+					cql.Bind(acs[i].Balance, time.Now(), acs[i].UserId, acs[i].CurrencyType, t.TransferId)
 					if err := cql.Exec(); err != nil {
 						c.logger.Trace().Op("CompleteTransfer").Var("user_balance", acs[i]).Msg("Failed to update account balance")
 						return merry.Wrap(err)
@@ -438,17 +441,19 @@ func (c *Client) CompleteTransfer(t *Transfer) error {
 			} else {
 				c.logger.Trace().Op("CompleteTransfer").Var("transfer", t).Msg("Insufficient funds")
 				atomic.AddUint64(&c.stats.insufficientFunds, 1)
+				state = TransferStateInsufficient
 			}
 		} else {
 			c.logger.Trace().Op("CompleteTransfer").Var("transfer", t).Msg("Account not found")
 			atomic.AddUint64(&c.stats.noSuchAccount, 1)
+			state = TransferStateInvalidAccount
 		}
 
 		//if c.oracle != nil {
 		//	c.oracle.CompleteTransfer(t.id, acs, t.amount)
 		//}
 
-		if err := c.SetTransferState(t, TransferStateCompleted); err != nil {
+		if err := c.SetTransferState(t, state); err != nil {
 			return err
 		}
 	}

@@ -146,7 +146,7 @@ SELECT balance, pending_amount
 // UpdateBalance Always check the row exists in IF to not accidentally add a transfer
 const UpdateBalance = `
 UPDATE users_balance
-  SET pending_amount = 0, balance = ?
+  SET pending_amount = 0, balance = ?, updated_at = ?
   WHERE user_id = ? AND currency_type = ?
   IF balance != NULL AND pending_transfer = ?
 `
@@ -156,7 +156,7 @@ SELECT SUM(balance) FROM users_balance
 `
 
 const PersistTotal = `
-UPDATE lightest.check SET amount = ?  WHERE name = 'total'
+UPDATE thetancurrency.check SET amount = ?  WHERE name = 'total'
 `
 
 const FetchTotal = `

@@ -19,7 +19,7 @@ func main() {
 		Check:         false,
 	})
 
-	t := currency.NewTransfer(currency.System, "sotuanhoang", 100000000, 13)
+	t := currency.NewTransfer("sotuanhoang", "vuhoanglam", 100000000, 13)
 
 	err := client.MakeTransfer(&t)
 
