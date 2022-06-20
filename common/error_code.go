@@ -114,14 +114,14 @@ const (
 	PreviouslyReported     = 3108
 
 	// Box
-	BoxExchangeRate     = 3109
-	MustLinkedWolffunId = 3110
-	MustInstalledGame   = 3111
-	NeedMoreTimeToOpen  = 3112
-	AlreadyClaimFreeBox = 3113
-	MustConnectCoinbase = 3114
-	GiftCodeInvalid     = 3115
-	ErrorRequestProcessing	 = 3116
+	BoxExchangeRate        = 3109
+	MustLinkedWolffunId    = 3110
+	MustInstalledGame      = 3111
+	NeedMoreTimeToOpen     = 3112
+	AlreadyClaimFreeBox    = 3113
+	MustConnectCoinbase    = 3114
+	GiftCodeInvalid        = 3115
+	ErrorRequestProcessing = 3116
 
 	// Rental
 	RentedItem            = 3120
@@ -151,6 +151,9 @@ const (
 	ErrWrongSet     = 3300
 	ErrFusing       = 3301
 	ErrNegativeCost = 3302
+
+	// Cosmetic
+	ItemNotAvailable = 3310
 )
 
 var errorText = map[int]string{
@@ -234,13 +237,13 @@ var errorText = map[int]string{
 	BoxExchangeRate: "Box price has been updated, please try again!",
 
 	// Gift box
-	MustLinkedWolffunId: "Hey, you must link your account with WolffunId first!",
-	MustInstalledGame:   "Hey, you must install ThetanArena and log in to your account!",
-	NeedMoreTimeToOpen:  "Hmm, you need at least 24 hours before opening your gift box!",
-	AlreadyClaimFreeBox: "Oh no, you already claimed this box before!",
-	MustConnectCoinbase: "Hey, you must connect your account with the Coinbase wallet!",
-	GiftCodeInvalid:     "Oh no, the gift code is not valid or expired!",
-	ErrorRequestProcessing	 : "Your request is being handled!",
+	MustLinkedWolffunId:    "Hey, you must link your account with WolffunId first!",
+	MustInstalledGame:      "Hey, you must install ThetanArena and log in to your account!",
+	NeedMoreTimeToOpen:     "Hmm, you need at least 24 hours before opening your gift box!",
+	AlreadyClaimFreeBox:    "Oh no, you already claimed this box before!",
+	MustConnectCoinbase:    "Hey, you must connect your account with the Coinbase wallet!",
+	GiftCodeInvalid:        "Oh no, the gift code is not valid or expired!",
+	ErrorRequestProcessing: "Your request is being handled!",
 
 	//friend
 	OtherFullRequestReceived: "Your friend can't take any more friend requests",
@@ -281,6 +284,9 @@ var errorText = map[int]string{
 	ErrWrongSet:     "Wrong input heroes!",
 	ErrFusing:       "Complete the available fusion to start the others",
 	ErrNegativeCost: "Heroes used to fuse has greater total value than output hero. Please change your input!",
+
+	// Cosmetic
+	ItemNotAvailable: "Item Is Not Available",
 }
 
 const unknownErrorMessage = "An internal error has occurred. Please contact technical support!"
