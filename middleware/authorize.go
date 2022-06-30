@@ -10,11 +10,20 @@ import (
 	"github.com/WolffunGame/theta-shared-common/common/thetaerror"
 	"github.com/WolffunGame/theta-shared-database/database/mredis"
 	"github.com/gin-gonic/gin"
+	"github.com/go-errors/errors"
 	goredislib "github.com/go-redis/redis/v8"
+	"github.com/golang-jwt/jwt"
 	"net/http"
 	"strings"
 	"time"
 )
+
+const (
+	DefaultRole = common.NONE
+	HighestRole = common.ROOT
+)
+
+var ErrUnAuthorization = errors.New("this account does not have this permission")
 
 func extractTokenFromHeaderString(s string) (string, error) {
 	parts := strings.Split(s, " ")
@@ -22,6 +31,29 @@ func extractTokenFromHeaderString(s string) (string, error) {
 		return "", common.ErrorResponse(common.TokenInvalid, "")
 	}
 	return parts[1], nil
+}
+
+func AuthorizationVerify(claims jwt.MapClaims, roles ...common.UserRole) error {
+	if len(roles) == 0 {
+		roles = append(roles, DefaultRole)
+	}
+
+	userRole := DefaultRole
+	if claims[auth.ClaimKeyRole] != nil {
+		userRole = common.UserRole(claims[auth.ClaimKeyRole].(float64))
+	}
+
+	if userRole == HighestRole {
+		return nil
+	}
+
+	for _, role := range roles {
+		if role == userRole {
+			return nil
+		}
+	}
+
+	return ErrUnAuthorization
 }
 
 func RequiredAuthVerified(service auth.Service, roles ...common.UserRole) func(c *gin.Context) {
@@ -104,7 +136,7 @@ func RequiredAPIKeyVerified(apiKeyService auth.APIKeyService, rbac rbac.Authoriz
 				return
 			}
 
-			if (!isValidAccess) {
+			if !isValidAccess {
 				c.JSON(http.StatusForbidden, common.ErrorResponse(thetaerror.ErrorInternal, "This API Key has limited access"))
 				c.Abort()
 				return
