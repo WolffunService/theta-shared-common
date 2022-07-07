@@ -134,6 +134,7 @@ const (
 	ReturningOwner        = 3127
 	MaintenanceHeroRental = 3128
 	InvalidSignature      = 3129
+	InvalidLockDuration   = 3130
 
 	// VestingSafe
 	MaintenanceVestingSafe = 3140
@@ -154,6 +155,10 @@ const (
 
 	// Cosmetic
 	ItemNotAvailable = 3310
+
+	// Hero buy/sell
+	LowSellPrice  = 3320
+	HighSellPrice = 3321
 )
 
 var errorText = map[int]string{
@@ -266,6 +271,7 @@ var errorText = map[int]string{
 	ReturningOwner:        "The rental item is being returned",
 	MaintenanceHeroRental: "The rental feature is being maintained",
 	InvalidSignature:      "The signature is wrong",
+	InvalidLockDuration:   "The lock duration is wrong",
 
 	// vesting safe
 	MaintenanceVestingSafe: "This feature is under maintenance, please try again in a few minutes",
@@ -287,6 +293,10 @@ var errorText = map[int]string{
 
 	// Cosmetic
 	ItemNotAvailable: "Item Is Not Available",
+
+	// Hero buy/sell
+	LowSellPrice:  "Sell price is lower than minimum",
+	HighSellPrice: "Sell price is higher than maximum",
 }
 
 const unknownErrorMessage = "An internal error has occurred. Please contact technical support!"
