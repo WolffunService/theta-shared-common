@@ -135,6 +135,7 @@ const (
 	MaintenanceHeroRental = 3128
 	InvalidSignature      = 3129
 	InvalidLockDuration   = 3130
+	InvalidMinGTHCBatles  = 3131
 
 	// VestingSafe
 	MaintenanceVestingSafe = 3140
