@@ -273,6 +273,7 @@ var errorText = map[int]string{
 	MaintenanceHeroRental: "The rental feature is being maintained",
 	InvalidSignature:      "The signature is wrong",
 	InvalidLockDuration:   "The lock duration is wrong",
+	InvalidMinGTHCBatles:  "Rental battle is lower than minimum",
 
 	// vesting safe
 	MaintenanceVestingSafe: "This feature is under maintenance, please try again in a few minutes",
