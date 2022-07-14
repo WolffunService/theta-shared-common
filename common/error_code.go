@@ -157,9 +157,12 @@ const (
 	// Cosmetic
 	ItemNotAvailable = 3310
 
-	// Hero buy/sell
-	LowSellPrice  = 3320
-	HighSellPrice = 3321
+	// Hero buy/sell/mint
+	LowSellPrice            = 3320
+	HighSellPrice           = 3321
+	MintLowHeroLevel        = 3322
+	MintLowUserRankingLevel = 3323
+	MintLimitTime           = 3324
 )
 
 var errorText = map[int]string{
@@ -297,8 +300,11 @@ var errorText = map[int]string{
 	ItemNotAvailable: "Item Is Not Available",
 
 	// Hero buy/sell
-	LowSellPrice:  "Sell price is lower than minimum",
-	HighSellPrice: "Sell price is higher than maximum",
+	LowSellPrice:            "Sell price is lower than minimum",
+	HighSellPrice:           "Sell price is higher than maximum",
+	MintLowHeroLevel:        "Hero level is lower",
+	MintLowUserRankingLevel: "User ranking level is lower",
+	MintLimitTime:           "Mint limit time",
 }
 
 const unknownErrorMessage = "An internal error has occurred. Please contact technical support!"
