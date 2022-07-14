@@ -162,7 +162,7 @@ const (
 	HighSellPrice           = 3321
 	MintLowHeroLevel        = 3322
 	MintLowUserRankingLevel = 3323
-	MintLimitTime           = 3324
+	MintCooldownTime        = 3324
 )
 
 var errorText = map[int]string{
@@ -302,9 +302,9 @@ var errorText = map[int]string{
 	// Hero buy/sell
 	LowSellPrice:            "Sell price is lower than minimum",
 	HighSellPrice:           "Sell price is higher than maximum",
-	MintLowHeroLevel:        "Hero level is lower",
-	MintLowUserRankingLevel: "User ranking level is lower",
-	MintLimitTime:           "Mint limit time",
+	MintLowHeroLevel:        "Hero can be minted from level 2.",
+	MintLowUserRankingLevel: "Reach Private rank to mint item.",
+	MintCooldownTime:        "Mint is cooling down, please try it later.",
 }
 
 const unknownErrorMessage = "An internal error has occurred. Please contact technical support!"
