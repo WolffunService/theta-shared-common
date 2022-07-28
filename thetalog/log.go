@@ -4,7 +4,38 @@ import (
 	ctx "context"
 	"github.com/rs/zerolog"
 	"github.com/rs/zerolog/log"
+	"strconv"
+	"strings"
 )
+
+func init() {
+	fullPath := func(file string, line int) string {
+		return file + ":" + strconv.Itoa(line)
+	}
+
+	zerolog.CallerMarshalFunc = func(file string, line int) string {
+		// Inspired from uber/zap TrimmedPath =))
+
+		idx := strings.LastIndexByte(file, '/')
+		if idx == -1 {
+			return fullPath(file, line)
+		}
+		// Find the penultimate separator.
+		idx = strings.LastIndexByte(file[:idx], '/')
+		if idx == -1 {
+			return fullPath(file, line)
+		}
+
+		buf := strings.Builder{}
+		buf.WriteString(file[idx+1:])
+		buf.WriteRune(':')
+		buf.WriteString(strconv.Itoa(line))
+		caller := buf.String()
+		buf.Reset()
+
+		return caller
+	}
+}
 
 // Level defines log levels.
 type Level int8
