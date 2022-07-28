@@ -15,10 +15,6 @@ type logger struct {
 
 // Logger is a logger that supports log levels, context and structured logging.
 type Logger interface {
-	//With() Context
-
-	//Output(w io.Writer) Logger
-
 	Err(err error) Event
 
 	Trace() Event
@@ -42,8 +38,6 @@ type Logger interface {
 	Print(v ...interface{})
 
 	Printf(format string, v ...interface{})
-
-	//Ctx(ctx ctx.Context) Logger
 }
 
 func SetGlobalLevel(l Level) {
@@ -51,25 +45,14 @@ func SetGlobalLevel(l Level) {
 }
 
 func NewLogger() Logger {
-	l := &log.Logger
-	return &logger{l}
+	l := log.With().Caller().Logger()
+	return &logger{&l}
 }
+
 func NewBizLogger(biz string) Logger {
-	zeroLogger := log.Logger.With().Str("business", biz).Logger()
-	l := &zeroLogger
-	return &logger{l}
+	l := log.With().Caller().Str("business", biz).Logger()
+	return &logger{&l}
 }
-
-//func (l logger) With() Context {
-//	if l.Logger == nil {
-//		l.Logger = &log.Logger
-//	}
-//	return context{l.Logger.With()}
-//}
-
-//func (l logger) Output(w io.Writer) Logger {
-//	return l.Output(w)
-//}
 
 func (l logger) Err(err error) Event {
 	return &event{l.Logger.Err(err)}
@@ -119,16 +102,6 @@ func (l logger) Ctx(ctx ctx.Context) Logger {
 var (
 	L = NewLogger()
 )
-
-//// Output duplicates the global logger and sets w as its output.
-//func Output(w io.Writer) Logger {
-//	return L.Output(w)
-//}
-//
-//With creates a child logger with the field added to its context.
-//func With() Context {
-//	return &logger{L.With()}
-//}
 
 // Err starts a new message with error level with err as a field if not nil or
 // with info level if err is nil.
@@ -203,24 +176,6 @@ func WithLevel(level Level) Event {
 func Log() Event {
 	return L.Log()
 }
-
-//// Print sends a log event using debug level and no extra field.
-//// Arguments are handled in the manner of fmt.Print.
-//func Print(v ...interface{}) {
-//	L.Debug().CallerSkipFrame(1).Msg(fmt.Sprint(v...))
-//}
-//
-//// Printf sends a log event using debug level and no extra field.
-//// Arguments are handled in the manner of fmt.Printf.
-//func (l logger) Printf(format string, v ...interface{}) {
-//	return NewLogger().Debug().CallerSkipFrame(1).Msgf(format, v...)
-//}
-//
-//Ctx returns the Logger associated with the ctx. If no logger
-//is associated, a disabled logger is returned.
-//func (l logger) Ctx(ctx context.Context) Logger {
-//	return &logger{zerolog.Ctx(ctx)}
-//}
 
 var (
 	// LevelTraceValue is the value used for the trace level field.
