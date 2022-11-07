@@ -122,6 +122,7 @@ const (
 	MustConnectCoinbase    = 3114
 	GiftCodeInvalid        = 3115
 	ErrorRequestProcessing = 3116
+	GloryPassInvalid       = 3117
 
 	// Rental
 	RentedItem            = 3120
