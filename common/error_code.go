@@ -254,6 +254,7 @@ var errorText = map[int]string{
 	MustConnectCoinbase:    "Hey, you must connect your account with the Coinbase wallet!",
 	GiftCodeInvalid:        "Oh no, the gift code is not valid or expired!",
 	ErrorRequestProcessing: "Your request is being handled!",
+	GloryPassInvalid:       "Please enter the correct Glory Pass token and claim again.",
 
 	//friend
 	OtherFullRequestReceived: "Your friend can't take any more friend requests",
