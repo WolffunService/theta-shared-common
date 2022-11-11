@@ -3,7 +3,7 @@ module github.com/WolffunGame/theta-shared-common
 go 1.18
 
 require (
-	github.com/WolffunGame/theta-shared-database v1.6.6
+	github.com/WolffunGame/theta-shared-database v1.2.22
 	github.com/casbin/casbin/v2 v2.41.0
 	github.com/gin-gonic/gin v1.7.3
 	github.com/go-errors/errors v1.4.2
@@ -11,7 +11,6 @@ require (
 	github.com/golang-jwt/jwt v3.2.2+incompatible
 	github.com/golang/protobuf v1.5.2
 	github.com/google/uuid v1.3.0
-	github.com/imroc/req/v3 v3.22.0
 	github.com/rs/zerolog v1.26.1
 	github.com/sendgrid/rest v2.6.5+incompatible
 	github.com/sendgrid/sendgrid-go v3.10.3+incompatible
@@ -26,6 +25,7 @@ require (
 require (
 	github.com/Knetic/govaluate v3.0.1-0.20171022003610-9aa49832a739+incompatible // indirect
 	github.com/cespare/xxhash/v2 v2.1.1 // indirect
+	github.com/cheekybits/genny v1.0.0 // indirect
 	github.com/dgryski/go-rendezvous v0.0.0-20200823014737-9f7001d12a5f // indirect
 	github.com/fsnotify/fsnotify v1.5.4 // indirect
 	github.com/gin-contrib/sse v0.1.0 // indirect
@@ -39,10 +39,11 @@ require (
 	github.com/golang/snappy v0.0.4 // indirect
 	github.com/hashicorp/errwrap v1.1.0 // indirect
 	github.com/hashicorp/go-multierror v1.1.1 // indirect
+	github.com/imroc/req/v3 v3.22.0 // indirect
 	github.com/jinzhu/inflection v1.0.0 // indirect
 	github.com/json-iterator/go v1.1.9 // indirect
 	github.com/kamva/mgm/v3 v3.3.1 // indirect
-	github.com/klauspost/compress v1.15.0 // indirect
+	github.com/klauspost/compress v1.14.2 // indirect
 	github.com/leodido/go-urn v1.2.0 // indirect
 	github.com/lucas-clemente/quic-go v0.29.0 // indirect
 	github.com/marten-seemann/qpack v0.2.1 // indirect

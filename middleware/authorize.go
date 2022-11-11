@@ -9,8 +9,6 @@ import (
 	"github.com/WolffunGame/theta-shared-common/common"
 	"github.com/WolffunGame/theta-shared-common/common/thetaerror"
 	"github.com/WolffunGame/theta-shared-database/database/mredis"
-	"github.com/WolffunGame/theta-shared-database/database/thetacache"
-	"github.com/WolffunGame/theta-shared-database/database/thetacache/cachestore"
 	"github.com/gin-gonic/gin"
 	"github.com/go-errors/errors"
 	goredislib "github.com/go-redis/redis/v8"
@@ -124,25 +122,11 @@ func RequiredAPIKeyVerified(apiKeyService auth.APIKeyService, rbac rbac.Authoriz
 		}
 
 		if isAllow {
-			var apiKey *entity.APIKey = nil
-			ok := false
-			thetacachekey := fmt.Sprintf("AUTHORIZE_APIKEY_", rawAPIKey)
-			cachedData, err := thetacache.Get(thetacachekey)
-			if cachedData != nil {
-				apiKey, ok = cachedData.(*entity.APIKey)
-			}
-			if !ok || apiKey == nil {
-				apiKey, err = auth.GetAPIKey(ctx, prefix, hashKey)
-				if err != nil {
-					c.JSON(http.StatusUnauthorized, err)
-					c.Abort()
-					return
-				}
-				_ = thetacache.Set(thetacachekey, apiKey, &cachestore.Options{
-					Cost:       10,
-					Expiration: time.Duration(600) * time.Second,
-					Tags:       nil,
-				})
+			apiKey, err := auth.GetAPIKey(ctx, prefix, hashKey)
+			if err != nil {
+				c.JSON(http.StatusUnauthorized, err)
+				c.Abort()
+				return
 			}
 
 			isValidAccess, err := IsValidAccess(ctx, rawAPIKey, apiKey.AccessLimit, time.Now())
