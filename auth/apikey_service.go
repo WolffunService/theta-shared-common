@@ -22,6 +22,7 @@ type APIKeyService interface {
 	Generate(ctx context.Context, owner string, role string, listAccessLimit []entity.AccessLimitInfo) (*entity.APIKeyResult, error)
 	Parse(ctx context.Context, r *http.Request) (*entity.APIKey, error)
 	Revoke(key string) error
+	ChangeAccessLimit(ctx context.Context, rawAPIKey string, accessLimit []entity.AccessLimitInfo) (*entity.ChangeAccessLimitResult, error)
 }
 
 func NewAPIKeyService() APIKeyService {
