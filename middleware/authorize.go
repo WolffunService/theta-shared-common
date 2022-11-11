@@ -140,7 +140,7 @@ func RequiredAPIKeyVerified(apiKeyService auth.APIKeyService, rbac rbac.Authoriz
 				}
 				_ = thetacache.Set(thetacachekey, apiKey, &cachestore.Options{
 					Cost:       10,
-					Expiration: time.Duration(3600) * time.Second,
+					Expiration: time.Duration(600) * time.Second,
 					Tags:       nil,
 				})
 			}
