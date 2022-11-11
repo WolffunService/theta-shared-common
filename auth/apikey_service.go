@@ -8,6 +8,7 @@ import (
 	"github.com/WolffunGame/theta-shared-common/auth/rbac"
 	"github.com/WolffunGame/theta-shared-common/common/thetaerror"
 	"github.com/WolffunGame/theta-shared-common/thetalog"
+	"github.com/WolffunGame/theta-shared-database/common/util"
 	"github.com/WolffunGame/theta-shared-database/database/mongodb"
 	"go.mongodb.org/mongo-driver/bson"
 	"golang.org/x/crypto/bcrypt"
@@ -72,6 +73,36 @@ func (a apiKeyServiceImplement) Generate(ctx context.Context, owner string, role
 		RawKey: key.Prefix + "." + apiKey,
 		Role:   role,
 		Owner:  owner,
+	}, nil
+}
+
+func (a apiKeyServiceImplement) ChangeAccessLimit(ctx context.Context, rawAPIKey string, accessLimit []entity.AccessLimitInfo) (*entity.ChangeAccessLimitResult, error) {
+
+	segments := strings.Split(rawAPIKey, ".")
+
+	if len(segments) < 2 {
+		return nil, &thetaerror.Error{
+			Code:    thetaerror.ErrorInternal,
+			Message: "API Key is not valid",
+		}
+	}
+
+	prefix := segments[0]
+	hashKey := HashRawKey(segments[1])
+
+	var mapAccessLimit = make(map[entity.AccessLimitType]int64)
+	for _, limit := range accessLimit {
+		mapAccessLimit[limit.LimitType] = limit.LimitCount
+	}
+
+	updateCount, err := updateAPIKey(ctx, prefix, hashKey, mapAccessLimit)
+
+	if err != nil {
+		return nil, err
+	}
+
+	return &entity.ChangeAccessLimitResult{
+		UpdatedCount: updateCount,
 	}, nil
 }
 
@@ -148,6 +179,23 @@ func createAPIKey(ctx context.Context, data *entity.APIKey) error {
 	}
 
 	return nil
+}
+
+func updateAPIKey(ctx context.Context, prefix string, hashKey string, mapAccessLimit map[entity.AccessLimitType]int64) (int64, error) {
+	collection := mongodb.Coll(&entity.APIKey{})
+	filter := bson.D{
+		{Key: "prefix", Value: prefix},
+		{Key: "hashKey", Value: hashKey},
+	}
+	update := bson.D{}
+	update = util.BsonSet(update, "accessLimit", mapAccessLimit)
+
+	updateResult, err := collection.UpdateOne(ctx, filter, update)
+	if err != nil {
+		return 0, err
+	}
+
+	return updateResult.ModifiedCount, nil
 }
 
 func GetAPIKey(ctx context.Context, prefix string, hashKey string) (*entity.APIKey, error) {

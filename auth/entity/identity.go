@@ -28,10 +28,10 @@ type APIKeyResult struct {
 type APIKey struct {
 	mongodb.DefaultModel `json:",inline" bson:",inline"`
 	mongodb.DateFields   `json:",inline" bson:",inline"`
-	Prefix               string       `json:"prefix" bson:"prefix"`
-	HashKey              string       `json:"hashKey" bson:"hashKey"`
-	Owner                string       `json:"owner" bson:"owner"`
-	Status               APIKeyStatus      `json:"status" bson:"status"`
+	Prefix               string                    `json:"prefix" bson:"prefix"`
+	HashKey              string                    `json:"hashKey" bson:"hashKey"`
+	Owner                string                    `json:"owner" bson:"owner"`
+	Status               APIKeyStatus              `json:"status" bson:"status"`
 	AccessLimit          map[AccessLimitType]int64 `json:"accessLimit" bson:"accessLimit"`
 }
 
@@ -49,13 +49,17 @@ func (c APIKey) CollectionName() string {
 type AccessLimitType int
 
 const (
-	AccessLimitTypeSecond AccessLimitType  = 1
+	AccessLimitTypeSecond AccessLimitType = 1
 	AccessLimitTypeMinute AccessLimitType = 2
-	AccessLimitTypeHour AccessLimitType = 3
-	AccessLimitTypeDay AccessLimitType = 4
+	AccessLimitTypeHour   AccessLimitType = 3
+	AccessLimitTypeDay    AccessLimitType = 4
 )
 
 type AccessLimitInfo struct {
 	LimitType  AccessLimitType `json:"limitType" bson:"limitType"`
 	LimitCount int64           `json:"limitCount" bson:"limitCount"`
+}
+
+type ChangeAccessLimitResult struct {
+	UpdatedCount int64 `json:"updatedCount"`
 }
