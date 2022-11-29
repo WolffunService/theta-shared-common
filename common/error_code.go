@@ -123,6 +123,7 @@ const (
 	GiftCodeInvalid        = 3115
 	ErrorRequestProcessing = 3116
 	GloryPassInvalid       = 3117
+	MustCheckinMKP         = 3118
 
 	// Rental
 	RentedItem            = 3120
