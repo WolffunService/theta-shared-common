@@ -12,6 +12,7 @@ const (
 	ADMIN    UserRole = 1 // Role Admin
 	ROOT     UserRole = 2 // Role Highest
 	SYSADMIN UserRole = 3 // Role System Config
+	EDITOR   UserRole = 4 // Role Editor
 )
 
 func Recover(message ...string) {
