@@ -28,7 +28,7 @@ func (env Environment) String() string {
 	return string(env)
 }
 
-const remoteCfgBaseUrl = "https://thetan-support.staging.thetanarena.com/api/remote-config"
+const remoteCfgBaseUrl = "https://thetan-support.thetanarena.com/api/remote-config"
 
 func GetLatest(env Environment, name string) ([]byte, error) {
 	name = strings.ToLower(name)
