@@ -1,11 +1,18 @@
 package rcfg
 
 import (
+	"encoding/json"
 	"errors"
 	"fmt"
-	"github.com/imroc/req/v3"
 	"strings"
+
+	"github.com/imroc/req/v3"
 )
+
+type UserContext struct {
+	UserID     string
+	Attributes map[string]any
+}
 
 var ErrUnknownRequest = errors.New("unknown request error")
 
@@ -21,7 +28,7 @@ func (env Environment) String() string {
 	return string(env)
 }
 
-const remoteCfgBaseUrl = "https://thetan-support.thetanarena.com/api/remote-config"
+const remoteCfgBaseUrl = "https://thetan-support.staging.thetanarena.com/api/remote-config"
 
 func GetLatest(env Environment, name string) ([]byte, error) {
 	name = strings.ToLower(name)
@@ -43,4 +50,38 @@ func GetLatest(env Environment, name string) ([]byte, error) {
 	}
 
 	return nil, ErrUnknownRequest
+}
+
+func GetByUser[T any](env Environment, name string, userCtx UserContext) (*T, error) {
+	name = strings.ToLower(name)
+	url := fmt.Sprintf("%s/config", remoteCfgBaseUrl)
+
+	attribute, _ := json.Marshal(userCtx.Attributes)
+	client := req.C()
+	resp, err := client.R().
+		SetQueryParam("env", env.String()).
+		SetQueryParam("name", name).
+		SetQueryParam("userId", userCtx.UserID).
+		SetQueryParam("attribute", string(attribute)).
+		SetQueryParam("raw", "true").
+		Get(url)
+	if err != nil {
+		return nil, err
+	}
+
+	if !resp.IsSuccess() {
+		return nil, ErrUnknownRequest
+	}
+
+	data, err := resp.ToBytes()
+	if err != nil {
+		return nil, err
+	}
+
+	var res T
+	if err := json.Unmarshal(data, &res); err != nil {
+		return nil, err
+	}
+
+	return &res, nil
 }
