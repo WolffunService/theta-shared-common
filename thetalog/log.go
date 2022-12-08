@@ -13,7 +13,7 @@ func init() {
 		return file + ":" + strconv.Itoa(line)
 	}
 
-	zerolog.CallerMarshalFunc = func(file string, line int) string {
+	zerolog.CallerMarshalFunc = func(pc uintptr, file string, line int) string {
 		// Inspired from uber/zap TrimmedPath =))
 
 		idx := strings.LastIndexByte(file, '/')
