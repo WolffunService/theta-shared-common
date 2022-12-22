@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"strconv"
 	"strings"
 
 	"github.com/imroc/req/v3"
@@ -12,6 +13,11 @@ import (
 type UserContext struct {
 	UserID     string
 	Attributes map[string]any
+}
+
+type Option struct {
+	PreventPushEvent bool
+	Country          string
 }
 
 var ErrUnknownRequest = errors.New("unknown request error")
@@ -52,7 +58,7 @@ func GetLatest(env Environment, name string) ([]byte, error) {
 	return nil, ErrUnknownRequest
 }
 
-func GetByUser[T any](env Environment, name string, userCtx UserContext) (*T, error) {
+func GetByUser[T any](env Environment, name string, userCtx UserContext, option Option) (*T, error) {
 	name = strings.ToLower(name)
 	url := fmt.Sprintf("%s/config", remoteCfgBaseUrl)
 
@@ -64,6 +70,8 @@ func GetByUser[T any](env Environment, name string, userCtx UserContext) (*T, er
 		SetQueryParam("userId", userCtx.UserID).
 		SetQueryParam("attribute", string(attribute)).
 		SetQueryParam("raw", "true").
+		SetQueryParam("preventPushEvent", strconv.FormatBool(option.PreventPushEvent)).
+		SetQueryParam("country", option.Country).
 		Get(url)
 	if err != nil {
 		return nil, err

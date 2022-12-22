@@ -13,14 +13,17 @@ func TestGetLatest(t *testing.T) {
 }
 
 func TestGetConfByUser(t *testing.T) {
-	cfg, err := GetByUser(Staging, "rivals.lobby", UserContext{
+	cfg, err := GetByUser[any](Staging, "test_launcher", UserContext{
 		UserID:     "6199e2a6fe775c92cca39560",
 		Attributes: nil,
+	}, Option{
+		PreventPushEvent: false,
+		Country:          "VN",
 	})
 	if err != nil {
 		t.Error(err)
 		return
 	}
 
-	t.Log(string(cfg))
+	t.Log(cfg)
 }
