@@ -16,8 +16,10 @@ type UserContext struct {
 }
 
 type Option struct {
-	PreventPushEvent bool
+	DisablePushEvent bool
 	Country          string
+	EventName        string
+	TopicName        string
 }
 
 var ErrUnknownRequest = errors.New("unknown request error")
@@ -70,8 +72,10 @@ func GetByUser[T any](env Environment, name string, userCtx UserContext, option 
 		SetQueryParam("userId", userCtx.UserID).
 		SetQueryParam("attribute", string(attribute)).
 		SetQueryParam("raw", "true").
-		SetQueryParam("preventPushEvent", strconv.FormatBool(option.PreventPushEvent)).
+		SetQueryParam("disablePushEvent", strconv.FormatBool(option.DisablePushEvent)).
 		SetQueryParam("country", option.Country).
+		SetQueryParam("eventName", option.EventName).
+		SetQueryParam("topicName", option.TopicName).
 		Get(url)
 	if err != nil {
 		return nil, err
