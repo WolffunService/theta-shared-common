@@ -22,6 +22,11 @@ type Option struct {
 	TopicName        string
 }
 
+type GetByUserRequest struct {
+	User   UserContext
+	Option Option
+}
+
 var ErrUnknownRequest = errors.New("unknown request error")
 
 type Environment string
@@ -48,6 +53,7 @@ func GetLatest(env Environment, name string) ([]byte, error) {
 		SetQueryParam("name", name).
 		SetQueryParam("revision", "0").
 		SetQueryParam("raw", "true").
+		SetQueryParam("checkFlag", "true").
 		Get(url)
 	if err != nil {
 		return nil, err
@@ -60,22 +66,22 @@ func GetLatest(env Environment, name string) ([]byte, error) {
 	return nil, ErrUnknownRequest
 }
 
-func GetByUser[T any](env Environment, name string, userCtx UserContext, option Option) (*T, error) {
+func GetByUser[T any](env Environment, name string, request GetByUserRequest) (*T, error) {
 	name = strings.ToLower(name)
 	url := fmt.Sprintf("%s/config", remoteCfgBaseUrl)
 
-	attribute, _ := json.Marshal(userCtx.Attributes)
+	attribute, _ := json.Marshal(request.User.Attributes)
 	client := req.C()
 	resp, err := client.R().
 		SetQueryParam("env", env.String()).
 		SetQueryParam("name", name).
-		SetQueryParam("userId", userCtx.UserID).
+		SetQueryParam("userId", request.User.UserID).
 		SetQueryParam("attribute", string(attribute)).
 		SetQueryParam("raw", "true").
-		SetQueryParam("disablePushEvent", strconv.FormatBool(option.DisablePushEvent)).
-		SetQueryParam("country", option.Country).
-		SetQueryParam("eventName", option.EventName).
-		SetQueryParam("topicName", option.TopicName).
+		SetQueryParam("disablePushEvent", strconv.FormatBool(request.Option.DisablePushEvent)).
+		SetQueryParam("country", request.Option.Country).
+		SetQueryParam("eventName", request.Option.EventName).
+		SetQueryParam("topicName", request.Option.TopicName).
 		Get(url)
 	if err != nil {
 		return nil, err
