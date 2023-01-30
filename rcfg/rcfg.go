@@ -66,6 +66,27 @@ func GetLatest(env Environment, name string) ([]byte, error) {
 	return nil, ErrUnknownRequest
 }
 
+func GetConfig(env Environment, name string) ([]byte, error) {
+	name = strings.ToLower(name)
+	url := fmt.Sprintf("%s/config", remoteCfgBaseUrl)
+	client := req.C()
+	resp, err := client.R().
+		SetQueryParam("env", env.String()).
+		SetQueryParam("name", name).
+		SetQueryParam("raw", "true").
+		SetQueryParam("viewOnly", "true").
+		Get(url)
+	if err != nil {
+		return nil, err
+	}
+
+	if resp.IsSuccess() {
+		return resp.ToBytes()
+	}
+
+	return nil, ErrUnknownRequest
+}
+
 func GetByUser[T any](env Environment, name string, request GetByUserRequest) (*T, error) {
 	name = strings.ToLower(name)
 	url := fmt.Sprintf("%s/config", remoteCfgBaseUrl)
