@@ -74,14 +74,15 @@ const (
 	ErrorPreviouslyReported     = 3108
 
 	// Box
-	ErrorBoxExchangeRate     = 3109
-	ErrorMustLinkedWolffunId = 3110
-	ErrorMustInstalledGame   = 3111
-	ErrorNeedMoreTimeToOpen  = 3112
-	ErrorAlreadyClaimFreeBox = 3113
-	ErrorMustConnectCoinbase = 3114
-	ErrorGiftCodeInvalid     = 3115
-	ErrorRequestProcessing	 = 3116
+	ErrorBoxExchangeRate          = 3109
+	ErrorMustLinkedWolffunId      = 3110
+	ErrorMustInstalledGame        = 3111
+	ErrorNeedMoreTimeToOpen       = 3112
+	ErrorAlreadyClaimFreeBox      = 3113
+	ErrorMustConnectCoinbase      = 3114
+	ErrorGiftCodeInvalid          = 3115
+	ErrorRequestProcessing        = 3116
+	ErrorMustInstalledGalaxyStore = 3117
 
 	// Rental
 	ErrorRentedItem            = 3120
@@ -195,13 +196,14 @@ var errorText = map[int]string{
 	ErrorBoxExchangeRate: "Box price has been updated, please try again!",
 
 	// Gift box
-	ErrorMustLinkedWolffunId: "Hey, you must link your account with WolffunId first!",
-	ErrorMustInstalledGame:   "Hey, you must install ThetanArena and log in to your account!",
-	ErrorNeedMoreTimeToOpen:  "Hmm, you need at least 24 hours before opening your gift box!",
-	ErrorAlreadyClaimFreeBox: "Oh no, you already claimed this box before!",
-	ErrorMustConnectCoinbase: "Hey, you must connect your account with the Coinbase wallet!",
-	ErrorGiftCodeInvalid:     "Oh no, the gift code is not valid or expired!",
-	ErrorRequestProcessing:     "Your request is being handled!",
+	ErrorMustLinkedWolffunId:      "Hey, you must link your account with WolffunId first!",
+	ErrorMustInstalledGame:        "Hey, you must install ThetanArena and log in to your account!",
+	ErrorNeedMoreTimeToOpen:       "Hmm, you need at least 24 hours before opening your gift box!",
+	ErrorAlreadyClaimFreeBox:      "Oh no, you already claimed this box before!",
+	ErrorMustConnectCoinbase:      "Hey, you must connect your account with the Coinbase wallet!",
+	ErrorGiftCodeInvalid:          "Oh no, the gift code is not valid or expired!",
+	ErrorRequestProcessing:        "Your request is being handled!",
+	ErrorMustInstalledGalaxyStore: "Oh no, you need to install ThetanArena from Galaxy Store and log in to your account first",
 
 	//friend
 	ErrorOtherFullRequestReceived: "Your friend can't take any more friend requests",
