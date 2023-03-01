@@ -257,7 +257,7 @@ var errorText = map[int]string{
 	GiftCodeInvalid:          "Oh no, the gift code is not valid or expired!",
 	ErrorRequestProcessing:   "Your request is being handled!",
 	GloryPassInvalid:         "Please enter the correct Glory Pass token and claim again.",
-	MustInstalledGalaxyStore: "Oh no, you need to install ThetanArena from Galaxy Store and log in to your account first",
+	MustInstalledGalaxyStore: "Oh no, you need to install ThetanArena from Galaxy Store and play the specified number of matches",
 
 	//friend
 	OtherFullRequestReceived: "Your friend can't take any more friend requests",
