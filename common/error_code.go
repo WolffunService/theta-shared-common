@@ -114,17 +114,18 @@ const (
 	PreviouslyReported     = 3108
 
 	// Box
-	BoxExchangeRate          = 3109
-	MustLinkedWolffunId      = 3110
-	MustInstalledGame        = 3111
-	NeedMoreTimeToOpen       = 3112
-	AlreadyClaimFreeBox      = 3113
-	MustConnectCoinbase      = 3114
-	GiftCodeInvalid          = 3115
-	ErrorRequestProcessing   = 3116
-	GloryPassInvalid         = 3117
-	MustCheckinMKP           = 3118
-	MustInstalledGalaxyStore = 3119
+	BoxExchangeRate           = 3109
+	MustLinkedWolffunId       = 3110
+	MustInstalledGame         = 3111
+	NeedMoreTimeToOpen        = 3112
+	AlreadyClaimFreeBox       = 3113
+	MustConnectCoinbase       = 3114
+	GiftCodeInvalid           = 3115
+	ErrorRequestProcessing    = 3116
+	GloryPassInvalid          = 3117
+	MustCheckinMKP            = 3118
+	MustInstalledGalaxyStore  = 3119
+	MustPlaySufficienceBattle = 3132
 
 	// Rental
 	RentedItem            = 3120
@@ -249,16 +250,16 @@ var errorText = map[int]string{
 	BoxExchangeRate: "Box price has been updated, please try again!",
 
 	// Gift box
-	MustLinkedWolffunId:      "Hey, you must link your account with WolffunId first!",
-	MustInstalledGame:        "Hey, you must install ThetanArena and log in to your account!",
-	NeedMoreTimeToOpen:       "Hmm, you need at least 24 hours before opening your gift box!",
-	AlreadyClaimFreeBox:      "Oh no, you already claimed this box before!",
-	MustConnectCoinbase:      "Hey, you must connect your account with the Coinbase wallet!",
-	GiftCodeInvalid:          "Oh no, the gift code is not valid or expired!",
-	ErrorRequestProcessing:   "Your request is being handled!",
-	GloryPassInvalid:         "Please enter the correct Glory Pass token and claim again.",
-	MustInstalledGalaxyStore: "Oh no, you need to install ThetanArena from Galaxy Store and play the specified number of matches",
-
+	MustLinkedWolffunId:       "Hey, you must link your account with WolffunId first!",
+	MustInstalledGame:         "Hey, you must install ThetanArena and log in to your account!",
+	NeedMoreTimeToOpen:        "Hmm, you need at least 24 hours before opening your gift box!",
+	AlreadyClaimFreeBox:       "Oh no, you already claimed this box before!",
+	MustConnectCoinbase:       "Hey, you must connect your account with the Coinbase wallet!",
+	GiftCodeInvalid:           "Oh no, the gift code is not valid or expired!",
+	ErrorRequestProcessing:    "Your request is being handled!",
+	GloryPassInvalid:          "Please enter the correct Glory Pass token and claim again.",
+	MustInstalledGalaxyStore:  "Oh no, you need to install ThetanArena from Galaxy Store and login to game first",
+	MustPlaySufficienceBattle: "Hey, you must play enough battles to meet the requirement",
 	//friend
 	OtherFullRequestReceived: "Your friend can't take any more friend requests",
 	OtherFullFriendList:      "Your friend has full friend list",
