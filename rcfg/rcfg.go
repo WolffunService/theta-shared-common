@@ -47,9 +47,20 @@ var remoteCfgBaseUrl = map[Environment]string{
 	Production: "https://thetan-support.thetanarena.com/api/remote-config",
 }
 
+func GetRemoteCfgBaseUrl(env Environment, route string) (string, error) {
+	if url, ok := remoteCfgBaseUrl[env]; ok {
+		urlFull := url + route
+		return urlFull, nil
+	}
+	return "", fmt.Errorf("unknown env: %s", env)
+}
+
 func GetLatest(env Environment, name string) ([]byte, error) {
 	name = strings.ToLower(name)
-	url := fmt.Sprintf("%s/view", remoteCfgBaseUrl[env])
+	url, err := GetRemoteCfgBaseUrl(env, "/view")
+	if err != nil {
+		return nil, err
+	}
 	client := req.C()
 	resp, err := client.R().
 		SetHeader("Accept", "application/json").
@@ -71,7 +82,10 @@ func GetLatest(env Environment, name string) ([]byte, error) {
 
 func GetConfig(env Environment, name string) ([]byte, error) {
 	name = strings.ToLower(name)
-	url := fmt.Sprintf("%s/config", remoteCfgBaseUrl[env])
+	url, err := GetRemoteCfgBaseUrl(env, "/config")
+	if err != nil {
+		return nil, err
+	}
 	client := req.C()
 	resp, err := client.R().
 		SetQueryParam("name", name).
@@ -91,8 +105,10 @@ func GetConfig(env Environment, name string) ([]byte, error) {
 
 func GetByUser[T any](env Environment, name string, request GetByUserRequest) (*T, error) {
 	name = strings.ToLower(name)
-	url := fmt.Sprintf("%s/config", remoteCfgBaseUrl[env])
-
+	url, err := GetRemoteCfgBaseUrl(env, "/config")
+	if err != nil {
+		return nil, err
+	}
 	attribute, _ := json.Marshal(request.User.Attributes)
 	client := req.C()
 	resp, err := client.R().
