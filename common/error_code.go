@@ -126,6 +126,7 @@ const (
 	MustCheckinMKP            = 3118
 	MustInstalledGalaxyStore  = 3119
 	MustPlaySufficienceBattle = 3132
+	WalletConnectOutOfEvent   = 3133
 
 	// Rental
 	RentedItem            = 3120
@@ -260,6 +261,7 @@ var errorText = map[int]string{
 	GloryPassInvalid:          "Please enter the correct Glory Pass token and claim again.",
 	MustInstalledGalaxyStore:  "Oh no, you need to install ThetanArena from Galaxy Store and login to game first",
 	MustPlaySufficienceBattle: "Hey, you must play enough battles to meet the requirement",
+	WalletConnectOutOfEvent:   "Your account wallet must be connect first time in event duration",
 	//friend
 	OtherFullRequestReceived: "Your friend can't take any more friend requests",
 	OtherFullFriendList:      "Your friend has full friend list",
