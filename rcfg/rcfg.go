@@ -41,15 +41,29 @@ func (env Environment) String() string {
 	return string(env)
 }
 
-const remoteCfgBaseUrl = "https://thetan-support.thetanarena.com/api/remote-config"
+var remoteCfgBaseUrl = map[Environment]string{
+	Staging:    "https://thetan-support.staging.thetanarena.com/api/remote-config",
+	UAT:        "https://thetan-support.uat.thetanarena.com/api/remote-config",
+	Production: "https://thetan-support.thetanarena.com/api/remote-config",
+}
+
+func GetRemoteCfgBaseUrl(env Environment, route string) (string, error) {
+	if url, ok := remoteCfgBaseUrl[env]; ok {
+		urlFull := url + route
+		return urlFull, nil
+	}
+	return "", fmt.Errorf("unknown env: %s", env)
+}
 
 func GetLatest(env Environment, name string) ([]byte, error) {
 	name = strings.ToLower(name)
-	url := fmt.Sprintf("%s/view", remoteCfgBaseUrl)
+	url, err := GetRemoteCfgBaseUrl(env, "/view")
+	if err != nil {
+		return nil, err
+	}
 	client := req.C()
 	resp, err := client.R().
 		SetHeader("Accept", "application/json").
-		SetQueryParam("env", env.String()).
 		SetQueryParam("name", name).
 		SetQueryParam("revision", "0").
 		SetQueryParam("raw", "true").
@@ -68,10 +82,12 @@ func GetLatest(env Environment, name string) ([]byte, error) {
 
 func GetConfig(env Environment, name string) ([]byte, error) {
 	name = strings.ToLower(name)
-	url := fmt.Sprintf("%s/config", remoteCfgBaseUrl)
+	url, err := GetRemoteCfgBaseUrl(env, "/config")
+	if err != nil {
+		return nil, err
+	}
 	client := req.C()
 	resp, err := client.R().
-		SetQueryParam("env", env.String()).
 		SetQueryParam("name", name).
 		SetQueryParam("raw", "true").
 		SetQueryParam("viewOnly", "true").
@@ -89,12 +105,13 @@ func GetConfig(env Environment, name string) ([]byte, error) {
 
 func GetByUser[T any](env Environment, name string, request GetByUserRequest) (*T, error) {
 	name = strings.ToLower(name)
-	url := fmt.Sprintf("%s/config", remoteCfgBaseUrl)
-
+	url, err := GetRemoteCfgBaseUrl(env, "/config")
+	if err != nil {
+		return nil, err
+	}
 	attribute, _ := json.Marshal(request.User.Attributes)
 	client := req.C()
 	resp, err := client.R().
-		SetQueryParam("env", env.String()).
 		SetQueryParam("name", name).
 		SetQueryParam("userId", request.User.UserID).
 		SetQueryParam("attribute", string(attribute)).
