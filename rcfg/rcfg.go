@@ -53,7 +53,7 @@ var (
 
 func GetRemoteCfgBaseUrl(env Environment, route string) (string, error) {
 	if common.OnCloud() {
-		return remoteCfgBaseInternalUrl, nil
+		return remoteCfgBaseInternalUrl + route, nil
 	}
 
 	if url, ok := remoteCfgBaseUrl[env]; ok {
