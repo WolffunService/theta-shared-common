@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"github.com/WolffunGame/theta-shared-common/common"
 	"strconv"
 	"strings"
 
@@ -41,13 +42,20 @@ func (env Environment) String() string {
 	return string(env)
 }
 
-var remoteCfgBaseUrl = map[Environment]string{
-	Staging:    "https://thetan-support.staging.thetanarena.com/api/remote-config",
-	UAT:        "https://thetan-support.uat.thetanarena.com/api/remote-config",
-	Production: "https://thetan-support.thetanarena.com/api/remote-config",
-}
+var (
+	remoteCfgBaseInternalUrl = "http://thetan-support.default.svc.cluster.local:1706/api/remote-config"
+	remoteCfgBaseUrl         = map[Environment]string{
+		Staging:    "https://thetan-support.staging.thetanarena.com/api/remote-config",
+		UAT:        "https://thetan-support.uat.thetanarena.com/api/remote-config",
+		Production: "https://thetan-support.thetanarena.com/api/remote-config",
+	}
+)
 
 func GetRemoteCfgBaseUrl(env Environment, route string) (string, error) {
+	if common.OnCloud() {
+		return remoteCfgBaseInternalUrl, nil
+	}
+
 	if url, ok := remoteCfgBaseUrl[env]; ok {
 		urlFull := url + route
 		return urlFull, nil
