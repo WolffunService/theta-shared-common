@@ -4,12 +4,12 @@ import (
 	"context"
 	"crypto/md5"
 	"encoding/hex"
-	"github.com/WolffunGame/theta-shared-common/auth/entity"
-	"github.com/WolffunGame/theta-shared-common/auth/rbac"
-	"github.com/WolffunGame/theta-shared-common/common/thetaerror"
-	"github.com/WolffunGame/theta-shared-common/thetalog"
 	"github.com/WolffunGame/theta-shared-database/common/util"
 	"github.com/WolffunGame/theta-shared-database/database/mongodb"
+	"github.com/WolffunService/theta-shared-common/auth/entity"
+	"github.com/WolffunService/theta-shared-common/auth/rbac"
+	"github.com/WolffunService/theta-shared-common/common/thetaerror"
+	"github.com/WolffunService/theta-shared-common/thetalog"
 	"go.mongodb.org/mongo-driver/bson"
 	"golang.org/x/crypto/bcrypt"
 	"math/rand"
@@ -154,7 +154,7 @@ const (
 
 var src = rand.NewSource(time.Now().UnixNano())
 
-//Hàm random này performance cao mà nhìn ngầu
+// Hàm random này performance cao mà nhìn ngầu
 func randStringBytesMaskImprSrc(n int) string {
 	b := make([]byte, n)
 	// A src.Int63() generates 63 random bits, enough for letterIdxMax characters!

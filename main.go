@@ -5,7 +5,7 @@ import (
 	"crypto/x509"
 	"encoding/pem"
 	"fmt"
-	"github.com/WolffunGame/theta-shared-common/thetalog"
+	"github.com/WolffunService/theta-shared-common/thetalog"
 	"time"
 )
 

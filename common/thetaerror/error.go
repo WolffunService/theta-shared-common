@@ -3,7 +3,7 @@ package thetaerror
 import (
 	"bytes"
 	"fmt"
-	"github.com/WolffunGame/theta-shared-common/thetalog"
+	"github.com/WolffunService/theta-shared-common/thetalog"
 )
 
 type Error struct {

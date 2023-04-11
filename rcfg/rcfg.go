@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"github.com/WolffunGame/theta-shared-common/common"
+	"github.com/WolffunService/theta-shared-common/common"
 	"strconv"
 	"strings"
 
