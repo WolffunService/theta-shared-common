@@ -3,8 +3,8 @@ package thetaleaderboard
 import (
 	"context"
 	"fmt"
-	podium "github.com/WolffunGame/theta-shared-common/proto/pb/podium.api.v1"
-	"github.com/WolffunGame/theta-shared-common/thetalog"
+	podium "github.com/WolffunService/theta-shared-common/proto/pb/podium.api.v1"
+	"github.com/WolffunService/theta-shared-common/thetalog"
 	"google.golang.org/grpc"
 )
 

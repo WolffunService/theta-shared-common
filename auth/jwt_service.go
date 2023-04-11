@@ -7,12 +7,12 @@ import (
 	"strings"
 	"time"
 
-	"github.com/WolffunGame/theta-shared-common/auth/entity"
-	"github.com/WolffunGame/theta-shared-common/common"
+	"github.com/WolffunService/theta-shared-common/auth/entity"
+	"github.com/WolffunService/theta-shared-common/common"
 	"github.com/golang-jwt/jwt"
 )
 
-//check token http author
+// check token http author
 func (s service) tokenValid(r *http.Request) (jwt.MapClaims, error) {
 	//get token from Authorization - Header
 	tokenString := extractToken(r)
@@ -20,7 +20,7 @@ func (s service) tokenValid(r *http.Request) (jwt.MapClaims, error) {
 	return s.tokenValidString(tokenString)
 }
 
-//check token string
+// check token string
 func (s service) tokenValidString(tokenString string) (jwt.MapClaims, error) {
 	token, err := s.verifyToken(tokenString)
 	if err != nil {

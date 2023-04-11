@@ -1,6 +1,6 @@
 package common
 
-import "github.com/WolffunGame/theta-shared-common/common/customerror"
+import "github.com/WolffunService/theta-shared-common/common/customerror"
 
 var _IsGlobal = false
 

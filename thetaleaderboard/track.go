@@ -2,7 +2,7 @@ package thetaleaderboard
 
 import (
 	"context"
-	podium "github.com/WolffunGame/theta-shared-common/proto/pb/podium.api.v1"
+	podium "github.com/WolffunService/theta-shared-common/proto/pb/podium.api.v1"
 )
 
 func TrackLB(ctx context.Context, userId string, score int32, leaderboards ...string) error {

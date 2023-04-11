@@ -1,4 +1,4 @@
-module github.com/WolffunGame/theta-shared-common
+module github.com/WolffunService/theta-shared-common
 
 go 1.18
 
