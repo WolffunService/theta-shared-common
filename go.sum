@@ -58,8 +58,8 @@ github.com/BurntSushi/xgb v0.0.0-20160522181843-27f122750802/go.mod h1:IVnqGOEym
 github.com/Knetic/govaluate v3.0.1-0.20171022003610-9aa49832a739+incompatible h1:1G1pk05UrOh0NlF1oeaaix1x8XzrfjIDK47TY0Zehcw=
 github.com/Knetic/govaluate v3.0.1-0.20171022003610-9aa49832a739+incompatible/go.mod h1:r7JcOSlj0wfOMncg0iLm8Leh48TZaKVeNIfJntJ2wa0=
 github.com/OneOfOne/xxhash v1.2.2/go.mod h1:HSdplMjZKSmBqAxg5vPj2TmRDmfkzw+cTzAElWljhcU=
-github.com/WolffunGame/theta-shared-database v1.2.22 h1:Fe3aId6qVpzq9C/yTqiPzCruKOTzy9ijKuTVTM1wT6Q=
-github.com/WolffunGame/theta-shared-database v1.2.22/go.mod h1:YBuWHfZ3XOqzN+kpK7NaXcj/lC04Qho7AQKcv3oN+iE=
+github.com/WolffunService/theta-shared-database v1.2.22 h1:Fe3aId6qVpzq9C/yTqiPzCruKOTzy9ijKuTVTM1wT6Q=
+github.com/WolffunService/theta-shared-database v1.2.22/go.mod h1:YBuWHfZ3XOqzN+kpK7NaXcj/lC04Qho7AQKcv3oN+iE=
 github.com/anmitsu/go-shlex v0.0.0-20161002113705-648efa622239/go.mod h1:2FmKhYUyUczH0OGQWaF5ceTx0UBShxjsH6f8oGKYe2c=
 github.com/antihax/optional v1.0.0/go.mod h1:uupD/76wgC+ih3iEmQUL+0Ugr19nfwCT1kdvxnR2qWY=
 github.com/benbjohnson/clock v1.1.0 h1:Q92kusRqC1XV2MjkWETPvjJVqKetz1OzxZB7mHJLju8=

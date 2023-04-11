@@ -1,9 +1,9 @@
-module github.com/WolffunGame/theta-shared-common
+module github.com/WolffunService/theta-shared-common
 
 go 1.18
 
 require (
-	github.com/WolffunGame/theta-shared-database v1.2.22
+	github.com/WolffunService/theta-shared-database v1.2.22
 	github.com/casbin/casbin/v2 v2.41.0
 	github.com/gin-gonic/gin v1.7.3
 	github.com/go-errors/errors v1.4.2
