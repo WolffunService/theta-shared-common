@@ -5,7 +5,7 @@ go 1.18
 require (
 	github.com/WolffunService/theta-shared-database v1.2.22
 	github.com/casbin/casbin/v2 v2.41.0
-	github.com/gin-gonic/gin v1.7.3
+	github.com/gin-gonic/gin v1.7.5
 	github.com/go-errors/errors v1.4.2
 	github.com/go-redis/redis/v8 v8.11.3
 	github.com/golang-jwt/jwt v3.2.2+incompatible
