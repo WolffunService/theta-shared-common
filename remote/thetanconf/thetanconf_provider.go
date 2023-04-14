@@ -16,12 +16,12 @@ import (
 )
 
 const (
-	providerName        = "thetan-conf"
+	ProviderName        = "thetan-conf"
 	defaultTickInterval = 10 * time.Second
 )
 
 func init() {
-	remote.RegisterConfigProvider(providerName, NewConfigProvider())
+	remote.RegisterConfigProvider(ProviderName, NewConfigProvider())
 }
 
 // ConfigProvider implements reads configuration from Hashicorp Vault.
