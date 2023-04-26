@@ -4,7 +4,7 @@ go 1.18
 
 require (
 	github.com/WolffunService/theta-shared-database v1.7.3
-	github.com/buger/jsonparser v0.0.0-20181115193947-bf1c66bbce23
+	github.com/buger/jsonparser v1.1.1
 	github.com/casbin/casbin/v2 v2.41.0
 	github.com/cockroachdb/errors v1.9.1
 	github.com/gin-gonic/gin v1.7.5
