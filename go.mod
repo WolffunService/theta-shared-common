@@ -7,7 +7,7 @@ require (
 	github.com/buger/jsonparser v1.1.1
 	github.com/casbin/casbin/v2 v2.41.0
 	github.com/cockroachdb/errors v1.9.1
-	github.com/gin-gonic/gin v1.7.5
+	github.com/gin-gonic/gin v1.7.7
 	github.com/go-errors/errors v1.4.2
 	github.com/go-redis/redis/v8 v8.11.4
 	github.com/golang-jwt/jwt v3.2.2+incompatible
