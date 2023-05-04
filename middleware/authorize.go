@@ -3,6 +3,10 @@ package middleware
 import (
 	"context"
 	"fmt"
+	"net/http"
+	"strings"
+	"time"
+
 	"github.com/WolffunService/theta-shared-common/auth"
 	"github.com/WolffunService/theta-shared-common/auth/entity"
 	"github.com/WolffunService/theta-shared-common/auth/rbac"
@@ -11,11 +15,8 @@ import (
 	"github.com/WolffunService/theta-shared-database/database/mredis"
 	"github.com/gin-gonic/gin"
 	"github.com/go-errors/errors"
-	goredislib "github.com/go-redis/redis/v8"
 	"github.com/golang-jwt/jwt"
-	"net/http"
-	"strings"
-	"time"
+	goredislib "github.com/redis/go-redis/v9"
 )
 
 const (

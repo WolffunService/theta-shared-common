@@ -4,6 +4,11 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"log"
+	"runtime"
+	"strings"
+	"time"
+
 	"github.com/casbin/casbin/v2/model"
 	"github.com/casbin/casbin/v2/persist"
 	"go.mongodb.org/mongo-driver/bson"
@@ -11,10 +16,6 @@ import (
 	"go.mongodb.org/mongo-driver/mongo/options"
 	"go.mongodb.org/mongo-driver/x/bsonx"
 	"go.mongodb.org/mongo-driver/x/mongo/driver/connstring"
-	"log"
-	"runtime"
-	"strings"
-	"time"
 )
 
 const defaultTimeout time.Duration = 10 * time.Second

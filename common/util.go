@@ -1,8 +1,9 @@
 package common
 
 import (
-	"github.com/go-errors/errors"
 	"log"
+
+	"github.com/go-errors/errors"
 )
 
 type UserRole int

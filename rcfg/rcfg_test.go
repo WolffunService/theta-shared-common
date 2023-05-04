@@ -2,8 +2,9 @@ package rcfg
 
 import (
 	"fmt"
-	"github.com/stretchr/testify/assert"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 )
 
 func TestGetByUser(t *testing.T) {

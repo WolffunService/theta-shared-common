@@ -1,8 +1,9 @@
 package remote
 
 import (
-	"github.com/samber/lo"
 	"io"
+
+	"github.com/samber/lo"
 
 	"github.com/spf13/viper"
 )

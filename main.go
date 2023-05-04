@@ -5,8 +5,9 @@ import (
 	"crypto/x509"
 	"encoding/pem"
 	"fmt"
-	"github.com/WolffunService/theta-shared-common/thetalog"
 	"time"
+
+	"github.com/WolffunService/theta-shared-common/thetalog"
 )
 
 func ExportPublicKeyAsPemStr(pubkey *rsa.PublicKey) string {

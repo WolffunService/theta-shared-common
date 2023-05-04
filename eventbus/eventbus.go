@@ -2,9 +2,10 @@ package eventbus
 
 import (
 	"fmt"
-	"github.com/WolffunService/theta-shared-common/common"
 	"reflect"
 	"sync"
+
+	"github.com/WolffunService/theta-shared-common/common"
 )
 
 // BusSubscriber defines subscription-related bus behavior
