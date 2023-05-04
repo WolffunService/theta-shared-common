@@ -4,6 +4,11 @@ import (
 	"context"
 	"crypto/md5"
 	"encoding/hex"
+	"math/rand"
+	"net/http"
+	"strings"
+	"time"
+
 	"github.com/WolffunService/theta-shared-common/auth/entity"
 	"github.com/WolffunService/theta-shared-common/auth/rbac"
 	"github.com/WolffunService/theta-shared-common/common/thetaerror"
@@ -12,10 +17,6 @@ import (
 	"github.com/WolffunService/theta-shared-database/database/mongodb"
 	"go.mongodb.org/mongo-driver/bson"
 	"golang.org/x/crypto/bcrypt"
-	"math/rand"
-	"net/http"
-	"strings"
-	"time"
 )
 
 type APIKeyService interface {

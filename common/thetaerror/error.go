@@ -3,6 +3,7 @@ package thetaerror
 import (
 	"bytes"
 	"fmt"
+
 	"github.com/WolffunService/theta-shared-common/thetalog"
 )
 

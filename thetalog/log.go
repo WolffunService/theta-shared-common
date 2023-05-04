@@ -2,10 +2,11 @@ package thetalog
 
 import (
 	ctx "context"
-	"github.com/rs/zerolog"
-	"github.com/rs/zerolog/log"
 	"strconv"
 	"strings"
+
+	"github.com/rs/zerolog"
+	"github.com/rs/zerolog/log"
 )
 
 func init() {
@@ -185,10 +186,10 @@ func Fatal() Event {
 	return L.Fatal()
 }
 
-//Panic starts a new message with panic level. The message is also sent
-//to the panic function.
+// Panic starts a new message with panic level. The message is also sent
+// to the panic function.
 //
-//You must call Msg on the returned event in order to send the event.
+// You must call Msg on the returned event in order to send the event.
 func Panic() Event {
 	return L.Panic()
 }

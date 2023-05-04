@@ -2,6 +2,7 @@ package thetaleaderboard
 
 import (
 	"context"
+
 	podium "github.com/WolffunService/theta-shared-common/proto/pb/podium.api.v1"
 )
 
