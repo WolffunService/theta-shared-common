@@ -1,6 +1,6 @@
 package entity
 
-import "github.com/WolffunService/theta-shared-database/database/mongodb"
+import "github.com/WolffunService/theta-shared-common/database/mongodb"
 
 // Identity represents an authenticated user identity.
 type Identity interface {

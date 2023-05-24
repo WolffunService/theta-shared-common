@@ -12,9 +12,8 @@ import (
 	"github.com/WolffunService/theta-shared-common/auth/entity"
 	"github.com/WolffunService/theta-shared-common/auth/rbac"
 	"github.com/WolffunService/theta-shared-common/common/thetaerror"
+	"github.com/WolffunService/theta-shared-common/database/mongodb"
 	"github.com/WolffunService/theta-shared-common/thetalog"
-	"github.com/WolffunService/theta-shared-database/common/util"
-	"github.com/WolffunService/theta-shared-database/database/mongodb"
 	"go.mongodb.org/mongo-driver/bson"
 	"golang.org/x/crypto/bcrypt"
 )
