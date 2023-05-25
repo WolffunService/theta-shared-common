@@ -1,61 +1,88 @@
 package usermodel
 
 import (
-	"github.com/WolffunService/theta-shared-common/database/mongodb"
 	"time"
 
+	"github.com/WolffunService/theta-shared-common/enums/thetanrivalerrorenum/thetanrivalbotenum"
+	"github.com/WolffunService/theta-shared-common/enums/wallettypeenum"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
-type SourceInstallType int
-
-const (
-	SourceInstallNone SourceInstallType = iota
-	GalaxyStore
-)
+// implement interface Model
 
 func (User) CollectionName() string {
 	return "Users"
 }
 
+// GetID method return model's id
+func (f *User) GetID() interface{} {
+	return f.ID
+}
+
+// SetID set id value of model's id field.
+func (f *User) SetID(id interface{}) {
+	f.ID = id
+}
+
+// --------------- //
+
 type User struct {
-	mongodb.DefaultModel `bson:",inline"`
-	mongodb.DateFields   `json:",inline" bson:",inline"`
-	Role                 int                  `json:"role" bson:"role"`
-	Version              int                  `json:"version" bson:"version"`
-	Email                string               `json:"-" bson:"email"`
-	PublicEmail          string               `json:"email" bson:"-"`
-	UserName             string               `json:"username" bson:"username"`
-	NumChangeName        int                  `json:"numChangeName" bson:"numChangeName"`
-	Status               UserStatus           `json:"status" bson:"status"`
-	Address              string               `json:"address" bson:"address"`
-	AddressConnectTime   time.Time            `json:"addressConnectTime" bson:"addressConnectTime"`
-	Nonce                int                  `json:"-" bson:"nonce"`
-	CanClaimFreeHero     bool                 `json:"canClaimFreeHero" bson:"canClaimFreeHero"`
-	CanClaimBetaReward   bool                 `json:"canClaimBetaReward" bson:"canClaimBetaReward"`
-	UserProfile          UserProfile          `json:"userProfile" bson:"userProfile"`
-	PlayerStatistic      PlayerStatistic      `json:"playerStatistic" bson:"playerStatistic"`
-	Suspicious           int                  `json:"-" bson:"suspicious"`
-	SuspiciousWrongData  int                  `json:"-" bson:"suspiciousWrongData"`
-	SuspiciousAbnormal   int                  `json:"-" bson:"suspiciousAbnormal"`
-	IpAddress            string               `json:"-" bson:"ipAddress"`
-	Country              string               `json:"country" bson:"country"`
-	AvatarId             int                  `json:"avatarId" bson:"avatarId"`
-	FrameId              int                  `json:"frameId" bson:"frameId"`
-	TicketBanFindMatch   TicketBanFindMatch   `json:"-" bson:"ticketBanFindMatch"`
-	Referral             Referral             `json:"referral" bson:"referral"`
-	IsCreator            bool                 `json:"isCreator" bson:"isCreator"`
-	IsCreatorProgram     bool                 `json:"isCreatorProgram" bson:"isCreatorProgram"`
-	BanReason            string               `json:"banReason,omitempty" bson:"banReason,omitempty"`
-	LastTimeBattle       time.Time            `json:"lastTimeBattle" bson:"lastTimeBattle"`
-	IsCheckBehaviorPoint bool                 `json:"isCheckBehaviorPoint" bson:"isCheckBehaviorPoint"`
-	IsBot                bool                 `json:"-" bson:"isBot,omitempty"`
-	FirstOpenTime        time.Time            `json:"firstOpenTime" bson:"firstOpenTime"`
-	LastOnline           int64                `json:"lastOnline" bson:"lastOnline"`
-	WalletConnected      map[string]time.Time `json:"walletConnected" bson:"walletConnected"`
+	ID                 interface{} `json:"id" bson:"_id,omitempty"`
+	Role               int         `json:"role" bson:"role"`
+	Version            int         `json:"version" bson:"version"`
+	Email              string      `json:"-" bson:"email"`
+	PublicEmail        string      `json:"email" bson:"-"`
+	UserName           string      `json:"username" bson:"username"`
+	NumChangeName      int         `json:"numChangeName" bson:"numChangeName"`
+	TotalNumChangeName int         `json:"totalNumChangeName" bson:"totalNumChangeName"`
+	Status             UserStatus  `json:"status" bson:"status"`
+	Address            string      `json:"address" bson:"address"`
+	AddressConnectTime time.Time   `json:"addressConnectTime" bson:"addressConnectTime"`
+	Nonce              int         `json:"-" bson:"nonce"`
+	CanClaimFreeHero   bool        `json:"canClaimFreeHero" bson:"canClaimFreeHero"`
+	CanClaimBetaReward bool        `json:"canClaimBetaReward" bson:"canClaimBetaReward"`
+	UserProfile        UserProfile `json:"userProfile" bson:"userProfile"`
+	Biography          string      `json:"biography" bson:"biography"`
+
+	// === Thetan World Game Player Statistic ===
+
+	// PlayerStatistic => Thetan Arena player statistic
+	PlayerStatistic PlayerStatistic `json:"playerStatistic" bson:"playerStatistic"`
+
+	// StatisticRivals => Thetan Rivals player statistic
+	StatisticRivals StatisticRivals `json:"statisticRivals" bson:"statisticRivals"`
+
+	// ===--===--===--===--===--===--===--===--===
+
+	Suspicious           int                                     `json:"-" bson:"suspicious"`
+	SuspiciousWrongData  int                                     `json:"-" bson:"suspiciousWrongData"`
+	SuspiciousAbnormal   int                                     `json:"-" bson:"suspiciousAbnormal"`
+	IpAddress            string                                  `json:"-" bson:"ipAddress"`
+	Country              string                                  `json:"country" bson:"country"`
+	AvatarId             int                                     `json:"avatarId" bson:"avatarId"`
+	FrameId              int                                     `json:"frameId" bson:"frameId"`
+	NameColorId          int                                     `json:"nameColorId" bson:"nameColorId"`
+	TicketBanFindMatch   TicketBanFindMatch                      `json:"-" bson:"ticketBanFindMatch"`
+	Referral             Referral                                `json:"referral" bson:"referral"`
+	IsCreator            bool                                    `json:"isCreator" bson:"isCreator"`
+	IsCreatorProgram     bool                                    `json:"isCreatorProgram" bson:"isCreatorProgram"`
+	BanReason            string                                  `json:"banReason,omitempty" bson:"banReason,omitempty"`
+	LastTimeBattle       time.Time                               `json:"lastTimeBattle" bson:"lastTimeBattle"`
+	IsCheckBehaviorPoint bool                                    `json:"isCheckBehaviorPoint" bson:"isCheckBehaviorPoint"`
+	IsBot                bool                                    `json:"-" bson:"isBot,omitempty"`
+	RivalBotStatus       thetanrivalbotenum.RivalBotStatus       `json:"-" bson:"rivalBotStatus,omitempty"`
+	FirstTimeInstall     time.Time                               `json:"-" bson:"firstTimeInstall"`
+	CreatedAt            time.Time                               `json:"created" bson:"created"`
+	LastOnline           int64                                   `json:"lastOnline" bson:"lastOnline"`
+	FirstOpenTime        time.Time                               `json:"firstOpenTime" bson:"firstOpenTime"`
+	WalletConnected      map[wallettypeenum.WalletType]time.Time `json:"walletConnected" bson:"walletConnected"`
 
 	// TODO: tmp field
 	HasNewAvatar bool `json:"hasNewAvatar" bson:"hasNewAvatar"`
+}
+
+func (User) CollName() string {
+	return "Users"
 }
 
 type Referral struct {
@@ -77,7 +104,6 @@ type PlayerStatistic struct {
 	Mvp           int32 `json:"mvp" bson:"mvp"`
 	Hero          int32 `json:"hero" bson:"hero"`
 	BehaviorPoint int32 `json:"behaviorPoint" bson:"behaviorPoint"`
-	Lose          int32 `json:"lose" bson:"lose"`
 
 	VictorySeason   int32 `json:"-" bson:"victorySeason"`
 	StreakSeason    int32 `json:"-" bson:"streakSeason"`
@@ -85,7 +111,6 @@ type PlayerStatistic struct {
 	TripleSeason    int32 `json:"-" bson:"tripleSeason"`
 	MegaSeason      int32 `json:"-" bson:"megaSeason"`
 	MvpSeason       int32 `json:"-" bson:"mvpSeason"`
-	LoseSeason      int32 `json:"-" bson:"loseSeason"`
 
 	InstallSource []SourceInstallType `bson:"installSource"`
 
@@ -99,7 +124,31 @@ func (p *PlayerStatistic) ResetSeason() {
 	p.TripleSeason = 0
 	p.MegaSeason = 0
 	p.MvpSeason = 0
-	p.LoseSeason = 0
+}
+
+type StatisticRivals struct {
+	Minion    int32 `json:"minion" bson:"minion"`
+	Battle    int32 `json:"battle" bson:"battle"`
+	Victory   int32 `json:"victory" bson:"victory"`
+	Streak    int32 `json:"streak" bson:"streak"`
+	CurStreak int32 `json:"curStreak" bson:"curStreak"`
+	WinRound  int32 `json:"winRound" bson:"winRound"`
+}
+
+func (statistic StatisticRivals) GetCurTop1Streak() int32 {
+	rs := statistic.CurStreak - 1
+	if rs < 0 {
+		rs = 0
+	}
+	return rs
+}
+
+func (statistic StatisticRivals) GetBestTop1Streak() int32 {
+	rs := statistic.Streak - 1
+	if rs < 0 {
+		rs = 0
+	}
+	return rs
 }
 
 type TicketBanFindMatch struct {
@@ -141,12 +190,12 @@ func (u *User) GetBehaviorPoint() int32 {
 
 func (u *User) Minimal() *UserMinimal {
 	return &UserMinimal{
-		DefaultModel: u.DefaultModel,
-		UserName:     u.UserName,
-		Status:       u.Status,
-		Country:      u.Country,
-		AvatarId:     u.AvatarId,
-		FrameId:      u.FrameId,
+		ID:       u.ID,
+		UserName: u.UserName,
+		Status:   u.Status,
+		Country:  u.Country,
+		AvatarId: u.AvatarId,
+		FrameId:  u.FrameId,
 
 		UserProfile:     u.UserProfile,
 		PlayerStatistic: u.PlayerStatistic,
@@ -158,6 +207,13 @@ type UserStatus int
 const (
 	ACTIVE UserStatus = 1
 	BANNED UserStatus = -1
+)
+
+type SourceInstallType int
+
+const (
+	SourceInstallNone SourceInstallType = iota
+	GalaxyStore
 )
 
 func (status UserStatus) String() string {
@@ -213,17 +269,21 @@ func (u *User) GetBanMultiple() int {
 	}
 }
 
+func (u *User) HasEmail() bool {
+	return len(u.Email) > 0
+}
+
 func (UserMinimal) CollectionName() string {
 	return "Users"
 }
 
 type UserMinimal struct {
-	mongodb.DefaultModel `bson:",inline"`
-	UserName             string     `json:"username" bson:"username"`
-	Status               UserStatus `json:"status" bson:"status"`
-	Country              string     `json:"country" bson:"country"`
-	AvatarId             int        `json:"avatarId" bson:"avatarId"`
-	FrameId              int        `json:"frameId" bson:"frameId"`
+	ID       interface{} `json:"id" bson:"_id,omitempty"`
+	UserName string      `json:"username" bson:"username"`
+	Status   UserStatus  `json:"status" bson:"status"`
+	Country  string      `json:"country" bson:"country"`
+	AvatarId int         `json:"avatarId" bson:"avatarId"`
+	FrameId  int         `json:"frameId" bson:"frameId"`
 
 	UserProfile     UserProfile     `json:"userProfile" bson:"userProfile"`
 	PlayerStatistic PlayerStatistic `json:"playerStatistic" bson:"playerStatistic"`
@@ -235,4 +295,46 @@ func (u UserMinimal) IsBanned() bool {
 
 func (u *UserMinimal) Id() string {
 	return u.ID.(primitive.ObjectID).Hex()
+}
+
+type BlockchainUser struct {
+	ID       interface{} `json:"id" bson:"_id,omitempty"`
+	Country  string      `json:"country" bson:"country"`
+	Email    string      `json:"email" bson:"email"`
+	Role     int         `json:"role" bson:"role"`
+	Username string      `json:"username" bson:"username"`
+	Address  string      `json:"address" bson:"address"`
+	Nonce    int         `json:"nonce" bson:"nonce"`
+}
+
+func (BlockchainUser) CollName() string {
+	return "Users"
+}
+
+func (user *User) IsTutorial1and2TR(tutorial1and2BattleCount int) bool {
+	if int(user.StatisticRivals.Battle) < tutorial1and2BattleCount {
+		return true
+	}
+	return false
+}
+
+func (user *User) IsTutorialTR(tutorialBattleCount int) bool {
+	if int(user.StatisticRivals.Battle) < tutorialBattleCount {
+		return true
+	}
+	return false
+}
+
+func (user *User) IsNewbieTR(tutorialBattleCount int, newbieBattleCount int) bool {
+	if tutorialBattleCount <= int(user.StatisticRivals.Battle) && int(user.StatisticRivals.Battle) < newbieBattleCount {
+		return true
+	}
+	return false
+}
+
+func (user *User) IsW24BattleCount(w24BattleCount int) bool {
+	if int(user.StatisticRivals.Battle) < w24BattleCount {
+		return true
+	}
+	return false
 }
