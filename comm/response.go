@@ -24,7 +24,7 @@ func (r *Response) Preflight(ctx iris.Context) error {
 }
 
 func (r *Response) Dispatch(ctx iris.Context) {
-	_, err := ctx.JSON(r)
+	err := ctx.JSON(r)
 	if err != nil {
 		fmt.Println("[Response.Dispatch] error:", err)
 	}
