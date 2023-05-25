@@ -1,7 +1,7 @@
 package userclaim
 
 import (
-	"github.com/WolffunService/theta-shared-common/enums/userrole"
+	"github.com/WolffunService/thetan-shared-common/enums/userrole"
 	"github.com/kataras/jwt"
 )
 

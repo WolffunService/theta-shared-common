@@ -8,9 +8,9 @@ import (
 	"math/rand"
 	"time"
 
-	"github.com/WolffunService/theta-shared-common/database/mredis/thetanlock"
-	"github.com/WolffunService/theta-shared-common/lockkey"
-	"github.com/WolffunService/theta-shared-common/models/mongopubsubmodel"
+	"github.com/WolffunService/thetan-shared-common/database/mredis/thetanlock"
+	"github.com/WolffunService/thetan-shared-common/lockkey"
+	"github.com/WolffunService/thetan-shared-common/models/mongopubsubmodel"
 
 	"github.com/go-co-op/gocron"
 	"github.com/go-redsync/redsync/v4"

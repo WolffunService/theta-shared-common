@@ -3,7 +3,7 @@ package rivalitem
 import (
 	"time"
 
-	"github.com/WolffunService/theta-shared-common/enums/rivalitemenum"
+	"github.com/WolffunService/thetan-shared-common/enums/rivalitemenum"
 )
 
 type ItemProps struct {

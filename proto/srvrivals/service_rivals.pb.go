@@ -11,7 +11,7 @@ import (
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	reflect "reflect"
 	sync "sync"
-	coreproto "github.com/WolffunService/theta-shared-common/proto/coreproto"
+	coreproto "github.com/WolffunService/thetan-shared-common/proto/coreproto"
 )
 
 const (

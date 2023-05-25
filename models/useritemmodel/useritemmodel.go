@@ -1,6 +1,6 @@
 package useritemmodel
 
-import "github.com/WolffunService/theta-shared-common/database/mongodb"
+import "github.com/WolffunService/thetan-shared-common/database/mongodb"
 
 func (UserItems) CollectionName() string {
 	return "UserItems"

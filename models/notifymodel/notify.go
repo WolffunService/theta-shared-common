@@ -1,6 +1,6 @@
 package notifymodel
 
-import "github.com/WolffunService/theta-shared-common/enums/serverenum"
+import "github.com/WolffunService/thetan-shared-common/enums/serverenum"
 
 type NotifyPlatform string
 

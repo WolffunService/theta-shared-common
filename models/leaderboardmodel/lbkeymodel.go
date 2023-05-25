@@ -3,7 +3,7 @@ package leaderboardmodel
 import (
 	"fmt"
 
-	"github.com/WolffunService/theta-shared-common/enums/leaderboardenum"
+	"github.com/WolffunService/thetan-shared-common/enums/leaderboardenum"
 )
 
 type LBKeyModel struct {

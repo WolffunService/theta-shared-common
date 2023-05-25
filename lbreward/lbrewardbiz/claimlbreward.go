@@ -4,11 +4,11 @@ import (
 	"context"
 	"errors"
 
-	"github.com/WolffunService/theta-shared-common/database/mongodb"
-	"github.com/WolffunService/theta-shared-common/lbreward/lbrewardapi"
-	"github.com/WolffunService/theta-shared-common/lbreward/lbrewardmodel"
-	"github.com/WolffunService/theta-shared-common/lbreward/lbrewardstorage"
-	"github.com/WolffunService/theta-shared-common/models/leaderboardmodel"
+	"github.com/WolffunService/thetan-shared-common/database/mongodb"
+	"github.com/WolffunService/thetan-shared-common/lbreward/lbrewardapi"
+	"github.com/WolffunService/thetan-shared-common/lbreward/lbrewardmodel"
+	"github.com/WolffunService/thetan-shared-common/lbreward/lbrewardstorage"
+	"github.com/WolffunService/thetan-shared-common/models/leaderboardmodel"
 	"go.mongodb.org/mongo-driver/mongo"
 )
 

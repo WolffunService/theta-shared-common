@@ -10,9 +10,9 @@ import (
 	"github.com/cockroachdb/errors"
 	"github.com/spf13/viper"
 
-	"github.com/WolffunService/theta-shared-common/rcfg"
-	"github.com/WolffunService/theta-shared-common/remote"
-	"github.com/WolffunService/theta-shared-common/thetalog"
+	"github.com/WolffunService/thetan-shared-common/rcfg"
+	"github.com/WolffunService/thetan-shared-common/remote"
+	"github.com/WolffunService/thetan-shared-common/thetalog"
 )
 
 const (

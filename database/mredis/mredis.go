@@ -4,7 +4,7 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"github.com/WolffunService/theta-shared-common/database/mredis/thetanlock"
+	"github.com/WolffunService/thetan-shared-common/database/mredis/thetanlock"
 	"time"
 
 	"github.com/go-redsync/redsync/v4/redis"

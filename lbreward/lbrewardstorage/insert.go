@@ -4,10 +4,10 @@ import (
 	"context"
 	"time"
 
-	"github.com/WolffunService/theta-shared-common/database/mongodb"
-	"github.com/WolffunService/theta-shared-common/enums/leaderboardenum"
-	"github.com/WolffunService/theta-shared-common/lbreward/lbrewardmodel"
-	"github.com/WolffunService/theta-shared-common/models/leaderboardmodel"
+	"github.com/WolffunService/thetan-shared-common/database/mongodb"
+	"github.com/WolffunService/thetan-shared-common/enums/leaderboardenum"
+	"github.com/WolffunService/thetan-shared-common/lbreward/lbrewardmodel"
+	"github.com/WolffunService/thetan-shared-common/models/leaderboardmodel"
 )
 
 func insertNewScore(ctx context.Context, userID string, lbKey *leaderboardmodel.LBKeyModel, score int64) error {

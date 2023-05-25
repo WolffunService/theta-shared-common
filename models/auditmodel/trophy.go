@@ -1,6 +1,6 @@
 package auditmodel
 
-import "github.com/WolffunService/theta-shared-common/proto/auditproto"
+import "github.com/WolffunService/thetan-shared-common/proto/auditproto"
 
 type TrophyAudits struct {
 	UserId       string `json:"userId" bson:"userId"`

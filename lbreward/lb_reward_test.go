@@ -6,16 +6,16 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/WolffunService/theta-shared-common/enums/currencyenum"
-	"github.com/WolffunService/theta-shared-common/enums/leaderboardenum"
-	"github.com/WolffunService/theta-shared-common/lbreward/lbrewardbiz"
-	"github.com/WolffunService/theta-shared-common/lbreward/lbrewardmodel"
-	"github.com/WolffunService/theta-shared-common/lbreward/lbrewardstorage"
-	"github.com/WolffunService/theta-shared-common/leaderboard"
-	"github.com/WolffunService/theta-shared-common/models/currencymodel"
-	"github.com/WolffunService/theta-shared-common/models/leaderboardmodel"
+	"github.com/WolffunService/thetan-shared-common/enums/currencyenum"
+	"github.com/WolffunService/thetan-shared-common/enums/leaderboardenum"
+	"github.com/WolffunService/thetan-shared-common/lbreward/lbrewardbiz"
+	"github.com/WolffunService/thetan-shared-common/lbreward/lbrewardmodel"
+	"github.com/WolffunService/thetan-shared-common/lbreward/lbrewardstorage"
+	"github.com/WolffunService/thetan-shared-common/leaderboard"
+	"github.com/WolffunService/thetan-shared-common/models/currencymodel"
+	"github.com/WolffunService/thetan-shared-common/models/leaderboardmodel"
 
-	"github.com/WolffunService/theta-shared-common/database/mongodb"
+	"github.com/WolffunService/thetan-shared-common/database/mongodb"
 )
 
 //NOTE : forward mongodb first

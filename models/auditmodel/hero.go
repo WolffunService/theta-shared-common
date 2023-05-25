@@ -5,10 +5,10 @@ import (
 	"log"
 	"strconv"
 
-	"github.com/WolffunService/theta-shared-common/enums/currencyenum"
-	"github.com/WolffunService/theta-shared-common/enums/heroenum"
-	"github.com/WolffunService/theta-shared-common/models/currencymodel"
-	"github.com/WolffunService/theta-shared-common/proto/auditproto"
+	"github.com/WolffunService/thetan-shared-common/enums/currencyenum"
+	"github.com/WolffunService/thetan-shared-common/enums/heroenum"
+	"github.com/WolffunService/thetan-shared-common/models/currencymodel"
+	"github.com/WolffunService/thetan-shared-common/proto/auditproto"
 )
 
 type HeroAuditCreator struct{}

@@ -1,6 +1,6 @@
 package lbrewardmodel
 
-import "github.com/WolffunService/theta-shared-common/enums/leaderboardenum"
+import "github.com/WolffunService/thetan-shared-common/enums/leaderboardenum"
 
 type (
 	ReqClaimLBReward struct {

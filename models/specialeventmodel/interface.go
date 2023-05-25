@@ -3,9 +3,9 @@ package specialeventmodel
 import (
 	"time"
 
-	eventtype "github.com/WolffunService/theta-shared-common/enums/specialeventenum"
+	eventtype "github.com/WolffunService/thetan-shared-common/enums/specialeventenum"
 
-	"github.com/WolffunService/theta-shared-common/database/mongodb"
+	"github.com/WolffunService/thetan-shared-common/database/mongodb"
 )
 
 type IEvent interface {

@@ -3,10 +3,10 @@ package useritemstorage
 import (
 	"context"
 	"fmt"
-	"github.com/WolffunService/theta-shared-common/database/mongodb"
-	"github.com/WolffunService/theta-shared-common/database/mongodb/field"
-	"github.com/WolffunService/theta-shared-common/database/mongodb/utils"
-	"github.com/WolffunService/theta-shared-common/models/useritemmodel"
+	"github.com/WolffunService/thetan-shared-common/database/mongodb"
+	"github.com/WolffunService/thetan-shared-common/database/mongodb/field"
+	"github.com/WolffunService/thetan-shared-common/database/mongodb/utils"
+	"github.com/WolffunService/thetan-shared-common/models/useritemmodel"
 
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo/options"

@@ -3,7 +3,7 @@ package validate
 import (
 	"sync"
 
-	"github.com/WolffunService/theta-shared-common/enums"
+	"github.com/WolffunService/thetan-shared-common/enums"
 	"github.com/go-playground/locales/en"
 	ut "github.com/go-playground/universal-translator"
 	"github.com/go-playground/validator/v10"

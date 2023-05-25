@@ -1,6 +1,6 @@
 package pubsublytic
 
-import "github.com/WolffunService/theta-shared-common/database/pubsub/auditprotobuf"
+import "github.com/WolffunService/thetan-shared-common/database/pubsub/auditprotobuf"
 
 type Auditlytic[T any] struct {
 	Audit    *Audit[T] `json:"audit,omitempty"`

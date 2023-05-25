@@ -3,7 +3,7 @@ package comm
 import (
 	"fmt"
 
-	"github.com/WolffunService/theta-shared-common/thetanerr"
+	"github.com/WolffunService/thetan-shared-common/thetanerr"
 	"github.com/kataras/iris/v12"
 )
 

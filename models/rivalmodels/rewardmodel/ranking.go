@@ -1,6 +1,6 @@
 package rewardmodel
 
-import "github.com/WolffunService/theta-shared-common/models/rivalmodels/ivtmodel"
+import "github.com/WolffunService/thetan-shared-common/models/rivalmodels/ivtmodel"
 
 type SystemRewardType uint
 

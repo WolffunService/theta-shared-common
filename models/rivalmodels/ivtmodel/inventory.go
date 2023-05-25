@@ -6,10 +6,10 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/WolffunService/theta-shared-common/enums/inventoryenum"
-	"github.com/WolffunService/theta-shared-common/enums/rivalboxenum"
-	"github.com/WolffunService/theta-shared-common/enums/rivalitemenum"
-	"github.com/WolffunService/theta-shared-common/enums/thetanrivalerrorenum/thetanrivalconst"
+	"github.com/WolffunService/thetan-shared-common/enums/inventoryenum"
+	"github.com/WolffunService/thetan-shared-common/enums/rivalboxenum"
+	"github.com/WolffunService/thetan-shared-common/enums/rivalitemenum"
+	"github.com/WolffunService/thetan-shared-common/enums/thetanrivalerrorenum/thetanrivalconst"
 )
 
 var ErrInventoryInvalidFormat = errors.New("inventory invalid format")

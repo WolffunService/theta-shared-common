@@ -7,8 +7,8 @@ import (
 	"strings"
 	"time"
 
-	"github.com/WolffunService/theta-shared-common/auth/entity"
-	"github.com/WolffunService/theta-shared-common/common"
+	"github.com/WolffunService/thetan-shared-common/auth/entity"
+	"github.com/WolffunService/thetan-shared-common/common"
 	"github.com/golang-jwt/jwt"
 )
 

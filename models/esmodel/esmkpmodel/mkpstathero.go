@@ -3,8 +3,8 @@ package esmkpmodel
 import (
 	"time"
 
-	"github.com/WolffunService/theta-shared-common/models/esmodel"
-	"github.com/WolffunService/theta-shared-common/models/esmodel/esinfomodel"
+	"github.com/WolffunService/thetan-shared-common/models/esmodel"
+	"github.com/WolffunService/thetan-shared-common/models/esmodel/esinfomodel"
 )
 
 type HeroMapping struct {

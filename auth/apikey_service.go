@@ -9,12 +9,12 @@ import (
 	"strings"
 	"time"
 
-	"github.com/WolffunService/theta-shared-common/auth/entity"
-	"github.com/WolffunService/theta-shared-common/auth/rbac"
-	"github.com/WolffunService/theta-shared-common/common/thetaerror"
-	"github.com/WolffunService/theta-shared-common/database/mongodb"
-	"github.com/WolffunService/theta-shared-common/database/mongodb/utils"
-	"github.com/WolffunService/theta-shared-common/thetalog"
+	"github.com/WolffunService/thetan-shared-common/auth/entity"
+	"github.com/WolffunService/thetan-shared-common/auth/rbac"
+	"github.com/WolffunService/thetan-shared-common/common/thetaerror"
+	"github.com/WolffunService/thetan-shared-common/database/mongodb"
+	"github.com/WolffunService/thetan-shared-common/database/mongodb/utils"
+	"github.com/WolffunService/thetan-shared-common/thetalog"
 	"go.mongodb.org/mongo-driver/bson"
 	"golang.org/x/crypto/bcrypt"
 )

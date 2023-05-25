@@ -1,6 +1,6 @@
 package specialeventmodel
 
-import "github.com/WolffunService/theta-shared-common/models/currencymodel"
+import "github.com/WolffunService/thetan-shared-common/models/currencymodel"
 
 type RewardResponse struct {
 	Rank         int32     `json:"rank"`

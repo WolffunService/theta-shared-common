@@ -2,13 +2,13 @@ package lbrewardbiz
 
 import (
 	"context"
-	"github.com/WolffunService/theta-shared-common/lbreward/lbrewardmodel"
-	"github.com/WolffunService/theta-shared-common/leaderboard"
+	"github.com/WolffunService/thetan-shared-common/lbreward/lbrewardmodel"
+	"github.com/WolffunService/thetan-shared-common/leaderboard"
 
-	"github.com/WolffunService/theta-shared-common/lbreward/lbrewardapi"
-	"github.com/WolffunService/theta-shared-common/models/leaderboardmodel"
-	"github.com/WolffunService/theta-shared-common/models/usermodel"
-	podium "github.com/WolffunService/theta-shared-common/proto/podium"
+	"github.com/WolffunService/thetan-shared-common/lbreward/lbrewardapi"
+	"github.com/WolffunService/thetan-shared-common/models/leaderboardmodel"
+	"github.com/WolffunService/thetan-shared-common/models/usermodel"
+	podium "github.com/WolffunService/thetan-shared-common/proto/podium"
 )
 
 //TODO profiler data - optimize funcz

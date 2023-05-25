@@ -1,9 +1,9 @@
 package thetanrivalminionenum
 
 import (
-	"github.com/WolffunService/theta-shared-common/enums/rivalitemenum"
-	"github.com/WolffunService/theta-shared-common/enums/thetanrivalerrorenum/thetanrivalbotenum"
-	"github.com/WolffunService/theta-shared-common/enums/thetanrivalerrorenum/thetanrivalconst"
+	"github.com/WolffunService/thetan-shared-common/enums/rivalitemenum"
+	"github.com/WolffunService/thetan-shared-common/enums/thetanrivalerrorenum/thetanrivalbotenum"
+	"github.com/WolffunService/thetan-shared-common/enums/thetanrivalerrorenum/thetanrivalconst"
 )
 
 type MinionBot struct {

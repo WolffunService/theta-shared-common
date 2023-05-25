@@ -1,8 +1,8 @@
 package leaderboardmodel
 
 import (
-	"github.com/WolffunService/theta-shared-common/models/usermodel"
-	"github.com/WolffunService/theta-shared-common/models/userrankingmodel"
+	"github.com/WolffunService/thetan-shared-common/models/usermodel"
+	"github.com/WolffunService/thetan-shared-common/models/userrankingmodel"
 )
 
 type (

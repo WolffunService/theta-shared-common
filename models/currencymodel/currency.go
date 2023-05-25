@@ -10,7 +10,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/WolffunService/theta-shared-common/enums/currencyenum"
+	"github.com/WolffunService/thetan-shared-common/enums/currencyenum"
 )
 
 const SYSTEM_DECIMALS int = 8

@@ -1,6 +1,6 @@
 package ivtmodel
 
-import "github.com/WolffunService/theta-shared-common/enums/rivalitemenum"
+import "github.com/WolffunService/thetan-shared-common/enums/rivalitemenum"
 
 // InventoryType id of inventory's, must unique in same InventoryKind
 type InventoryType uint32

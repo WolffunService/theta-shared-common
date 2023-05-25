@@ -3,7 +3,7 @@ package lbrewardbiz
 import (
 	"context"
 
-	"github.com/WolffunService/theta-shared-common/models/leaderboardmodel"
+	"github.com/WolffunService/thetan-shared-common/models/leaderboardmodel"
 )
 
 // LBRewardHandler is a handler to manage a leaderboard reward function.

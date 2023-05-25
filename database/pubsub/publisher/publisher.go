@@ -3,7 +3,7 @@ package publisher
 import (
 	"context"
 	"fmt"
-	"github.com/WolffunService/theta-shared-common/database/pubsub/mpubsub"
+	"github.com/WolffunService/thetan-shared-common/database/pubsub/mpubsub"
 	"log"
 
 	"cloud.google.com/go/pubsub"

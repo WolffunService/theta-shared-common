@@ -1,7 +1,7 @@
 package esmkpmodel
 
 import (
-	"github.com/WolffunService/theta-shared-common/models/esmodel/esinfomodel"
+	"github.com/WolffunService/thetan-shared-common/models/esmodel/esinfomodel"
 	"time"
 )
 

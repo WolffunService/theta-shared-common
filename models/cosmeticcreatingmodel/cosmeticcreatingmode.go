@@ -1,6 +1,6 @@
 package cosmeticcreatingmodel
 
-import "github.com/WolffunService/theta-shared-common/enums/cosmeticenum"
+import "github.com/WolffunService/thetan-shared-common/enums/cosmeticenum"
 
 type RivalsCreateCosmeticRequest struct {
 	TypeId int                              `json:"typeId" bson:"typeId"`

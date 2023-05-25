@@ -1,8 +1,8 @@
 package rivalitem
 
 import (
-	"github.com/WolffunService/theta-shared-common/enums/rivalitemenum"
-	"github.com/WolffunService/theta-shared-common/models/rivalmodels/ivtmodel"
+	"github.com/WolffunService/thetan-shared-common/enums/rivalitemenum"
+	"github.com/WolffunService/thetan-shared-common/models/rivalmodels/ivtmodel"
 )
 
 // ItemDetail Sử dụng ItemGeneric của Phương và ItemProps của Trung

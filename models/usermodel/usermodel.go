@@ -3,8 +3,8 @@ package usermodel
 import (
 	"time"
 
-	"github.com/WolffunService/theta-shared-common/enums/thetanrivalerrorenum/thetanrivalbotenum"
-	"github.com/WolffunService/theta-shared-common/enums/wallettypeenum"
+	"github.com/WolffunService/thetan-shared-common/enums/thetanrivalerrorenum/thetanrivalbotenum"
+	"github.com/WolffunService/thetan-shared-common/enums/wallettypeenum"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 

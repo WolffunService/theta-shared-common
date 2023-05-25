@@ -1,8 +1,8 @@
 package tradingeventmodel
 
 import (
-	"github.com/WolffunService/theta-shared-common/enums/tradingeventenum"
-	"github.com/WolffunService/theta-shared-common/models/currencymodel"
+	"github.com/WolffunService/thetan-shared-common/enums/tradingeventenum"
+	"github.com/WolffunService/thetan-shared-common/models/currencymodel"
 )
 
 type DailyChallenge struct {

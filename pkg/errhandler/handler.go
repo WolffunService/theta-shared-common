@@ -3,10 +3,10 @@ package errhandler
 import (
 	"errors"
 
-	"github.com/WolffunService/theta-shared-common/comm"
-	"github.com/WolffunService/theta-shared-common/pkg/validate"
-	"github.com/WolffunService/theta-shared-common/thetalog"
-	"github.com/WolffunService/theta-shared-common/thetanerr"
+	"github.com/WolffunService/thetan-shared-common/comm"
+	"github.com/WolffunService/thetan-shared-common/pkg/validate"
+	"github.com/WolffunService/thetan-shared-common/thetalog"
+	"github.com/WolffunService/thetan-shared-common/thetanerr"
 	"github.com/go-playground/validator/v10"
 	"github.com/kataras/iris/v12"
 	"github.com/kataras/iris/v12/context"

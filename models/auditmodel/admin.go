@@ -5,9 +5,9 @@ import (
 	"log"
 	"time"
 
-	"github.com/WolffunService/theta-shared-common/enums/adminenum"
-	"github.com/WolffunService/theta-shared-common/models/thetanboxmodel"
-	"github.com/WolffunService/theta-shared-common/proto/auditproto"
+	"github.com/WolffunService/thetan-shared-common/enums/adminenum"
+	"github.com/WolffunService/thetan-shared-common/models/thetanboxmodel"
+	"github.com/WolffunService/thetan-shared-common/proto/auditproto"
 )
 
 type AdminAuditCreator struct{}

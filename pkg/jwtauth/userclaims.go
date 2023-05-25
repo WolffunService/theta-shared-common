@@ -1,7 +1,7 @@
 package jwtauth
 
 import (
-	"github.com/WolffunService/theta-shared-common/common"
+	"github.com/WolffunService/thetan-shared-common/common"
 	"github.com/kataras/iris/v12/middleware/jwt"
 )
 

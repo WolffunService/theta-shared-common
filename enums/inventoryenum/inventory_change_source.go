@@ -2,7 +2,7 @@ package inventoryenum
 
 import (
 	"fmt"
-	"github.com/WolffunService/theta-shared-common/enums/rivalitemenum"
+	"github.com/WolffunService/thetan-shared-common/enums/rivalitemenum"
 )
 
 type ChangeSource int

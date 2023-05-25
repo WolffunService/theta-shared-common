@@ -7,12 +7,12 @@ import (
 	"sort"
 	"time"
 
-	"github.com/WolffunService/theta-shared-common/database/mongodb"
-	"github.com/WolffunService/theta-shared-common/enums/currencyenum"
-	"github.com/WolffunService/theta-shared-common/enums/gamemodeenum"
-	"github.com/WolffunService/theta-shared-common/models/currencymodel"
+	"github.com/WolffunService/thetan-shared-common/database/mongodb"
+	"github.com/WolffunService/thetan-shared-common/enums/currencyenum"
+	"github.com/WolffunService/thetan-shared-common/enums/gamemodeenum"
+	"github.com/WolffunService/thetan-shared-common/models/currencymodel"
 
-	eventtype "github.com/WolffunService/theta-shared-common/enums/specialeventenum"
+	eventtype "github.com/WolffunService/thetan-shared-common/enums/specialeventenum"
 )
 
 func (TournamentEventData) CollectionName() string {

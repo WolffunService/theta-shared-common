@@ -3,7 +3,7 @@ package watcher
 import (
 	"context"
 
-	"github.com/WolffunService/theta-shared-common/models/mongopubsubmodel"
+	"github.com/WolffunService/thetan-shared-common/models/mongopubsubmodel"
 
 	"github.com/kamva/mgm/v3"
 )

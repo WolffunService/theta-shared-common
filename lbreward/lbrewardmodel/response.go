@@ -1,6 +1,6 @@
 package lbrewardmodel
 
-import "github.com/WolffunService/theta-shared-common/models/leaderboardmodel"
+import "github.com/WolffunService/thetan-shared-common/models/leaderboardmodel"
 
 type (
 	PlayerInfo struct {

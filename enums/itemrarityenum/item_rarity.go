@@ -4,8 +4,8 @@ import (
 	"errors"
 	"fmt"
 
-	"github.com/WolffunService/theta-shared-common/enums/heroenum"
-	"github.com/WolffunService/theta-shared-common/enums/thetanboxenum"
+	"github.com/WolffunService/thetan-shared-common/enums/heroenum"
+	"github.com/WolffunService/thetan-shared-common/enums/thetanboxenum"
 )
 
 var (

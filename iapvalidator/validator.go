@@ -6,8 +6,8 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/WolffunService/theta-shared-common/enums/platformtypeenum"
-	"github.com/WolffunService/theta-shared-common/iapvalidator/iapenum"
+	"github.com/WolffunService/thetan-shared-common/enums/platformtypeenum"
+	"github.com/WolffunService/thetan-shared-common/iapvalidator/iapenum"
 	"github.com/awa/go-iap/appstore"
 	"github.com/awa/go-iap/playstore"
 	"github.com/buger/jsonparser"

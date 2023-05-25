@@ -1,6 +1,6 @@
 package thetanboxmodel
 
-import "github.com/WolffunService/theta-shared-common/enums/thetanboxenum"
+import "github.com/WolffunService/thetan-shared-common/enums/thetanboxenum"
 
 type BoxData struct {
 	BoxType thetanboxenum.BoxType `json:"boxType" bson:"boxType"`

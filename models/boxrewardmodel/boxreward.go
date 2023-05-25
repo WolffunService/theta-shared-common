@@ -1,6 +1,6 @@
 package boxrewardmodel
 
-import "github.com/WolffunService/theta-shared-common/enums/boxrewardenum"
+import "github.com/WolffunService/thetan-shared-common/enums/boxrewardenum"
 
 type BoxRewardProbability struct {
 	Name        string                      `json:"name"`

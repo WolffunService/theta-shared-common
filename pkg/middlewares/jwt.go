@@ -3,11 +3,11 @@ package middlewares
 import (
 	"errors"
 	"fmt"
-	"github.com/WolffunService/theta-shared-common/comm"
-	"github.com/WolffunService/theta-shared-common/pkg/jwtauth"
-	"github.com/WolffunService/theta-shared-common/thetanerr"
+	"github.com/WolffunService/thetan-shared-common/comm"
+	"github.com/WolffunService/thetan-shared-common/pkg/jwtauth"
+	"github.com/WolffunService/thetan-shared-common/thetanerr"
 
-	"github.com/WolffunService/theta-shared-common/common"
+	"github.com/WolffunService/thetan-shared-common/common"
 	"github.com/kataras/iris/v12"
 	"github.com/kataras/iris/v12/context"
 	"github.com/kataras/iris/v12/middleware/jwt"

@@ -3,8 +3,8 @@ package lbrewardbiz
 import (
 	"context"
 
-	"github.com/WolffunService/theta-shared-common/lbreward/lbrewardapi"
-	"github.com/WolffunService/theta-shared-common/lbreward/lbrewardstorage"
+	"github.com/WolffunService/thetan-shared-common/lbreward/lbrewardapi"
+	"github.com/WolffunService/thetan-shared-common/lbreward/lbrewardstorage"
 )
 
 //var logger = thetalog.NewBizLogger("leaderboard_reward_business")

@@ -4,9 +4,9 @@ import (
 	"fmt"
 	"strconv"
 
-	"github.com/WolffunService/theta-shared-common/enums/rivalitemenum"
-	"github.com/WolffunService/theta-shared-common/models/rivalmodels/ivtmodel"
-	"github.com/WolffunService/theta-shared-common/models/utilmodel"
+	"github.com/WolffunService/thetan-shared-common/enums/rivalitemenum"
+	"github.com/WolffunService/thetan-shared-common/models/rivalmodels/ivtmodel"
+	"github.com/WolffunService/thetan-shared-common/models/utilmodel"
 )
 
 type SimpleItemG[T any] struct {

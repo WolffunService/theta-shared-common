@@ -1,6 +1,6 @@
 package thetanboxenum
 
-import "github.com/WolffunService/theta-shared-common/enums/currencyenum"
+import "github.com/WolffunService/thetan-shared-common/enums/currencyenum"
 
 type BoxEventSource int
 

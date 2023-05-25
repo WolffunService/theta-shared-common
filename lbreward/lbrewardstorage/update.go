@@ -4,9 +4,9 @@ import (
 	"context"
 	"time"
 
-	"github.com/WolffunService/theta-shared-common/database/mongodb/utils"
-	"github.com/WolffunService/theta-shared-common/lbreward/lbrewardmodel"
-	"github.com/WolffunService/theta-shared-common/models/leaderboardmodel"
+	"github.com/WolffunService/thetan-shared-common/database/mongodb/utils"
+	"github.com/WolffunService/thetan-shared-common/lbreward/lbrewardmodel"
+	"github.com/WolffunService/thetan-shared-common/models/leaderboardmodel"
 
 	"github.com/func25/mongofunc/mongoquery"
 	"github.com/func25/mongofunc/moper"

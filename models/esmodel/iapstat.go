@@ -3,8 +3,8 @@ package esmodel
 import (
 	"time"
 
-	"github.com/WolffunService/theta-shared-common/enums/currencyenum"
-	"github.com/WolffunService/theta-shared-common/enums/ingameshopenum"
+	"github.com/WolffunService/thetan-shared-common/enums/currencyenum"
+	"github.com/WolffunService/thetan-shared-common/enums/ingameshopenum"
 )
 
 type IAPStatMapping struct {

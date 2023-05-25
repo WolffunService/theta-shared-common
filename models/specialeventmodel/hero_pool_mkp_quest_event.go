@@ -1,7 +1,7 @@
 package specialeventmodel
 
 import (
-	"github.com/WolffunService/theta-shared-common/enums/heroenum"
+	"github.com/WolffunService/thetan-shared-common/enums/heroenum"
 	"github.com/func25/slicesol/slicesol"
 )
 

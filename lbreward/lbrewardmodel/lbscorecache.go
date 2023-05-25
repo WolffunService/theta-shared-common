@@ -1,8 +1,8 @@
 package lbrewardmodel
 
 import (
-	"github.com/WolffunService/theta-shared-common/database/mongodb"
-	"github.com/WolffunService/theta-shared-common/enums/leaderboardenum"
+	"github.com/WolffunService/thetan-shared-common/database/mongodb"
+	"github.com/WolffunService/thetan-shared-common/enums/leaderboardenum"
 )
 
 const (

@@ -6,7 +6,7 @@ import (
 	"reflect"
 	"time"
 
-	"github.com/WolffunService/theta-shared-common/database/thetacache/cachestore"
+	"github.com/WolffunService/thetan-shared-common/database/thetacache/cachestore"
 	"github.com/dgraph-io/ristretto"
 )
 

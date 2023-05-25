@@ -1,6 +1,6 @@
 package specialeventmodel
 
-import eventtype "github.com/WolffunService/theta-shared-common/enums/specialeventenum"
+import eventtype "github.com/WolffunService/thetan-shared-common/enums/specialeventenum"
 
 type JoinReq struct {
 	eventtype.EventType `json:"eventType"`

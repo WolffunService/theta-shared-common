@@ -1,6 +1,6 @@
 package smcmodel
 
-import "github.com/WolffunService/theta-shared-common/enums/smcenum"
+import "github.com/WolffunService/thetan-shared-common/enums/smcenum"
 
 type PendingTx struct {
 	ID        uint64                 `bson:"_id,omitempty"`

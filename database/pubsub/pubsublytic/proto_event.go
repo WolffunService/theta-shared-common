@@ -4,8 +4,8 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"github.com/WolffunService/theta-shared-common/database/pubsub/auditprotobuf"
-	"github.com/WolffunService/theta-shared-common/database/pubsub/publisher"
+	"github.com/WolffunService/thetan-shared-common/database/pubsub/auditprotobuf"
+	"github.com/WolffunService/thetan-shared-common/database/pubsub/publisher"
 	"log"
 	"time"
 

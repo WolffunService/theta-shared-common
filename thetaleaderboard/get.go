@@ -3,7 +3,7 @@ package thetaleaderboard
 import (
 	"context"
 
-	podium "github.com/WolffunService/theta-shared-common/proto/pb/podium.api.v1"
+	podium "github.com/WolffunService/thetan-shared-common/proto/pb/podium.api.v1"
 )
 
 func GetLeaderboardMember(ctx context.Context, userId, leaderboardType string) (*podium.GetMemberResponse, error) {

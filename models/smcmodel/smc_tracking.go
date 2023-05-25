@@ -1,7 +1,7 @@
 package smcmodel
 
 import (
-	"github.com/WolffunService/theta-shared-common/enums/smcenum"
+	"github.com/WolffunService/thetan-shared-common/enums/smcenum"
 	"github.com/func25/mongofunc/mocom"
 )
 

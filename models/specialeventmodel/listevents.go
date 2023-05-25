@@ -3,7 +3,7 @@ package specialeventmodel
 import (
 	"time"
 
-	"github.com/WolffunService/theta-shared-common/enums/specialeventenum"
+	"github.com/WolffunService/thetan-shared-common/enums/specialeventenum"
 )
 
 type ListEventsProfile []EventProfile

@@ -3,8 +3,8 @@ package tradingeventmodel
 import (
 	"errors"
 
-	"github.com/WolffunService/theta-shared-common/enums/heroenum"
-	"github.com/WolffunService/theta-shared-common/enums/tradingeventenum"
+	"github.com/WolffunService/thetan-shared-common/enums/heroenum"
+	"github.com/WolffunService/thetan-shared-common/enums/tradingeventenum"
 )
 
 type QuestData struct {

@@ -3,7 +3,7 @@ package esmkpmodel
 import (
 	"time"
 
-	"github.com/WolffunService/theta-shared-common/models/esmodel/esinfomodel"
+	"github.com/WolffunService/thetan-shared-common/models/esmodel/esinfomodel"
 )
 
 type MkpLogItemFirstDataMapping struct {

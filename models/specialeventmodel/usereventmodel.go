@@ -3,8 +3,8 @@ package specialeventmodel
 import (
 	"fmt"
 
-	"github.com/WolffunService/theta-shared-common/database/mongodb"
-	"github.com/WolffunService/theta-shared-common/enums/gamemodeenum"
+	"github.com/WolffunService/thetan-shared-common/database/mongodb"
+	"github.com/WolffunService/thetan-shared-common/enums/gamemodeenum"
 )
 
 func (UserEventData) CollectionName() string {

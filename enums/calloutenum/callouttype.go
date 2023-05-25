@@ -1,6 +1,6 @@
 package calloutenum
 
-import "github.com/WolffunService/theta-shared-common/enums/mkptabenum"
+import "github.com/WolffunService/thetan-shared-common/enums/mkptabenum"
 
 type CallOutType int
 

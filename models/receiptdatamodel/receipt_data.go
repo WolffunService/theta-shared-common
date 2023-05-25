@@ -2,9 +2,9 @@ package receiptdatamodel
 
 import (
 	"encoding/json"
-	"github.com/WolffunService/theta-shared-common/iapvalidator"
+	"github.com/WolffunService/thetan-shared-common/iapvalidator"
 
-	platformtype "github.com/WolffunService/theta-shared-common/enums/platformtypeenum"
+	platformtype "github.com/WolffunService/thetan-shared-common/enums/platformtypeenum"
 
 	"go.mongodb.org/mongo-driver/bson/primitive"
 )

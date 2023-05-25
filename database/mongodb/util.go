@@ -2,7 +2,7 @@ package mongodb
 
 import (
 	"fmt"
-	"github.com/WolffunService/theta-shared-common/database/mongodb/utils"
+	"github.com/WolffunService/thetan-shared-common/database/mongodb/utils"
 	"reflect"
 
 	"github.com/jinzhu/inflection"

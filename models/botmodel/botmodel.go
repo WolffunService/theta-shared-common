@@ -3,11 +3,11 @@ package botmodel
 import (
 	"time"
 
-	"github.com/WolffunService/theta-shared-common/database/mongodb"
-	"github.com/WolffunService/theta-shared-common/enums/gamemodeenum"
-	"github.com/WolffunService/theta-shared-common/enums/thetanrivalerrorenum/thetanrivalrank"
-	"github.com/WolffunService/theta-shared-common/models/usermodel"
-	"github.com/WolffunService/theta-shared-common/models/userrankingmodel"
+	"github.com/WolffunService/thetan-shared-common/database/mongodb"
+	"github.com/WolffunService/thetan-shared-common/enums/gamemodeenum"
+	"github.com/WolffunService/thetan-shared-common/enums/thetanrivalerrorenum/thetanrivalrank"
+	"github.com/WolffunService/thetan-shared-common/models/usermodel"
+	"github.com/WolffunService/thetan-shared-common/models/userrankingmodel"
 )
 
 type Feature int

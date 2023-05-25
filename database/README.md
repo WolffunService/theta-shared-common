@@ -16,7 +16,7 @@ import (
 	"fmt"
 	"log"
 
-	es "github.com/WolffunService/theta-shared-common/database/elasticsearch"
+	es "github.com/WolffunService/thetan-shared-common/database/elasticsearch"
 	"github.com/elastic/go-elasticsearch/v8"
 	"github.com/tidwall/gjson"
 )

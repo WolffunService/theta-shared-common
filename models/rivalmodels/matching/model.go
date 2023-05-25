@@ -1,8 +1,8 @@
 package matching
 
 import (
-	"github.com/WolffunService/theta-shared-common/enums/thetanrivalerrorenum/thetanrivalrank"
-	"github.com/WolffunService/theta-shared-common/proto/coreproto"
+	"github.com/WolffunService/thetan-shared-common/enums/thetanrivalerrorenum/thetanrivalrank"
+	"github.com/WolffunService/thetan-shared-common/proto/coreproto"
 )
 
 type PlayerInfoResponse struct {

@@ -1,7 +1,7 @@
 package secretkeymodel
 
 import (
-	"github.com/WolffunService/theta-shared-common/database/mongodb"
+	"github.com/WolffunService/thetan-shared-common/database/mongodb"
 	"time"
 )
 

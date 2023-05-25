@@ -1,7 +1,7 @@
 package boxrewardenum
 
 import (
-	"github.com/WolffunService/theta-shared-common/enums/heroenum"
+	"github.com/WolffunService/thetan-shared-common/enums/heroenum"
 	"strings"
 )
 

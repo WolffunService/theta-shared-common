@@ -5,7 +5,7 @@ import (
 	"reflect"
 	"sync"
 
-	"github.com/WolffunService/theta-shared-common/common"
+	"github.com/WolffunService/thetan-shared-common/common"
 )
 
 // BusSubscriber defines subscription-related bus behavior

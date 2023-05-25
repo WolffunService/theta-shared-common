@@ -7,7 +7,7 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/WolffunService/theta-shared-common/thetalog"
+	"github.com/WolffunService/thetan-shared-common/thetalog"
 )
 
 func ExportPublicKeyAsPemStr(pubkey *rsa.PublicKey) string {

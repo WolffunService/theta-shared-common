@@ -2,7 +2,7 @@ package mongodb
 
 import (
 	"context"
-	"github.com/WolffunService/theta-shared-common/database/mongodb/field"
+	"github.com/WolffunService/thetan-shared-common/database/mongodb/field"
 
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo/options"

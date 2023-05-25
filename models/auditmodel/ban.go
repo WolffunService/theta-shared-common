@@ -1,8 +1,8 @@
 package auditmodel
 
 import (
-	"github.com/WolffunService/theta-shared-common/enums/userenum"
-	"github.com/WolffunService/theta-shared-common/proto/auditproto"
+	"github.com/WolffunService/thetan-shared-common/enums/userenum"
+	"github.com/WolffunService/thetan-shared-common/proto/auditproto"
 	"log"
 	"strconv"
 )

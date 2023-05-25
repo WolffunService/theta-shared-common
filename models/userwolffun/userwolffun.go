@@ -5,8 +5,8 @@ import (
 	"math/big"
 	"time"
 
-	"github.com/WolffunService/theta-shared-common/database/mongodb"
-	"github.com/WolffunService/theta-shared-common/enums/gametypeenum"
+	"github.com/WolffunService/thetan-shared-common/database/mongodb"
+	"github.com/WolffunService/thetan-shared-common/enums/gametypeenum"
 
 	"go.mongodb.org/mongo-driver/bson/primitive"
 )

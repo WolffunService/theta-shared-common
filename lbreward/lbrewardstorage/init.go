@@ -1,8 +1,8 @@
 package lbrewardstorage
 
 import (
-	"github.com/WolffunService/theta-shared-common/database/mongodb"
-	"github.com/WolffunService/theta-shared-common/lbreward/lbrewardmodel"
+	"github.com/WolffunService/thetan-shared-common/database/mongodb"
+	"github.com/WolffunService/thetan-shared-common/lbreward/lbrewardmodel"
 	"go.mongodb.org/mongo-driver/mongo"
 )
 

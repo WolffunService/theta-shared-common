@@ -4,8 +4,8 @@ import (
 	"context"
 	"errors"
 
-	"github.com/WolffunService/theta-shared-common/enums/leaderboardenum"
-	"github.com/WolffunService/theta-shared-common/lbreward/lbrewardmodel"
+	"github.com/WolffunService/thetan-shared-common/enums/leaderboardenum"
+	"github.com/WolffunService/thetan-shared-common/lbreward/lbrewardmodel"
 
 	"github.com/func25/mongofunc/mongoquery"
 	"go.mongodb.org/mongo-driver/bson"

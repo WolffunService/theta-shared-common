@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"log"
 
-	podium "github.com/WolffunService/theta-shared-common/proto/podium"
+	podium "github.com/WolffunService/thetan-shared-common/proto/podium"
 
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"

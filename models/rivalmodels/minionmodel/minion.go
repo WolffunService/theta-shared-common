@@ -3,10 +3,10 @@ package minionmodel
 import (
 	"time"
 
-	"github.com/WolffunService/theta-shared-common/enums/rivalitemenum"
-	"github.com/WolffunService/theta-shared-common/enums/thetanrivalerrorenum/thetanrivalconst"
-	"github.com/WolffunService/theta-shared-common/enums/thetanrivalerrorenum/thetanrivalminionenum"
-	"github.com/WolffunService/theta-shared-common/models/rivalmodels/rivalitem"
+	"github.com/WolffunService/thetan-shared-common/enums/rivalitemenum"
+	"github.com/WolffunService/thetan-shared-common/enums/thetanrivalerrorenum/thetanrivalconst"
+	"github.com/WolffunService/thetan-shared-common/enums/thetanrivalerrorenum/thetanrivalminionenum"
+	"github.com/WolffunService/thetan-shared-common/models/rivalmodels/rivalitem"
 	"github.com/mitchellh/mapstructure"
 )
 

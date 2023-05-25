@@ -4,9 +4,9 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	"github.com/WolffunService/theta-shared-common/database/mredis"
-	"github.com/WolffunService/theta-shared-common/database/mredis/thetanlock"
-	"github.com/WolffunService/theta-shared-common/database/pubsub/mpubsub"
+	"github.com/WolffunService/thetan-shared-common/database/mredis"
+	"github.com/WolffunService/thetan-shared-common/database/mredis/thetanlock"
+	"github.com/WolffunService/thetan-shared-common/database/pubsub/mpubsub"
 	"log"
 	"time"
 

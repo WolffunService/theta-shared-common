@@ -4,7 +4,7 @@ import (
 	"errors"
 	"fmt"
 
-	"github.com/WolffunService/theta-shared-common/enums/thetanrivalerrorenum/thetanrivalconst"
+	"github.com/WolffunService/thetan-shared-common/enums/thetanrivalerrorenum/thetanrivalconst"
 )
 
 type ItemRarity int
