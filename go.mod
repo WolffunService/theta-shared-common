@@ -16,12 +16,14 @@ require (
 	github.com/go-errors/errors v1.4.2
 	github.com/go-playground/validator/v10 v10.4.1
 	github.com/go-redsync/redsync/v4 v4.8.1
+	github.com/go-resty/resty/v2 v2.7.0
 	github.com/golang-jwt/jwt v3.2.2+incompatible
 	github.com/golang/protobuf v1.5.3
 	github.com/google/uuid v1.3.0
 	github.com/imroc/req/v3 v3.22.0
 	github.com/jinzhu/inflection v1.0.0
 	github.com/kamva/mgm/v3 v3.3.1
+	github.com/kataras/iris/v12 v12.1.8
 	github.com/kataras/jwt v0.1.8
 	github.com/mitchellh/mapstructure v1.5.0
 	github.com/redis/go-redis/v9 v9.0.4
@@ -48,15 +50,22 @@ require (
 	cloud.google.com/go/compute v1.19.0 // indirect
 	cloud.google.com/go/compute/metadata v0.2.3 // indirect
 	cloud.google.com/go/iam v0.13.0 // indirect
+	github.com/BurntSushi/toml v0.3.1 // indirect
+	github.com/CloudyKit/fastprinter v0.0.0-20200109182630-33d98a066a53 // indirect
+	github.com/CloudyKit/jet/v3 v3.0.0 // indirect
 	github.com/Knetic/govaluate v3.0.1-0.20171022003610-9aa49832a739+incompatible // indirect
+	github.com/Shopify/goreferrer v0.0.0-20181106222321-ec9c9a553398 // indirect
 	github.com/andybalholm/brotli v1.0.4 // indirect
+	github.com/aymerick/raymond v2.0.3-0.20180322193309-b565731e1464+incompatible // indirect
 	github.com/cespare/xxhash/v2 v2.2.0 // indirect
 	github.com/cockroachdb/logtags v0.0.0-20211118104740-dabe8e521a4f // indirect
 	github.com/cockroachdb/redact v1.1.3 // indirect
 	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/dgryski/go-rendezvous v0.0.0-20200823014737-9f7001d12a5f // indirect
 	github.com/dustin/go-humanize v1.0.0 // indirect
+	github.com/eknkc/amber v0.0.0-20171010120322-cdade1c07385 // indirect
 	github.com/elastic/elastic-transport-go/v8 v8.2.0 // indirect
+	github.com/fatih/structs v1.1.0 // indirect
 	github.com/fsnotify/fsnotify v1.6.0 // indirect
 	github.com/func25/mathfunc v1.1.0 // indirect
 	github.com/getsentry/sentry-go v0.12.0 // indirect
@@ -79,7 +88,14 @@ require (
 	github.com/hashicorp/errwrap v1.1.0 // indirect
 	github.com/hashicorp/go-multierror v1.1.1 // indirect
 	github.com/hashicorp/hcl v1.0.0 // indirect
+	github.com/iris-contrib/blackfriday v2.0.0+incompatible // indirect
+	github.com/iris-contrib/jade v1.1.3 // indirect
+	github.com/iris-contrib/pongo2 v0.0.1 // indirect
+	github.com/iris-contrib/schema v0.0.1 // indirect
 	github.com/json-iterator/go v1.1.12 // indirect
+	github.com/kataras/golog v0.0.10 // indirect
+	github.com/kataras/pio v0.0.2 // indirect
+	github.com/kataras/sitemap v0.0.5 // indirect
 	github.com/klauspost/compress v1.15.0 // indirect
 	github.com/kr/pretty v0.3.0 // indirect
 	github.com/kr/text v0.2.0 // indirect
@@ -93,6 +109,7 @@ require (
 	github.com/marten-seemann/qtls-go1-19 v0.1.0 // indirect
 	github.com/mattn/go-colorable v0.1.13 // indirect
 	github.com/mattn/go-isatty v0.0.16 // indirect
+	github.com/microcosm-cc/bluemonday v1.0.2 // indirect
 	github.com/modern-go/concurrent v0.0.0-20180306012644-bacd9c7ef1dd // indirect
 	github.com/modern-go/reflect2 v1.0.2 // indirect
 	github.com/montanaflynn/stats v0.0.0-20171201202039-1bf9dbcd8cbe // indirect
@@ -103,6 +120,9 @@ require (
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/pmezard/go-difflib v1.0.0 // indirect
 	github.com/rogpeppe/go-internal v1.8.1 // indirect
+	github.com/ryanuber/columnize v2.1.0+incompatible // indirect
+	github.com/schollz/closestmatch v2.1.0+incompatible // indirect
+	github.com/shurcooL/sanitized_anchor_name v1.0.0 // indirect
 	github.com/spf13/afero v1.9.3 // indirect
 	github.com/spf13/cast v1.5.0 // indirect
 	github.com/spf13/jwalterweatherman v1.1.0 // indirect
