@@ -13,6 +13,7 @@ import (
 	"github.com/WolffunService/theta-shared-common/auth/rbac"
 	"github.com/WolffunService/theta-shared-common/common/thetaerror"
 	"github.com/WolffunService/theta-shared-common/database/mongodb"
+	"github.com/WolffunService/theta-shared-common/database/mongodb/utils"
 	"github.com/WolffunService/theta-shared-common/thetalog"
 	"go.mongodb.org/mongo-driver/bson"
 	"golang.org/x/crypto/bcrypt"
@@ -189,7 +190,7 @@ func updateAPIKey(ctx context.Context, prefix string, hashKey string, mapAccessL
 		{Key: "hashKey", Value: hashKey},
 	}
 	update := bson.D{}
-	update = util.BsonSet(update, "accessLimit", mapAccessLimit)
+	update = utils.BsonSet(update, "accessLimit", mapAccessLimit)
 
 	updateResult, err := collection.UpdateOne(ctx, filter, update)
 	if err != nil {
